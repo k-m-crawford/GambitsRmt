@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Common/FSM/FSM.gd" type="Script" id=1]
+[ext_resource path="res://Entity/PlayerMoveState.gd" type="Script" id=2]
+
+[node name="FSM" type="Node"]
+script = ExtResource( 1 )
+initial_state = NodePath("MOVE")
+globals = {
+"ACCELERATION": 500,
+"FRICTION": 500,
+"WALK_MAX_SPEED": 80
+}
+
+[node name="MOVE" type="Node" parent="."]
+script = ExtResource( 2 )

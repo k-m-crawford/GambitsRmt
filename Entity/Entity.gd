@@ -1,0 +1,62 @@
+class_name Entity
+extends KinematicBody2D
+
+# warning-ignore:unused_signal
+signal request_camera(entity)
+
+# EXPORTS
+export var _leader_entity_path:NodePath
+export var friction:int
+export var stats:Resource
+export var altitude = 0
+
+var velocity = Vector2.ZERO
+var anim_state
+var _FSM
+var leader_entity:Entity
+
+
+# ONREADY
+onready var anim_container = get_node_or_null("AnimationContainer")
+#onready var anim:AnimationPlayer = get_node_or_null("AnimationContainer/AnimatonPlayer")
+#onready var anim_tree:AnimationTree = get_node_or_null("AnimationContainer/AnimationTree")
+onready var camera_grab:RemoteTransform2D = get_node_or_null("CameraGrab")
+
+onready var nav_agent:NavigationAgent2D = get_node_or_null("NavigationAgent2D")
+
+onready var leader_stray:Area2D = get_node_or_null("EngagementCircles/LeaderStray")
+onready var leader_run_stray:Area2D = get_node_or_null("EngagementCircles/LeaderRunStray")
+
+onready var engagement_area:Area2D = get_node_or_null("EngagementCircles/InitiationCircle")
+onready var chase_area:Area2D = get_node_or_null("EngagementCircles/ChaseCircle")
+
+onready var manager = get_node_or_null("..")
+
+func _ready():
+	if anim_container:
+		anim_container.set_anim("Idle", "Default")
+	
+	if _leader_entity_path: leader_entity = get_node(_leader_entity_path)
+	
+	_FSM = get_node_or_null("FSM")
+	
+func set_leader_entity(_leader_entity):
+	leader_entity = _leader_entity
+
+func move_nav_agent(location, delta, speed=80):
+	nav_agent.set_target_location(location)
+		
+	var direction = global_position.direction_to(nav_agent.get_next_location())
+	direction = direction.normalized()
+	
+	velocity = velocity.move_toward(direction * speed,  
+									stats.acceleration * delta)
+	nav_agent.set_velocity(velocity)
+	velocity = move_and_slide(velocity)
+	
+	update_blend_positions(direction)
+
+func update_blend_positions(direction):
+	anim_container.update_blend_positions(direction)
+
+	

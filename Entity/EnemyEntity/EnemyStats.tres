@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Entity/BattlerStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+max_walk_speed = 80
+max_run_speed = 130
+acceleration = 500
+name = "Soldier"
+max_hp = 15
+hp = 15
+stn = 1
+vit = 1

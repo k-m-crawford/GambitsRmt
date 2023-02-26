@@ -1,0 +1,397 @@
+[gd_scene load_steps=74 format=2]
+
+[ext_resource path="res://Common/AnimationContainer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/green_imp.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "StickOutTongue"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "WalkDown"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 2 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "WalkLeft"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 3, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "WalkRight"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 3, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "WalkUp"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 6, 8 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=60]
+animation = "AttackDown"
+
+[sub_resource type="AnimationNodeAnimation" id=61]
+animation = "AttackUp"
+
+[sub_resource type="AnimationNodeAnimation" id=62]
+animation = "AttackRight"
+
+[sub_resource type="AnimationNodeAnimation" id=63]
+animation = "AttackLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=64]
+blend_point_0/node = SubResource( 60 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 61 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 62 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 63 )
+blend_point_3/pos = Vector2( -1, 0 )
+
+[sub_resource type="AnimationNodeAnimation" id=65]
+animation = "AttackExitTransition"
+
+[sub_resource type="AnimationNodeAnimation" id=66]
+animation = "BattleMoveDown"
+
+[sub_resource type="AnimationNodeAnimation" id=67]
+animation = "BattleIdleUp"
+
+[sub_resource type="AnimationNodeAnimation" id=68]
+animation = "BattleIdleRight"
+
+[sub_resource type="AnimationNodeAnimation" id=69]
+animation = "BattleIdleLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=70]
+blend_point_0/node = SubResource( 66 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 67 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 68 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 69 )
+blend_point_3/pos = Vector2( -1, 0 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=71]
+animation = "BattleMoveDown"
+
+[sub_resource type="AnimationNodeAnimation" id=72]
+animation = "BattleMoveUp"
+
+[sub_resource type="AnimationNodeAnimation" id=73]
+animation = "BattleMoveRight"
+
+[sub_resource type="AnimationNodeAnimation" id=74]
+animation = "BattleMoveDown"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=75]
+blend_point_0/node = SubResource( 71 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 72 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 73 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 74 )
+blend_point_3/pos = Vector2( -1, 0 )
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=76]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=77]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=78]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=79]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=80]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=81]
+
+[sub_resource type="AnimationNodeStateMachine" id=97]
+states/Attack/node = SubResource( 64 )
+states/Attack/position = Vector2( 574.09, 241.089 )
+states/AttackExitTransition/node = SubResource( 65 )
+states/AttackExitTransition/position = Vector2( 328.09, 241.089 )
+states/Idle/node = SubResource( 70 )
+states/Idle/position = Vector2( 328.09, 133.089 )
+states/Walk/node = SubResource( 75 )
+states/Walk/position = Vector2( 776.09, 133.089 )
+transitions = [ "Idle", "Walk", SubResource( 76 ), "Walk", "Attack", SubResource( 77 ), "Walk", "Idle", SubResource( 78 ), "Idle", "Attack", SubResource( 79 ), "Attack", "AttackExitTransition", SubResource( 80 ), "AttackExitTransition", "Idle", SubResource( 81 ) ]
+graph_offset = Vector2( 81.0898, -39.9107 )
+
+[sub_resource type="AnimationNodeAnimation" id=48]
+animation = "IdleDown"
+
+[sub_resource type="AnimationNodeAnimation" id=49]
+animation = "IdleRight"
+
+[sub_resource type="AnimationNodeAnimation" id=50]
+animation = "IdleLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=51]
+animation = "IdleUp"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=98]
+blend_point_0/node = SubResource( 48 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 49 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 50 )
+blend_point_2/pos = Vector2( -1, 0 )
+blend_point_3/node = SubResource( 51 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=52]
+animation = "RunDown"
+
+[sub_resource type="AnimationNodeAnimation" id=53]
+animation = "RunUp"
+
+[sub_resource type="AnimationNodeAnimation" id=54]
+animation = "RunLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=55]
+animation = "RunRight"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=99]
+blend_point_0/node = SubResource( 52 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 53 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 54 )
+blend_point_2/pos = Vector2( -1, 0 )
+blend_point_3/node = SubResource( 55 )
+blend_point_3/pos = Vector2( 1, 0 )
+
+[sub_resource type="AnimationNodeAnimation" id=56]
+animation = "WalkDown"
+
+[sub_resource type="AnimationNodeAnimation" id=57]
+animation = "WalkRight"
+
+[sub_resource type="AnimationNodeAnimation" id=58]
+animation = "WalkUp"
+
+[sub_resource type="AnimationNodeAnimation" id=59]
+animation = "WalkLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=6]
+blend_point_0/node = SubResource( 56 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 57 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 58 )
+blend_point_2/pos = Vector2( 0, -1 )
+blend_point_3/node = SubResource( 59 )
+blend_point_3/pos = Vector2( -1, 0 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=100]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachine" id=13]
+states/Idle/node = SubResource( 98 )
+states/Idle/position = Vector2( 418, 125 )
+states/Run/node = SubResource( 99 )
+states/Run/position = Vector2( 224, 154 )
+states/Walk/node = SubResource( 6 )
+states/Walk/position = Vector2( 378, 251 )
+transitions = [ "Run", "Idle", SubResource( 100 ), "Idle", "Run", SubResource( 8 ), "Walk", "Run", SubResource( 9 ), "Run", "Walk", SubResource( 10 ), "Idle", "Walk", SubResource( 11 ), "Walk", "Idle", SubResource( 12 ) ]
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=82]
+animation = "EnterBattleEngagement"
+
+[sub_resource type="AnimationNodeAnimation" id=83]
+animation = "ExitBattleEngagement"
+
+[sub_resource type="AnimationNodeStateMachine" id=88]
+graph_offset = Vector2( 0, -355 )
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=84]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=85]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=86]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=87]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=89]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=90]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=91]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=92]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=93]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=94]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=95]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=96]
+
+[sub_resource type="AnimationNodeStateMachine" id=108]
+resource_local_to_scene = true
+states/BattleAnimations/node = SubResource( 97 )
+states/BattleAnimations/position = Vector2( 754, 252 )
+states/DefaultAnimations/node = SubResource( 13 )
+states/DefaultAnimations/position = Vector2( 128, 252 )
+states/EnterBattleEngagement/node = SubResource( 82 )
+states/EnterBattleEngagement/position = Vector2( 427, 119 )
+states/ExitBattleEngagement/node = SubResource( 83 )
+states/ExitBattleEngagement/position = Vector2( 427, 387 )
+states/MaskAnimations/node = SubResource( 88 )
+states/MaskAnimations/position = Vector2( 427, 252 )
+transitions = [ "BattleAnimations", "ExitBattleEngagement", SubResource( 84 ), "ExitBattleEngagement", "DefaultAnimations", SubResource( 85 ), "EnterBattleEngagement", "BattleAnimations", SubResource( 86 ), "DefaultAnimations", "EnterBattleEngagement", SubResource( 87 ), "MaskAnimations", "DefaultAnimations", SubResource( 89 ), "DefaultAnimations", "MaskAnimations", SubResource( 90 ), "MaskAnimations", "EnterBattleEngagement", SubResource( 91 ), "MaskAnimations", "ExitBattleEngagement", SubResource( 92 ), "ExitBattleEngagement", "MaskAnimations", SubResource( 93 ), "EnterBattleEngagement", "MaskAnimations", SubResource( 94 ), "BattleAnimations", "MaskAnimations", SubResource( 95 ), "MaskAnimations", "BattleAnimations", SubResource( 96 ) ]
+start_node = "DefaultAnimations"
+graph_offset = Vector2( 0, 198.008 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=103]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=104]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=105]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=109]
+
+[node name="AnimationContainer" instance=ExtResource( 1 )]
+position = Vector2( 35, 33 )
+anim_mask_dict = {
+"Default": {
+}
+}
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 1, -9 )
+texture = ExtResource( 2 )
+hframes = 3
+vframes = 8
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/RESET = SubResource( 2 )
+anims/StickOutTongue = SubResource( 7 )
+anims/WalkDown = SubResource( 1 )
+anims/WalkLeft = SubResource( 3 )
+anims/WalkRight = SubResource( 4 )
+anims/WalkUp = SubResource( 5 )
+
+[node name="AnimationTree" parent="." index="2"]
+tree_root = SubResource( 108 )
+parameters/playback = SubResource( 103 )
+parameters/BattleAnimations/playback = SubResource( 104 )
+parameters/DefaultAnimations/playback = SubResource( 105 )
+parameters/DefaultAnimations/Idle/blend_position = Vector2( -0.00454545, 0.962963 )
+parameters/MaskAnimations/playback = SubResource( 109 )
