@@ -135,7 +135,6 @@ _global_script_class_icons={
 [application]
 
 config/name="Gambits"
-run/main_scene="res://Map.tscn"
 config/icon="res://UI/Sprites/icon.png"
 
 [debug]
