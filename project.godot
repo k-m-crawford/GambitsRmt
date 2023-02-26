@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "AnimationContainer",
 "language": "GDScript",
-"path": "res://Common/AnimationContainer.gd"
+"path": "res://Entity/AnimationContainers/AnimationContainer.gd"
 }, {
 "base": "Entity",
 "class": "BattleEntity",
@@ -276,7 +276,3 @@ ui_fieldmenu={
 [physics]
 
 common/enable_pause_aware_picking=true
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"

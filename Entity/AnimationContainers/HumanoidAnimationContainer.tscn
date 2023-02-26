@@ -1,6 +1,6 @@
 [gd_scene load_steps=116 format=2]
 
-[ext_resource path="res://Common/AnimationContainer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entity/AnimationContainers/AnimationContainer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/char_a_p1_0bas_humn_v01.png" type="Texture" id=2]
 [ext_resource path="res://Entity/AnimationContainers/HumanoidAnimationContainer.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/char_a_p1_4har_pon1_v11a.png" type="Texture" id=4]

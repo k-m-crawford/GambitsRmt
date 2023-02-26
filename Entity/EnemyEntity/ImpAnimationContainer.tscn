@@ -1,6 +1,6 @@
 [gd_scene load_steps=74 format=2]
 
-[ext_resource path="res://Common/AnimationContainer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entity/AnimationContainers/AnimationContainer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/green_imp.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=2]
