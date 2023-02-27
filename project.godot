@@ -138,6 +138,10 @@ config/name="Gambits"
 run/main_scene="res://Map.tscn"
 config/icon="res://UI/Sprites/icon.png"
 
+[autoload]
+
+GlobalBucket="*res://Common/Bucket.gd"
+
 [debug]
 
 settings/fps/force_fps=60

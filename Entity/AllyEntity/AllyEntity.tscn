@@ -8,7 +8,7 @@
 [ext_resource path="res://Entity/Entity.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Entity/AllyEntity/AllyEntity.gd" type="Script" id=7]
 [ext_resource path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" type="Script" id=8]
-[ext_resource path="res://Entity/AllyEntity/Hero2Stats.tres" type="Resource" id=9]
+[ext_resource path="res://Entity/AllyEntity/DefaultStats.tres" type="Resource" id=9]
 [ext_resource path="res://Entity/AnimationContainers/HumanoidAnimationContainer.tscn" type="PackedScene" id=10]
 
 [node name="Ally" groups=["Allies"] instance=ExtResource( 6 )]

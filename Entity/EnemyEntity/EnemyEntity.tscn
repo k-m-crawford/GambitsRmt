@@ -24,7 +24,7 @@ collision_mask = 512
 [node name="LeaderStray" parent="EngagementCircles" index="3"]
 collision_mask = 512
 
-[node name="FSM" type="Node" parent="." index="5"]
+[node name="FSM" type="Node" parent="." index="4"]
 script = ExtResource( 1 )
 state_scripts = {
 "BATTLE_ENGAGE": ExtResource( 3 ),

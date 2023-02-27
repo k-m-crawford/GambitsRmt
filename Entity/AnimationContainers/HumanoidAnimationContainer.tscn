@@ -1860,6 +1860,7 @@ z_index = -1
 texture = ExtResource( 9 )
 hframes = 8
 vframes = 8
+frame = 8
 
 [node name="AnimationPlayer" parent="." index="5"]
 anims/AttackDown = SubResource( 132 )

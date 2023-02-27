@@ -3,6 +3,7 @@ extends Entity
 
 # warning-ignore:unused_signal
 signal battle_engagement(enter_exit)
+signal set_target_entities(source, entities)
 
 export var gambits:Resource
 
@@ -12,6 +13,12 @@ onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
 onready var target_lines:YSort = get_node_or_null("TargetLines")
 
 var target_entities = []
+
+func _ready():
+	._ready()
+	# warning-ignore:return_value_discarded
+	connect("set_target_entities", get_parent(), "set_target_entities")
+
 
 func update_blend_positions(direction):
 	

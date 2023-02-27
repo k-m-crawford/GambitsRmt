@@ -56,7 +56,13 @@ func move_nav_agent(location, delta, speed=80):
 	
 	update_blend_positions(direction)
 
+func slow_to_stop(delta):
+	nav_agent.set_target_location(global_position)
+	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+	nav_agent.set_velocity(velocity)
+
 func update_blend_positions(direction):
 	anim_container.update_blend_positions(direction)
+
 
 	

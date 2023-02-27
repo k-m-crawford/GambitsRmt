@@ -1,18 +1,14 @@
 extends State
 
-signal set_target_entities(source, entities)
-
 var alert_flag = false
 
 func exit() -> void:
 	signal_lock = true
 	entity.target_entities = []
-	emit_signal("set_target_entities", entity, [])
+	entity.emit_signal("set_target_entities", entity, [])
 
 
 func initialize(_msg := {}) -> void:
-	# warning-ignore:return_value_discarded
-	connect("set_target_entities", entity.manager, "set_target_entities")
 	# warning-ignore:return_value_discarded
 	entity.chase_area.connect("body_exited", self, "on_enemy_leave_chase_area")
 # warning-ignore:return_value_discarded
@@ -33,7 +29,7 @@ func handle_input(event: InputEvent) -> void:
 		entity._FSM.transition_to("ATTACK")
 	
 	elif event.is_action_pressed("ui_cancel"):
-		emit_signal("set_target_entities", entity, [])
+		entity.emit_signal("set_target_entities", entity, [])
 		entity.emit_signal("battle_engagement", "EXIT")
 		
 	elif event.is_action_pressed("ui_focus_next"):
@@ -78,17 +74,17 @@ func on_enemy_leave_chase_area(body):
 			return
 		
 		entity.target_entities = new_target
-		emit_signal("set_target_entities", entity, entity.target_entities)
+		entity.emit_signal("set_target_entities", entity, entity.target_entities)
 	
 	else:
-		emit_signal("set_target_entities", entity, [])
+		entity.emit_signal("set_target_entities", entity, [])
 		
 func on_enemy_enter_chase_area(body):
 	if signal_lock: return
 	
 	if entity.target_entities.size() == 0:
 		entity.target_entities.append(body)
-		emit_signal("set_target_entities", entity, entity.target_entities)
+		entity.emit_signal("set_target_entities", entity, entity.target_entities)
 	print(entity.target_entities)
 
 
@@ -100,10 +96,10 @@ func update_target_entities():
 					entity,
 					entity.chase_area.get_overlapping_bodies()
 				)
-			emit_signal("set_target_entities", entity, entity.target_entities)
+			entity.emit_signal("set_target_entities", entity, entity.target_entities)
 		else:
 			entity.target_entities = []
-			emit_signal("set_target_entities", entity, [])
+			entity.emit_signal("set_target_entities", entity, [])
 
 
 func get_next_target(dir):
@@ -131,4 +127,4 @@ func get_next_target(dir):
 		
 		entity.target_entities.append(targets[i])
 			
-		emit_signal("set_target_entities", entity, entity.target_entities)
+		entity.emit_signal("set_target_entities", entity, entity.target_entities)

@@ -55,19 +55,22 @@ func update_blend_positions(direction):
 	
 # change to a new state machine (set of animations) to the animation
 # no animation -> default anim for that state machine
-func set_anim(anim, state):
-
-	if state == "root":
-		anim_tree_root.travel(anim)
-		return
-
-	# check to see if this state -> animation combo is masked
+func set_anim(anim, state, flags={}):
+	
+	for k in flags.keys():
+		anim_tree.set("parameters/" + k + "/Animations/conditions/" +
+						flags[k])
+	
 	if state in anim_mask_dict.keys():
 		if anim in anim_mask_dict[state].keys():
 			# it is, travel to the mask animation state & play the mask
 			anim_tree_root.travel("MaskAnimations")
 			anim_masks.travel(anim_mask_dict[state][anim])
-			return
-
-	anim_tree_root.travel(state + "Animations")
-	anim_states[state][0].travel(anim)
+			
+	elif state == "root":
+		anim_tree_root.travel(anim)
+		
+	else:
+		anim_tree_root.travel(state + "Animations")
+		anim_states[state][0].travel(anim)
+	

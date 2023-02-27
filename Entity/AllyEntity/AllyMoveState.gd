@@ -42,11 +42,11 @@ func physics_update(delta):
 
 			# close to leader, stop walking
 			else:
-				entity.nav_agent.set_target_location(entity.global_position)
-				entity.velocity = entity.velocity.move_toward(Vector2.ZERO, entity.friction * delta)
-				entity.nav_agent.set_velocity(entity.velocity)
 				
 				if entity.velocity == Vector2.ZERO:
 					entity.anim_container.set_anim("Idle", "Default")
+				else:
+					entity.slow_to_stop(delta)
+				
 		
 					
