@@ -13,8 +13,12 @@ var persist = false
 ### animation
 var line_pulse_start  = false
 var wait = false
+var tick_cap_glow = 0.05
+var kill_refresh = 0.05
 
 func setup(_source, _target, _clr, _persist):
+	kill_tick = 1.5
+	
 	source = _source
 	target = _target
 	persist = _persist
@@ -61,32 +65,45 @@ func ease_in_cubic(number: float) -> float:
 	return number * number * number
 
 func _process(delta):
+	# recalculate based on start/end at this frame
 	var points = calculate()
 	
-	if tick < tick_cap:
-		tick += delta
-	elif not kill_fade:
-		# animate
-		if not line_pulse_start:
-			self.points = points.slice(recede_point, cur_point)
-		else:
-			self.points = points.slice(recede_point, points.size())
-			pulse_line.points = points.slice(recede_point, cur_point)
-		
-		if kill_sig:
-			recede_point += 1
-			if recede_point > points.size():
-				queue_free()
-		else:
-			cur_point += 1
-			if cur_point > points.size():
-				if not persist:
-					kill_sig = true
-				else:
-					line_pulse_start = true
-					cur_point = 0
-					
-		tick = 0
+	# the line is still appearing
+	if not line_pulse_start:
+		self.points = points.slice(recede_point, cur_point)
+	# line appeared
 	else:
-		fade_out(delta)
+		self.points = points.slice(recede_point, points.size())
+		pulse_line.points = points.slice(recede_point, cur_point)
+	
+	var _tick_cap = tick_cap_glow if line_pulse_start else tick_cap
+	
+	# update only after tick (x) seconds have passed
+	if kill_sig:
+		kill_tick -= delta
+	
+	if tick < _tick_cap:
+		tick += delta
+	
+	if kill_tick <= 0:
+		recede_point += 1
+		kill_tick = kill_refresh
+		if recede_point > points.size():
+			queue_free()
+	
+	if _tick_cap < tick:
+		cur_point += 1
+		# check if done drawing
+		if cur_point > points.size():
+			if kill_sig:
+				pass
+			elif not persist:
+				line_pulse_start = true
+				kill(true)
+			else:
+				line_pulse_start = true
+		
+			cur_point = 0
+				
+		tick = 0
 

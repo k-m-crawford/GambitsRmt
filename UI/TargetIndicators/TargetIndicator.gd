@@ -1,6 +1,11 @@
 class_name TargetIndicator
 extends Line2D
 
+enum{
+	KILL,
+	FADE
+}
+
 var antagonistic_base = Color(0.82, 0.22, 0.17, 1)
 var antagonistic_glow = Color(0.86, 0.34, 0.35, 1)
 
@@ -10,11 +15,11 @@ var friendly_glow = Color(0.42, 0.76, 0.89, 1)
 var cur_point = 0
 var recede_point = 0
 
-var kill_fade = false
-var kill_sig = false
+var kill_sig:int = 0
 
 var tick = 0
-var tick_cap = 0.000000000005
+var tick_cap = 0.025
+var kill_tick = 2
 
 var alpha = 1.0
 
@@ -25,6 +30,5 @@ func fade_out(delta):
 
 
 func kill(_fade):
-	kill_sig = true
-	kill_fade = _fade
+	kill_sig = _fade
 

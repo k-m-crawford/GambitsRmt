@@ -473,7 +473,7 @@ states/StickOutTongue/node = SubResource( 115 )
 states/StickOutTongue/position = Vector2( -323.766, -329 )
 transitions = [ "StickOutTongue", "EnterBattleEngagement", SubResource( 116 ) ]
 start_node = "StickOutTongue"
-graph_offset = Vector2( -643.766, -472 )
+graph_offset = Vector2( -643.766, -388.55 )
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=84]
 
@@ -527,7 +527,7 @@ states/MaskAnimations/node = SubResource( 117 )
 states/MaskAnimations/position = Vector2( 427, 252 )
 transitions = [ "BattleAnimations", "ExitBattleEngagement", SubResource( 84 ), "ExitBattleEngagement", "DefaultAnimations", SubResource( 85 ), "EnterBattleEngagement", "BattleAnimations", SubResource( 86 ), "DefaultAnimations", "EnterBattleEngagement", SubResource( 87 ), "MaskAnimations", "DefaultAnimations", SubResource( 89 ), "DefaultAnimations", "MaskAnimations", SubResource( 90 ), "MaskAnimations", "EnterBattleEngagement", SubResource( 91 ), "MaskAnimations", "ExitBattleEngagement", SubResource( 92 ), "ExitBattleEngagement", "MaskAnimations", SubResource( 93 ), "EnterBattleEngagement", "MaskAnimations", SubResource( 94 ), "BattleAnimations", "MaskAnimations", SubResource( 95 ), "MaskAnimations", "BattleAnimations", SubResource( 96 ), "DefaultAnimations", "CustomAnimations", SubResource( 105 ), "CustomAnimations", "DefaultAnimations", SubResource( 106 ), "CustomAnimations", "BattleAnimations", SubResource( 107 ), "BattleAnimations", "CustomAnimations", SubResource( 108 ) ]
 start_node = "DefaultAnimations"
-graph_offset = Vector2( 306.638, 105.582 )
+graph_offset = Vector2( 18.6862, 105.582 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=103]
 

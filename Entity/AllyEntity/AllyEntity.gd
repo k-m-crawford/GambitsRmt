@@ -4,10 +4,6 @@ extends BattleEntity
 # warning-ignore:unused_signal
 signal request_leader_change(dir)
 
-export var attack_targeting_method_resource:Resource
-
-onready var attack_targeting_method = attack_targeting_method_resource.new()
-	
 func manual_movement(max_speed, delta, direction_override=null):
 	var direction
 	# calculate direction

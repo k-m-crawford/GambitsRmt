@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Common/FSM/EntityFSM.gd" type="Script" id=1]
+[ext_resource path="res://Common/FSM/FSM.gd" type="Script" id=1]
 [ext_resource path="res://Entity/EnemyEntity/EnemyBattleMoveState.gd" type="Script" id=2]
 [ext_resource path="res://Common/FSM/BattleEngageState.gd" type="Script" id=3]
 [ext_resource path="res://Entity/EnemyEntity/EnemyMoveState.gd" type="Script" id=4]

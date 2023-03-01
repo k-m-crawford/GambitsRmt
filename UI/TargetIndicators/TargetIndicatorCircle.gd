@@ -39,7 +39,7 @@ func setup(pos, _scale, _color_scheme):
 	
 func _process(delta):
 	
-	if kill_fade:
+	if kill_sig:
 		fade_out(delta)
 		
 	elif not appearing:
