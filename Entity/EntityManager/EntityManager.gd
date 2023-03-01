@@ -105,12 +105,12 @@ func deal_damage(attacker, defender):
 	get_parent().add_child(inst)
 	inst._execute(dmg, defender.get_global_position())
 
-func set_target_entities(source, entities):
+func set_target_entities(source, entities, type="Friendly"):
 	source.destroy_target_lines()
 	
 	if entities.size() > 0:
 		for e in entities:
 			var _target_curve = self.target_curve.instance()
-			_target_curve.setup(source, e, "Antagonistic", true)
+			_target_curve.setup(source, e, type, false)
 
 

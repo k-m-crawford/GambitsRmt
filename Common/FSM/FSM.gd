@@ -3,9 +3,6 @@
 class_name FSM
 extends Node
 
-# Emitted when transitioning to a new state.
-signal transitioned(state_name)
-
 # Path to the initial active state. We export it to be able to pick the initial state in the inspector.
 
 export var state_scripts := {}
@@ -15,10 +12,24 @@ export var debug:bool
 onready var state
 onready var states := {}
 
+var entity:Entity
 var flags = []
+
+# Emitted when transitioning to a new state.
+signal transitioned(state_name)
 		
 func _ready() -> void:
-	pass
+	entity = get_parent()
+	yield(owner, "ready")
+	
+	for key in state_scripts.keys():
+		states[key] = state_scripts[key].new()
+		states[key].reparent(entity)
+		states[key].name = key
+		states[key].initialize()
+		
+	state = states[start_state]
+	state.enter()
 
 
 # The state machine subscribes to node callbacks and delegates them to the state objects.
@@ -38,6 +49,8 @@ func _physics_process(delta: float) -> void:
 # and calls its enter function.
 # It optionally takes a `msg` dictionary to pass to the next state's enter() function.
 func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
+	if debug:
+		print(entity.name, " ", state.name, " -> ", target_state_name)
 	
 	# Safety check, you could use an assert() here to report an error if the state name is incorrect.
 	# We don't use an assert here to help with code reuse. If you reuse a state in different state machines
@@ -52,4 +65,22 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	emit_signal("transitioned", state.name)
 
 
+# Reparents entity's FSM (for when FSMs are changed
+# amongst entities)
+func reparent(_entity):
+	entity = _entity
+	entity._FSM = self
+	for s in states.keys():
+		states[s].reparent(entity)
 
+
+func set_flag(flag):
+	print("set ", flag, " for ", entity.name)
+	if flags.has(flag):
+		flags.erase(flag)
+	else:
+		flags.append(flag)
+
+
+func check_flag(flag):
+	return flags.has(flag)

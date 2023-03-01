@@ -3,10 +3,13 @@ extends Entity
 
 # warning-ignore:unused_signal
 signal battle_engagement(enter_exit)
-signal set_target_entities(source, entities)
+# warning-ignore:unused_signal
+signal set_target_entities(source, entities, type)
 
 export var gambits:Resource
+export var attack_targeting_method_resource:Resource
 
+onready var attack_targeting_method = attack_targeting_method_resource.new()
 onready var attack_pivot:Position2D = get_node_or_null("AttackPivot")
 onready var hurtbox:Area2D = get_node_or_null("Hurtbox")
 onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
