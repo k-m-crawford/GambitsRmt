@@ -3,5 +3,5 @@ extends Resource
 
 var entity
 
-func _init(_entity):
+func _init(_entity=null):
 	entity = _entity

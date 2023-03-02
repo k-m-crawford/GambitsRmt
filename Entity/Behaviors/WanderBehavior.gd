@@ -8,7 +8,7 @@ var wait_time_max = 3
 var wander_target:Vector2
 
 
-func _init(_entity):
+func _init(_entity=null):
 	._init(_entity)
 	wander_target = entity.global_position
 	
@@ -16,7 +16,7 @@ func _init(_entity):
 	timer.one_shot = true
 	timer.wait_time = randi() % wait_time_max - 1 + wait_time_min
 	# warning-ignore:return_value_discarded
-	timer.connect("timeout", self, "start_wander", [entity])
+	timer.connect("timeout", self, "start_wander")
 
 	entity.add_child(timer)
 	timer.start()

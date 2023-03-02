@@ -15,9 +15,10 @@ export var friction:int
 export var stats:Resource
 export var altitude = 0
 export var _behaviors = {
-	"Wander": false,
-	"Follow Leader": false
+	"Wander": true,
+	"FollowLeader": true
 }
+export var debug = false
 
 
 # ONREADY
@@ -47,12 +48,15 @@ func _ready():
 	if _leader_entity_path: leader_entity = get_node(_leader_entity_path)
 	
 	_FSM = get_node_or_null("FSM")
+	
+	for k in _behaviors.keys():
+		
+		match k:
+			"Wander":
+				behaviors[k] = WanderBehavior.new(self)
 
-#	for k in _behaviors.keys():
-#
-#		match k:
-#			"Wander":
-#				behaviors[k] = WanderBehavior.new(self)
+			"FollowLeader":
+				behaviors[k] = FollowLeaderBehavior.new(self)
 
 	
 func set_leader_entity(_leader_entity):

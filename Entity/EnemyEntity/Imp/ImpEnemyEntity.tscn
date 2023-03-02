@@ -9,7 +9,7 @@
 [node name="Imp" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 stats = ExtResource( 3 )
-behaviors = null
+debug = false
 gambits = null
 attack_targeting_method_resource = ExtResource( 5 )
 
