@@ -8,7 +8,6 @@ extends Reference
 # The state machine node will set it.
 #var _FSM = null
 var entity: Entity
-var manager: Node
 var name
 var signal_lock = true
 

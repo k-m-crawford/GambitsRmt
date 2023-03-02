@@ -30,9 +30,9 @@ _global_script_classes=[ {
 "path": "res://Entity/BattlerStats.gd"
 }, {
 "base": "Resource",
-"class": "Behaviors",
+"class": "Behavior",
 "language": "GDScript",
-"path": "res://Entity/Behaviors.gd"
+"path": "res://Entity/Behaviors/Behavior.gd"
 }, {
 "base": "Node",
 "class": "Bucket",
@@ -113,13 +113,18 @@ _global_script_classes=[ {
 "class": "TileMapStairs",
 "language": "GDScript",
 "path": "res://Maps/Common/AltitudeChange.gd"
+}, {
+"base": "Behavior",
+"class": "WanderBehavior",
+"language": "GDScript",
+"path": "res://Entity/Behaviors/WanderBehavior.gd"
 } ]
 _global_script_class_icons={
 "AllyEntity": "",
 "AnimationContainer": "",
 "BattleEntity": "",
 "BattleStats": "",
-"Behaviors": "",
+"Behavior": "",
 "Bucket": "",
 "Entity": "",
 "EntityManager": "",
@@ -135,7 +140,8 @@ _global_script_class_icons={
 "TargetIndicatorCircle": "",
 "Targeting": "",
 "TileMapLedge": "",
-"TileMapStairs": ""
+"TileMapStairs": "",
+"WanderBehavior": ""
 }
 
 [application]

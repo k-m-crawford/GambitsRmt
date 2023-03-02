@@ -4,33 +4,41 @@ extends KinematicBody2D
 # warning-ignore:unused_signal
 signal request_camera(entity)
 
+enum {
+	WANDER,
+	FOLLOW_LEADER
+}
+
 # EXPORTS
 export var _leader_entity_path:NodePath
 export var friction:int
 export var stats:Resource
 export var altitude = 0
+export var _behaviors = {
+	"Wander": false,
+	"Follow Leader": false
+}
+
+
+# ONREADY
+onready var anim_container = get_node_or_null("AnimationContainer")
+onready var camera_grab:RemoteTransform2D = get_node_or_null("CameraGrab")
+onready var nav_agent:NavigationAgent2D = get_node_or_null("NavigationAgent2D")
+
+onready var leader_stray:Area2D = get_node_or_null("EngagementCircles/LeaderStray")
+onready var leader_run_stray:Area2D = get_node_or_null("EngagementCircles/LeaderRunStray")
+onready var engagement_area:Area2D = get_node_or_null("EngagementCircles/InitiationCircle")
+onready var chase_area:Area2D = get_node_or_null("EngagementCircles/ChaseCircle")
+
+onready var manager = get_node_or_null("..")
+
 
 var velocity = Vector2.ZERO
 var anim_state
 var _FSM
 var leader_entity:Entity
+var behaviors = {}
 
-
-# ONREADY
-onready var anim_container = get_node_or_null("AnimationContainer")
-#onready var anim:AnimationPlayer = get_node_or_null("AnimationContainer/AnimatonPlayer")
-#onready var anim_tree:AnimationTree = get_node_or_null("AnimationContainer/AnimationTree")
-onready var camera_grab:RemoteTransform2D = get_node_or_null("CameraGrab")
-
-onready var nav_agent:NavigationAgent2D = get_node_or_null("NavigationAgent2D")
-
-onready var leader_stray:Area2D = get_node_or_null("EngagementCircles/LeaderStray")
-onready var leader_run_stray:Area2D = get_node_or_null("EngagementCircles/LeaderRunStray")
-
-onready var engagement_area:Area2D = get_node_or_null("EngagementCircles/InitiationCircle")
-onready var chase_area:Area2D = get_node_or_null("EngagementCircles/ChaseCircle")
-
-onready var manager = get_node_or_null("..")
 
 func _ready():
 	if anim_container:
@@ -39,6 +47,13 @@ func _ready():
 	if _leader_entity_path: leader_entity = get_node(_leader_entity_path)
 	
 	_FSM = get_node_or_null("FSM")
+
+#	for k in _behaviors.keys():
+#
+#		match k:
+#			"Wander":
+#				behaviors[k] = WanderBehavior.new(self)
+
 	
 func set_leader_entity(_leader_entity):
 	leader_entity = _leader_entity
@@ -63,6 +78,3 @@ func slow_to_stop(delta):
 
 func update_blend_positions(direction):
 	anim_container.update_blend_positions(direction)
-
-
-	
