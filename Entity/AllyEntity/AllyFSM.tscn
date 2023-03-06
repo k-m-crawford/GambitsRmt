@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4nygpccli4f4"]
+
+[ext_resource type="Script" path="res://Common/FSM/FSM.gd" id="1_mi0g2"]
+[ext_resource type="Script" path="res://Entity/AllyEntity/AllyBattleMoveState.gd" id="3_hp3lx"]
+[ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="3_lnefx"]
+[ext_resource type="Script" path="res://Entity/AllyEntity/AllyMoveState.gd" id="4_uraqw"]
+
+[node name="FSM" type="Node"]
+script = ExtResource("1_mi0g2")
+state_scripts = {
+"BATTLE_ENGAGE": ExtResource("3_lnefx"),
+"BATTLE_MOVE": ExtResource("3_hp3lx"),
+"MOVE": ExtResource("4_uraqw")
+}
+start_state = "MOVE"

@@ -1,12 +1,11 @@
 extends Camera2D
 
-export var zoom_margin = 25
+@export var zoom_margin = 25
 
 var following = []
 var zoom_target = Vector2(1, 1)
 
 func follow_entities(entities):
-#	print(entities)
 	following = entities
 
 func _process(_delta):

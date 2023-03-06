@@ -1,12 +1,11 @@
 extends State
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	
 	entity.velocity = Vector2.ZERO
 	
-	if msg.has("ENTER"):
-		print("sent set anim")
+	if entity._FSM.check_flag("BATTLE_ENGAGED"):
 		entity.anim_container.set_anim("EnterBattleEngagement", "root")
-	elif msg.has("EXIT"):
+	else:
 		entity.destroy_target_lines()
 		entity.anim_container.set_anim("ExitBattleEngagement", "root")

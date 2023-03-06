@@ -1,22 +1,21 @@
 class_name WanderBehavior
 extends Behavior
 
-onready var timer = Timer.new()
-
+var timer = Timer.new()
 var wait_time_min = 3
 var wait_time_max = 3
 var wander_target:Vector2
 
 
 func _init(_entity=null):
-	._init(_entity)
+	super._init(_entity)
 	wander_target = entity.global_position
 	
 	timer = Timer.new()
 	timer.one_shot = true
 	timer.wait_time = randi() % wait_time_max - 1 + wait_time_min
 	# warning-ignore:return_value_discarded
-	timer.connect("timeout", self, "start_wander")
+	timer.timeout.connect(start_wander)
 
 	entity.add_child(timer)
 	timer.start()
@@ -27,7 +26,7 @@ func start_wander():
 			randi()%300 - 150, 
 			randi()%300 - 150
 	)
-	entity.nav_agent.set_target_location(wander_target)
+	entity.nav_agent.set_target_position(wander_target)
 	timer.wait_time = randi() % wait_time_max - 1 + wait_time_min
 
 

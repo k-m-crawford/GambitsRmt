@@ -1,26 +1,21 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://cjhbnnqf3pj6r"]
 
-[ext_resource path="res://Common/FSM/FSM.gd" type="Script" id=1]
-[ext_resource path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" type="Script" id=2]
-[ext_resource path="res://Entity/LeaderEntity/LeaderMoveState.gd" type="Script" id=3]
-[ext_resource path="res://Entity/LeaderEntity/AttackState.gd" type="Script" id=4]
-[ext_resource path="res://Common/FSM/BattleEngageState.gd" type="Script" id=5]
-[ext_resource path="res://Entity/Entity.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Entity/AllyEntity/AllyEntity.gd" type="Script" id=7]
-[ext_resource path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" type="Script" id=8]
-[ext_resource path="res://Entity/AllyEntity/BrynhildrStats.tres" type="Resource" id=9]
-[ext_resource path="res://Entity/AnimationContainers/HumanoidAnimationContainer.tscn" type="PackedScene" id=10]
+[ext_resource type="PackedScene" uid="uid://dm8s56tq2k0sp" path="res://Entity/Entity.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://d0v53m1plfss2" path="res://Entity/LeaderEntity/LeaderFSM.tscn" id="6_drc8i"]
+[ext_resource type="Script" path="res://Entity/AllyEntity/AllyEntity.gd" id="7"]
+[ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" id="8"]
+[ext_resource type="Resource" path="res://Entity/AllyEntity/BrynhildrStats.tres" id="9"]
+[ext_resource type="PackedScene" uid="uid://c0wnpc788xiyu" path="res://Entity/AnimationContainers/HumanoidAnimationContainer.tscn" id="10"]
 
-[node name="Ally" groups=["Allies"] instance=ExtResource( 6 )]
-script = ExtResource( 7 )
-stats = ExtResource( 9 )
+[node name="Leader" instance=ExtResource("6")]
+script = ExtResource("7")
+gambits = null
+attack_targeting_method_resource = ExtResource("8")
 _behaviors = {
 "Follow Leader": true,
 "Wander": true
 }
-debug = false
-gambits = null
-attack_targeting_method_resource = ExtResource( 8 )
+stats = ExtResource("9")
 
 [node name="ChaseCircle" parent="EngagementCircles" index="0"]
 collision_layer = 0
@@ -36,18 +31,7 @@ visible = true
 [node name="LeaderStray" parent="EngagementCircles" index="3"]
 visible = true
 
-[node name="AnimationContainer" parent="." index="4" instance=ExtResource( 10 )]
+[node name="AnimationContainer" parent="." index="4" instance=ExtResource("10")]
 
-[node name="FSM" type="Node" parent="." index="5"]
-script = ExtResource( 1 )
-state_scripts = {
-"ATTACK": ExtResource( 4 ),
-"BATTLE_ENGAGE": ExtResource( 5 ),
-"BATTLE_MOVE": ExtResource( 2 ),
-"MOVE": ExtResource( 3 )
-}
-start_state = "MOVE"
-
-[connection signal="attack_exit_transition" from="AnimationContainer" to="." method="attack_exit_transition"]
-[connection signal="enter_battle_engagement" from="AnimationContainer" to="." method="enter_battle_engagement"]
-[connection signal="exit_battle_engagement" from="AnimationContainer" to="." method="exit_battle_engagement"]
+[node name="FSM" parent="." index="6" instance=ExtResource("6_drc8i")]
+debug = true

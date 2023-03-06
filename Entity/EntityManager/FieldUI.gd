@@ -1,14 +1,14 @@
 extends CanvasLayer
 
-export(Array, String) var commands = ["Ability", "Spells", "Item"]
+@export var commands = ["Ability", "Spells", "Item"] # (Array, String)
 
-onready var pointer = $ActionMenu/Pointer
-onready var commands_label = [
+@onready var pointer = $ActionMenu/Pointer
+@onready var commands_label = [
 	$ActionMenu/VBoxContainer/Command1,
 	$ActionMenu/VBoxContainer/Command2,
 	$ActionMenu/VBoxContainer/Command3
 ]
-onready var action_menu = $ActionMenu
+@onready var action_menu = $ActionMenu
 
 var active = false
 var selected = 0
@@ -19,7 +19,7 @@ signal get_next_leader(dir)
 
 func _ready():
 	pointer.get_node("AnimationPlayer").play("Hover")
-	pointer_default_pos = pointer.rect_position
+	pointer_default_pos = pointer.position
 	
 	for i in range(0, 3):
 		commands_label[i].text = commands[i]
@@ -38,7 +38,7 @@ func _input(event):
 			selected = 0
 	elif event.is_action_pressed("ui_fieldmenu") or \
 		event.is_action_pressed("ui_cancel"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		activate()
 	
 	elif event.is_action_pressed("ui_focus_prev"):
@@ -47,7 +47,7 @@ func _input(event):
 	elif event.is_action_pressed("ui_focus_next"):
 		emit_signal("get_next_leader", 1)
 		
-	pointer.rect_position = Vector2(pointer_default_pos.x, pointer_default_pos.y + selected * 16)
+	pointer.position = Vector2(pointer_default_pos.x, pointer_default_pos.y + selected * 16)
 
 
 func activate():
@@ -59,7 +59,7 @@ func activate():
 	else:
 		action_menu.visible = true
 		get_tree().paused = true
-		pointer.rect_position = pointer_default_pos
+		pointer.position = pointer_default_pos
 		
 	active = !active
 		

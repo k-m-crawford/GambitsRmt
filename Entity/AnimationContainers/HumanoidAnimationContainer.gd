@@ -1,12 +1,12 @@
 extends AnimationContainer
 
-export var battle_textures = {}
-export var move_textures = {}
+@export var battle_textures = {}
+@export var move_textures = {}
 
-onready var body_texture = $Body
-onready var hair_texture = $Hair
-onready var outfit_texture = $Outfit
-onready var weapon_texture = $Weapon
+@onready var body_texture = $Body
+@onready var hair_texture = $Hair
+@onready var outfit_texture = $Outfit
+@onready var weapon_texture = $Weapon
 
 func _ready():
 	weapon_texture.visible = false
@@ -41,4 +41,3 @@ func set_textures(type):
 			hair_texture.texture = battle_textures["hair_p3"]
 			outfit_texture.texture = battle_textures["outfit_p3"]
 			weapon_texture.texture = battle_textures["weapon_p3"]
-			

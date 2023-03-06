@@ -5,12 +5,12 @@ var tween
 func _ready():
 	tween = $Tween
 
-func _execute(amount, position):
+func _execute(amount, _position):
 	self.text = str(amount)
 	
 	tween.interpolate_property(
-		self, "rect_position", position - Vector2(13, 0),
-		position - Vector2(13, 55), 
+		self, "position", _position - Vector2(13, 0),
+		_position - Vector2(13, 55), 
 		1.25, Tween.TRANS_BACK, Tween.EASE_OUT_IN)
 # warning-ignore:return_value_discarded
 	tween.interpolate_property(

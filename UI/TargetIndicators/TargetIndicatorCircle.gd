@@ -1,8 +1,8 @@
 class_name TargetIndicatorCircle
 extends TargetIndicator
 
-onready var glow_circle = $GlowCircle
-onready var tween = $Tween
+@onready var glow_circle = $GlowCircle
+@onready var tween = $Tween
 
 var follow_entity:Entity
 var appearing = true
@@ -11,7 +11,7 @@ var color_scheme
 
 func _ready():
 	_points = self.points
-	glow_circle.points = PoolVector2Array([])
+	glow_circle.points = PackedVector2Array([])
 	self.default_color = friendly_base
 	glow_circle.default_color = friendly_glow
 	visible = false
@@ -29,8 +29,8 @@ func setup(pos, _scale, _color_scheme):
 			glow_circle.default_color = antagonistic_glow
 	
 	tick = 0
-	self.points = PoolVector2Array([])
-	glow_circle.points = PoolVector2Array([])
+	self.points = PackedVector2Array([])
+	glow_circle.points = PackedVector2Array([])
 	appearing = true
 	cur_point = 0
 	recede_point = 0
@@ -46,7 +46,7 @@ func _process(delta):
 		if tick < tick_cap:
 			tick += delta
 		else:
-			glow_circle.points = PoolVector2Array(
+			glow_circle.points = PackedVector2Array(
 					Array(_points).slice(recede_point, cur_point)
 				)
 			
@@ -64,7 +64,7 @@ func _process(delta):
 		if tick < tick_cap:
 			tick += delta
 		else:
-			self.points = PoolVector2Array(Array(_points).slice(0, cur_point))
+			self.points = PackedVector2Array(Array(_points).slice(0, cur_point))
 			cur_point += 1
 			tick = 0
 	else:
@@ -84,7 +84,7 @@ func move(dest):
 		dest, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
 # warning-ignore:return_value_discarded
 	tween.start()
-	yield(tween, "tween_completed")
+	await tween.finished
 
 func set_follow(to_entity):
 	follow_entity = to_entity 

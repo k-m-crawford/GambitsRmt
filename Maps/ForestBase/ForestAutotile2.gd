@@ -1,4 +1,4 @@
-tool
+@tool
 extends TileSet
 
 const GRASS_HILL = 0

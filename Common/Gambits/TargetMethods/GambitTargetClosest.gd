@@ -6,7 +6,7 @@ func find_targets(source, entities, sort=false):
 	if sort:
 		var sorter = Sorter.new()
 		sorter.source = source
-		entities.sort_custom(sorter, "do_sort")
+		entities.sort_custom(Callable(sorter,"do_sort"))
 		return entities
 	
 	var closest = source.position.distance_to(entities[0].position)

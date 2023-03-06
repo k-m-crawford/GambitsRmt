@@ -3,7 +3,6 @@ extends State
 var cur_max_speed
 
 func enter(_msg := {}) -> void:
-	
 	if Input.is_action_pressed("ui_cancel"):
 		cur_max_speed = entity.stats.max_run_speed
 	else:
@@ -14,7 +13,7 @@ func enter(_msg := {}) -> void:
 func handle_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("ui_accept"):
-		entity.emit_signal("battle_engagement", "ENTER")
+		entity.emit_signal("battle_engagement")
 
 	if event.is_action_pressed("ui_cancel"):
 		cur_max_speed = entity.stats.max_run_speed
@@ -36,4 +35,6 @@ func physics_update(delta):
 		entity.velocity = entity.velocity.move_toward(Vector2.ZERO, entity.friction * delta)
 		entity.anim_container.set_anim("Idle", "Default")
 
-	entity.velocity = entity.move_and_slide(entity.velocity)
+	entity.set_velocity(entity.velocity)
+	entity.move_and_slide()
+	entity.velocity = entity.velocity

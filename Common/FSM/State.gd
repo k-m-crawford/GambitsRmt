@@ -1,8 +1,8 @@
 # Virtual base class for all states.
 class_name State
-extends Reference
+extends RefCounted
 
-# Reference to the state machine, to call its `transition_to()` method directly.
+# RefCounted to the state machine, to call its `transition_to()` method directly.
 # That's one unorthodox detail of our state implementation, as it adds a dependency between the
 # state and the state machine objects, but we found it to be most efficient for our needs.
 # The state machine node will set it.
@@ -11,11 +11,13 @@ var entity: Entity
 var name
 var signal_lock = true
 
-func reparent(_entity):
+func reparent_fsm(_entity):
 		entity = _entity
-		
+
+
 func initialize(_msg := {}) -> void:
 	pass
+
 
 # Virtual function. Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:

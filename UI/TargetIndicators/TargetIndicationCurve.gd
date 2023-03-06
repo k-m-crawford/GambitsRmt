@@ -1,7 +1,7 @@
 class_name TargetIndicationCurve
 extends TargetIndicator
 
-onready var pulse_line = $PulseLine
+@onready var pulse_line = $PulseLine
 
 ### entities 
 var target
@@ -16,6 +16,7 @@ var wait = false
 var tick_cap_glow = 0.05
 var kill_refresh = 0.05
 
+
 func setup(_source, _target, _clr, _persist):
 	kill_tick = 1.5
 	
@@ -23,7 +24,7 @@ func setup(_source, _target, _clr, _persist):
 	target = _target
 	persist = _persist
 	source.add_child(self)
-	calculate()
+	
 	
 	match _clr:
 		"Friendly":
@@ -39,25 +40,27 @@ func calculate():
 	
 	if source.global_position.y < target.global_position.y:
 #		show_behind_parent = false
-		tween_func = funcref(self, "ease_in_cubic")
+		tween_func = Callable(self, "ease_in_cubic")
 	else:
 #		show_behind_parent = true
-		tween_func = funcref(self, "ease_out_cubic")
-	
+		tween_func = Callable(self, "ease_out_cubic")
+		
 	var start = Vector2(0, 0)
 	var end = target.global_position - global_position
-	var points := []
+	var _points := []
 	var pts = 8.0
 	var distance = (end - start)
+	
 	for i in range(pts):
 		var t = (1.0 / pts) * i
 		var x = start.x + (distance.x / pts) * i
-		var y = start.y + tween_func.call_func(t) * distance.y
-		points.append(Vector2(x, y))
-	points.append(end)
-	
-	return points
-		
+		var y = start.y + tween_func.call(t) * distance.y
+		_points.append(Vector2(x, y))
+	_points.append(end)
+
+	return _points
+
+
 func ease_out_cubic(number : float) -> float:
 	return 1.0 - pow(1.0 - number, 3.0)
 
@@ -66,16 +69,19 @@ func ease_in_cubic(number: float) -> float:
 
 func _process(delta):
 	# recalculate based on start/end at this frame
-	var points = calculate()
+	var _points = calculate()
+	
+	if recede_point > cur_point:
+		cur_point = recede_point + 1
 	
 	# the line is still appearing
 	if not line_pulse_start:
-		self.points = points.slice(recede_point, cur_point)
+		self.points = _points.slice(recede_point, cur_point)
 	# line appeared
 	else:
-		self.points = points.slice(recede_point, points.size())
-		pulse_line.points = points.slice(recede_point, cur_point)
-	
+		self.points = _points.slice(recede_point, _points.size())
+		pulse_line.points = _points.slice(recede_point, cur_point)
+
 	var _tick_cap = tick_cap_glow if line_pulse_start else tick_cap
 	
 	# update only after tick (x) seconds have passed
@@ -83,6 +89,7 @@ func _process(delta):
 		kill_tick -= delta
 	
 	if tick < _tick_cap:
+		
 		tick += delta
 	
 	if kill_tick <= 0:
@@ -91,15 +98,15 @@ func _process(delta):
 		if recede_point > points.size():
 			queue_free()
 	
-	if _tick_cap < tick:
+	if _tick_cap <= tick:
 		cur_point += 1
 		# check if done drawing
-		if cur_point > points.size():
+		if cur_point > _points.size():
 			if kill_sig:
 				pass
 			elif not persist:
 				line_pulse_start = true
-				kill(true)
+				kill(KILL, false)
 			else:
 				line_pulse_start = true
 		

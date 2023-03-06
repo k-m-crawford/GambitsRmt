@@ -2,7 +2,7 @@ class_name FollowLeaderBehavior
 extends Behavior
 
 func _init(_entity=null):
-	._init(_entity)
+	super._init(_entity)
 
 
 # returns true if this entity should enter a battle engagement

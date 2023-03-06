@@ -10,10 +10,9 @@ func exit() -> void:
 
 func initialize(_msg := {}) -> void:
 	# warning-ignore:return_value_discarded
-	entity.chase_area.connect("body_exited", Targeting, "on_enemy_leave_chase_area", [entity, signal_lock])
+	entity.chase_area.connect("body_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity, signal_lock))
 # warning-ignore:return_value_discarded
-	entity.chase_area.connect("body_entered", Targeting, "on_enemy_enter_chase_area", [entity, signal_lock])
-#	entity.chase_area.connect("body_entered", self, "on_enemy_enter_engagement_area")
+	entity.chase_area.connect("body_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity, signal_lock))
 
 
 func enter(_msg := {}) -> void:
@@ -30,7 +29,7 @@ func handle_input(event: InputEvent) -> void:
 	
 	elif event.is_action_pressed("ui_cancel"):
 		entity.emit_signal("set_target_entities", entity, [])
-		entity.emit_signal("battle_engagement", "EXIT")
+		entity.emit_signal("battle_engagement")
 		
 	elif event.is_action_pressed("ui_focus_next"):
 		Targeting.get_next_target(1, entity)
@@ -54,4 +53,6 @@ func physics_update(delta) -> void:
 		entity.velocity = entity.velocity.move_toward(Vector2.ZERO, entity.friction * delta)
 		entity.anim_container.set_anim("Idle", "Battle")
 
-	entity.velocity = entity.move_and_slide(entity.velocity)
+	entity.set_velocity(entity.velocity)
+	entity.move_and_slide()
+	entity.velocity = entity.velocity

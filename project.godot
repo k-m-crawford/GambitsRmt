@@ -6,154 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "BattleEntity",
-"class": "AllyEntity",
-"language": "GDScript",
-"path": "res://Entity/AllyEntity/AllyEntity.gd"
-}, {
-"base": "Node2D",
-"class": "AnimationContainer",
-"language": "GDScript",
-"path": "res://Entity/AnimationContainers/AnimationContainer.gd"
-}, {
-"base": "Entity",
-"class": "BattleEntity",
-"language": "GDScript",
-"path": "res://Entity/BattleEntity.gd"
-}, {
-"base": "EntityStats",
-"class": "BattleStats",
-"language": "GDScript",
-"path": "res://Entity/BattlerStats.gd"
-}, {
-"base": "Resource",
-"class": "Behavior",
-"language": "GDScript",
-"path": "res://Entity/Behaviors/Behavior.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Entity",
-"language": "GDScript",
-"path": "res://Entity/Entity.gd"
-}, {
-"base": "Node",
-"class": "EntityManager",
-"language": "GDScript",
-"path": "res://Entity/EntityManager/EntityManager.gd"
-}, {
-"base": "Resource",
-"class": "EntityStats",
-"language": "GDScript",
-"path": "res://Entity/EntityStats.gd"
-}, {
-"base": "Node",
-"class": "FSM",
-"language": "GDScript",
-"path": "res://Common/FSM/FSM.gd"
-}, {
-"base": "Behavior",
-"class": "FollowLeaderBehavior",
-"language": "GDScript",
-"path": "res://Entity/Behaviors/FollowLeaderBehavior.gd"
-}, {
-"base": "Node",
-"class": "Gambit",
-"language": "GDScript",
-"path": "res://Gambit.gd"
-}, {
-"base": "GambitTargetMethod",
-"class": "GambitTargetClosest",
-"language": "GDScript",
-"path": "res://Common/Gambits/TargetMethods/GambitTargetClosest.gd"
-}, {
-"base": "Resource",
-"class": "GambitTargetMethod",
-"language": "GDScript",
-"path": "res://Common/Gambits/TargetMethods/GambitTargetMethod.gd"
-}, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://addons/godot-git-plugin/git_api.gdns"
-}, {
-"base": "Reference",
-"class": "State",
-"language": "GDScript",
-"path": "res://Common/FSM/State.gd"
-}, {
-"base": "TargetIndicator",
-"class": "TargetIndicationCurve",
-"language": "GDScript",
-"path": "res://UI/TargetIndicators/TargetIndicationCurve.gd"
-}, {
-"base": "Line2D",
-"class": "TargetIndicator",
-"language": "GDScript",
-"path": "res://UI/TargetIndicators/TargetIndicator.gd"
-}, {
-"base": "TargetIndicator",
-"class": "TargetIndicatorCircle",
-"language": "GDScript",
-"path": "res://UI/TargetIndicators/TargetIndicatorCircle.gd"
-}, {
-"base": "Resource",
-"class": "Targeting",
-"language": "GDScript",
-"path": "res://Common/Targeting.gd"
-}, {
-"base": "Area2D",
-"class": "TileMapLedge",
-"language": "GDScript",
-"path": "res://Ledge.gd"
-}, {
-"base": "Area2D",
-"class": "TileMapStairs",
-"language": "GDScript",
-"path": "res://Maps/Common/AltitudeChange.gd"
-}, {
-"base": "Behavior",
-"class": "WanderBehavior",
-"language": "GDScript",
-"path": "res://Entity/Behaviors/WanderBehavior.gd"
-}, {
-"base": "Node",
-"class": "_b",
-"language": "GDScript",
-"path": "res://Common/Bucket.gd"
-} ]
-_global_script_class_icons={
-"AllyEntity": "",
-"AnimationContainer": "",
-"BattleEntity": "",
-"BattleStats": "",
-"Behavior": "",
-"Entity": "",
-"EntityManager": "",
-"EntityStats": "",
-"FSM": "",
-"FollowLeaderBehavior": "",
-"Gambit": "",
-"GambitTargetClosest": "",
-"GambitTargetMethod": "",
-"GitAPI": "",
-"State": "",
-"TargetIndicationCurve": "",
-"TargetIndicator": "",
-"TargetIndicatorCircle": "",
-"Targeting": "",
-"TileMapLedge": "",
-"TileMapStairs": "",
-"WanderBehavior": "",
-"_b": ""
-}
+config_version=5
 
 [application]
 
 config/name="Gambits"
 run/main_scene="res://Map.tscn"
+config/features=PackedStringArray("4.0")
 config/icon="res://UI/Sprites/icon.png"
 
 [autoload]
@@ -162,17 +21,16 @@ GlobalBucket="*res://Common/Bucket.gd"
 
 [debug]
 
+shapes/collision/shape_color=Color(1, 1, 1, 0.419608)
 settings/fps/force_fps=60
-shapes/collision/shape_color=Color( 1, 1, 1, 0.419608 )
 
 [display]
 
-window/size/width=720
-window/size/height=360
-window/size/test_width=720
-window/size/test_height=420
-window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/size/viewport_width=720
+window/size/viewport_height=360
+window/size/window_width_override=720
+window/size/window_height_override=420
+window/stretch/mode="viewport"
 
 [editor]
 
@@ -212,89 +70,93 @@ texture={
 
 ui_accept={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":88,"physical_keycode":0,"key_label":0,"unicode":120,"echo":false,"script":null)
+]
 }
 ui_select={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_cancel={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":90,"physical_keycode":0,"key_label":0,"unicode":122,"echo":false,"script":null)
+]
 }
 ui_focus_next={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":69,"physical_keycode":0,"key_label":0,"unicode":101,"echo":false,"script":null)
+]
 }
 ui_focus_prev={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":81,"physical_keycode":0,"key_label":0,"unicode":113,"echo":false,"script":null)
+]
 }
 ui_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194319,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 ui_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194321,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 ui_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194320,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 ui_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194322,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 ui_page_up={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_page_down={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_home={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_end={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 ui_fieldmenu={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":32,"echo":false,"script":null)
+]
 }
 
 [layer_names]
 
 2d_physics/layer_1="Altitude0Obstacle"
+2d_navigation/layer_1="Altitude0Nav"
 2d_physics/layer_2="Altitude1Obstacle"
+2d_navigation/layer_2="Altitude1Nav"
 2d_physics/layer_3="Altitude2Obstacle"
+2d_navigation/layer_3="Altitude2Nav"
 2d_physics/layer_4="Altitude3Obstacle"
+2d_navigation/layer_4="Altitude3Nav"
 2d_physics/layer_5="Altitude4Obstacle"
+2d_navigation/layer_5="Altitude4Nav"
 2d_physics/layer_6="Altitude5Obstacle"
+2d_navigation/layer_6="Altitude5Nav"
 2d_physics/layer_7="Altitude6Obstacle"
+2d_navigation/layer_7="Altitude6Nav"
 2d_physics/layer_9="Allies"
 2d_physics/layer_10="Enemies"
-2d_navigation/layer_1="Altitude0Nav"
-2d_navigation/layer_2="Altitude1Nav"
-2d_navigation/layer_3="Altitude2Nav"
-2d_navigation/layer_4="Altitude3Nav"
-2d_navigation/layer_5="Altitude4Nav"
-2d_navigation/layer_6="Altitude5Nav"
-2d_navigation/layer_7="Altitude6Nav"
 
 [physics]
 
 common/enable_pause_aware_picking=true
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

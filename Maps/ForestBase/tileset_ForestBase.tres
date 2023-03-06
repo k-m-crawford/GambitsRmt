@@ -1,138 +1,138 @@
 [gd_resource type="TileSet" load_steps=48 format=2]
 
 [ext_resource path="res://Maps/ForestBase/ForestAutotiles.gd" type="Script" id=1]
-[ext_resource path="res://Maps/WaterDirt.png" type="Texture" id=2]
-[ext_resource path="res://Maps/ForestBase/SmallCliffs.png" type="Texture" id=3]
-[ext_resource path="res://Maps/ForestBase/Forest.png" type="Texture" id=4]
+[ext_resource path="res://Maps/WaterDirt.png" type="Texture2D" id=2]
+[ext_resource path="res://Maps/ForestBase/SmallCliffs.png" type="Texture2D" id=3]
+[ext_resource path="res://Maps/ForestBase/Forest.png" type="Texture2D" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=22]
-points = PoolVector2Array( 16, 0, 16, 16, 9.0822, 14.5902, 6.2004, 9.29395, 6.04462, 0.103344, 5.96674, 0 )
+points = PackedVector2Array( 16, 0, 16, 16, 9.0822, 14.5902, 6.2004, 9.29395, 6.04462, 0.103344, 5.96674, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=23]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=24]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=25]
-points = PoolVector2Array( 9.52762, 0.0254593, 11.319, 7.19102, 7.19102, 13.6556, 0, 16, 0, 0 )
+points = PackedVector2Array( 9.52762, 0.0254593, 11.319, 7.19102, 7.19102, 13.6556, 0, 16, 0, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=30]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=31]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=33]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=34]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=35]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=36]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=37]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 16, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 16, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=38]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 0, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 0, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=32]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=39]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=40]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=41]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=42]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=43]
-points = PoolVector2Array( 16, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 16, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=44]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 0, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 0, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=45]
-points = PoolVector2Array( 0, 16, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 16, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=46]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=47]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=48]
-points = PoolVector2Array( 0, 0, 16, 16, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 16, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=49]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 16, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 16, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=50]
-points = PoolVector2Array( 0, 0, 0, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 0, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=51]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 0, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 0, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=52]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 16, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 16, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=53]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=54]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=55]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=56]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=57]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=58]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=59]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=60]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=61]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=62]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=63]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=64]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=65]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=66]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=67]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=68]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PackedVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [resource]
 0/name = "Forest.png 18"

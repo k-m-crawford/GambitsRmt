@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0v53m1plfss2"]
+
+[ext_resource type="Script" path="res://Common/FSM/FSM.gd" id="1_7bj5s"]
+[ext_resource type="Script" path="res://Entity/LeaderEntity/AttackState.gd" id="2_u8b0y"]
+[ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" id="4_7tkbo"]
+[ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderMoveState.gd" id="5_2dwug"]
+
+[sub_resource type="GDScript" id="GDScript_pc2uw"]
+script/source = "extends State
+
+func enter(_msg := {}) -> void:
+	
+	entity.velocity = Vector2.ZERO
+	
+	if entity._FSM.check_flag(\"BATTLE_ENGAGED\"):
+		entity.anim_container.set_anim(\"EnterBattleEngagement\", \"root\")
+	else:
+		entity.destroy_target_lines()
+		entity.anim_container.set_anim(\"ExitBattleEngagement\", \"root\")
+"
+
+[node name="FSM" type="Node"]
+script = ExtResource("1_7bj5s")
+state_scripts = {
+"ATTACK": ExtResource("2_u8b0y"),
+"BATTLE_ENGAGE": SubResource("GDScript_pc2uw"),
+"BATTLE_MOVE": ExtResource("4_7tkbo"),
+"MOVE": ExtResource("5_2dwug")
+}
+start_state = "MOVE"

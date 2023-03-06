@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://7l22upj7t1q7"]
+
+[ext_resource type="FontFile" path="res://UI/Sprites/pixelfont.tres" id="1_2xdyw"]
+
+[resource]
+Label/fonts/font = ExtResource("1_2xdyw")

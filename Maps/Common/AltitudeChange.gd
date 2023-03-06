@@ -1,9 +1,9 @@
 class_name TileMapStairs
 extends Area2D
 
-export(int) var altitude # altitude this altitude changer LEADS to in DIR
+@export var altitude: int # altitude this altitude changer LEADS to in DIR
 enum Dir {UP, DOWN, LEFT, RIGHT}
-export(Dir) var direction
+@export var direction: Dir
 
 func _change_entity_altitude(entity):
 	
@@ -11,17 +11,17 @@ func _change_entity_altitude(entity):
 	if check_pass(entity.global_position):
 		print("ascend")
 		entity.altitude = altitude 
-		entity.set_collision_mask_bit(altitude - 1, false)
-		entity.set_collision_mask_bit(altitude, true)
-		entity.set_collision_layer_bit(altitude - 1, false)
-		entity.set_collision_layer_bit(altitude, true)
+		entity.set_collision_mask_value(altitude - 1, false)
+		entity.set_collision_mask_value(altitude, true)
+		entity.set_collision_layer_value(altitude - 1, false)
+		entity.set_collision_layer_value(altitude, true)
 	else:
 		print("descend")
 		entity.altitude = altitude - 1
-		entity.set_collision_mask_bit(altitude, false)
-		entity.set_collision_mask_bit(altitude - 1, true)
-		entity.set_collision_layer_bit(altitude - 1, true)
-		entity.set_collision_layer_bit(altitude, false)
+		entity.set_collision_mask_value(altitude, false)
+		entity.set_collision_mask_value(altitude - 1, true)
+		entity.set_collision_layer_value(altitude - 1, true)
+		entity.set_collision_layer_value(altitude, false)
 	
 	entity.z_index = entity.altitude
 	print(entity.altitude)

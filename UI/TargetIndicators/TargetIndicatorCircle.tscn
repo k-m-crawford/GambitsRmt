@@ -7,7 +7,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.500956, 1 ), 0.0, 0.0, 0, 
 
 [node name="TargetIndicatorCircle" type="Line2D"]
 position = Vector2( 0, 7 )
-points = PoolVector2Array( 0, 0, 8, 0.5, 10, 1, 12, 1.5, 15, 3, 16, 3.5, 15, 5, 12, 6.5, 11, 7, 8, 8, 0, 8, -8, 8, -11, 7, -12, 6.5, -15, 5, -16, 3.5, -15, 3, -12, 1.5, -10, 1, 0, 0 )
+points = PackedVector2Array( 0, 0, 8, 0.5, 10, 1, 12, 1.5, 15, 3, 16, 3.5, 15, 5, 12, 6.5, 11, 7, 8, 8, 0, 8, -8, 8, -11, 7, -12, 6.5, -15, 5, -16, 3.5, -15, 3, -12, 1.5, -10, 1, 0, 0 )
 width = 3.0
 width_curve = SubResource( 7 )
 default_color = Color( 0.592157, 0.180392, 0.196078, 1 )

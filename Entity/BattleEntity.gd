@@ -2,25 +2,29 @@ class_name BattleEntity
 extends Entity
 
 # warning-ignore:unused_signal
-signal battle_engagement(enter_exit)
+signal battle_engagement
 # warning-ignore:unused_signal
 signal set_target_entities(source, entities, type)
+# warning-ignore:unused_signal
+signal deal_damage(amount, entity)
 
-export var gambits:Resource
-export var attack_targeting_method_resource:Resource
+@export var gambits:Resource
+@export var attack_targeting_method_resource:Resource
 
-onready var attack_targeting_method = attack_targeting_method_resource.new()
-onready var attack_pivot:Position2D = get_node_or_null("AttackPivot")
-onready var hurtbox:Area2D = get_node_or_null("Hurtbox")
-onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
-onready var target_lines:YSort = get_node_or_null("TargetLines")
+@onready var attack_targeting_method = attack_targeting_method_resource.new()
+@onready var attack_pivot:Marker2D = get_node_or_null("AttackPivot")
+@onready var hurtbox:Area2D = get_node_or_null("Hurtbox")
+@onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
+@onready var target_lines:Node2D = get_node_or_null("TargetLines")
 
 var target_entities = []
 
 func _ready():
-	._ready()
+	super._ready()
 	# warning-ignore:return_value_discarded
-	connect("set_target_entities", get_parent(), "set_target_entities")
+	set_target_entities.connect(manager.set_target_entities)
+	# warning-ignore:return_value_discarded
+	deal_damage.connect(manager.deal_damage)
 
 
 func update_blend_positions(direction):
@@ -36,18 +40,21 @@ func update_blend_positions(direction):
 		else:
 			attack_pivot.rotation_degrees = 180
 
-	.update_blend_positions(direction)
-	
+	super.update_blend_positions(direction)
+
+
+func _animation_handler(anim):
+	match anim:
+		"EnterBattleEngagement":
+			_FSM.transition_to("BATTLE_MOVE")
+		"ExitBattleEngagement":
+			_FSM.transition_to("MOVE")
+		_:
+			if anim in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
+				_FSM.transition_to("BATTLE_MOVE")
+
+
 func destroy_target_lines(fade=true):
 	for l in get_children():
 		if "TargetLines" in l.get_groups():
-			l.kill(fade)
-
-func enter_battle_engagement():
-	_FSM.transition_to("BATTLE_MOVE")
-	
-func exit_battle_engagement():
-	_FSM.transition_to("MOVE")
-
-func attack_exit_transition():
-	_FSM.transition_to("BATTLE_MOVE")
+			l.kill(TargetIndicator.KILL and TargetIndicator.FADE)

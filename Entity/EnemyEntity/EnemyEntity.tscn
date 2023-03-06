@@ -1,12 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://botdnligigu8s"]
 
-[ext_resource path="res://Common/FSM/FSM.gd" type="Script" id=1]
-[ext_resource path="res://Entity/EnemyEntity/EnemyBattleMoveState.gd" type="Script" id=2]
-[ext_resource path="res://Common/FSM/BattleEngageState.gd" type="Script" id=3]
-[ext_resource path="res://Entity/EnemyEntity/EnemyMoveState.gd" type="Script" id=4]
-[ext_resource path="res://Entity/Entity.tscn" type="PackedScene" id=5]
+[ext_resource type="PackedScene" uid="uid://ek5w2h3yc04k" path="res://Entity/EnemyEntity/EnemyFSM.tscn" id="2_3rqcq"]
+[ext_resource type="PackedScene" uid="uid://dm8s56tq2k0sp" path="res://Entity/Entity.tscn" id="5"]
 
-[node name="Enemy" instance=ExtResource( 5 )]
+[node name="Enemy" instance=ExtResource("5")]
 collision_layer = 512
 collision_mask = 769
 _behaviors = {
@@ -28,11 +25,7 @@ collision_mask = 512
 [node name="LeaderStray" parent="EngagementCircles" index="3"]
 collision_mask = 512
 
-[node name="FSM" type="Node" parent="." index="4"]
-script = ExtResource( 1 )
-state_scripts = {
-"BATTLE_ENGAGE": ExtResource( 3 ),
-"BATTLE_MOVE": ExtResource( 2 ),
-"MOVE": ExtResource( 4 )
-}
-start_state = "MOVE"
+[node name="Hitbox" parent="AttackPivot" index="0"]
+collision_mask = 256
+
+[node name="FSM" parent="." index="5" instance=ExtResource("2_3rqcq")]
