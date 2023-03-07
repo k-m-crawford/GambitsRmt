@@ -1,6 +1,10 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://7l22upj7t1q7"]
 
-[ext_resource type="FontFile" path="res://UI/Sprites/pixelfont.tres" id="1_2xdyw"]
+[ext_resource type="FontFile" uid="uid://f6pbfmmru4qd" path="res://UI/Toriko.ttf" id="1_57le7"]
 
 [resource]
-Label/fonts/font = ExtResource("1_2xdyw")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 3
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_57le7")

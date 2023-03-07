@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BattleStats" load_steps=2 format=3 uid="uid://n3iojrtygwhd"]
+
+[ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1_55sqm"]
+
+[resource]
+script = ExtResource("1_55sqm")
+name = "SIGRUN"
+max_hp = 345
+hp = 345
+stn = 6
+vit = 4
+max_walk_speed = 80
+max_run_speed = 130
+acceleration = 500

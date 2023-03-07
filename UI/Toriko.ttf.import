@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Toriko.ttf-2352e487b0a3d55d30da9a1a16103dfa.f
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 multichannel_signed_distance_field=false
 msdf_pixel_range=8

@@ -45,6 +45,14 @@ func update_blend_positions(direction):
 
 
 func _animation_handler(anim):
+	
+	# reverse look up from anim mask dict to properly transition
+	# TODO: method for if one animation used for multiple masks
+	for k in anim_container.anim_mask_dict.keys():
+		for v in anim_container.anim_mask_dict[k].values():
+			if v == anim:
+				anim = anim_container.anim_mask_dict[k].find_key(v)
+	
 	match anim:
 		"EnterBattleEngagement":
 			_FSM.transition_to("BATTLE_MOVE")
@@ -53,6 +61,7 @@ func _animation_handler(anim):
 		_:
 			if anim in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
 				_FSM.transition_to("BATTLE_MOVE", {"from_attack":1})
+			
 
 
 func destroy_target_lines():

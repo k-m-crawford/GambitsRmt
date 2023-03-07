@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://2m0e1c6ojsn5"]
+[gd_scene load_steps=9 format=3 uid="uid://2m0e1c6ojsn5"]
 
 [ext_resource type="PackedScene" uid="uid://dr0t27wrw5bn4" path="res://Entity/EntityManager/EntityManager.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cjhbnnqf3pj6r" path="res://Entity/LeaderEntity/LeaderEntity.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://ctcixooijns62" path="res://Entity/AllyEntity/AllyEntity.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://cb1i3mvafyudc" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
+[ext_resource type="Resource" uid="uid://n3iojrtygwhd" path="res://Entity/AllyEntity/SigrunStats.tres" id="4_bgrub"]
 [ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
+[ext_resource type="Resource" uid="uid://cdolw8v4r33jb" path="res://Entity/AllyEntity/FreijaStats.tres" id="5_dq5n1"]
 
 [sub_resource type="NavigationPolygon" id="1"]
 vertices = PackedVector2Array(742, 398, -208, 407, -485, -393, 748, -444)
@@ -26,10 +28,12 @@ position = Vector2(-258, -107)
 [node name="Ally2" parent="EntityManager" instance=ExtResource("3")]
 position = Vector2(-194, -65)
 _leader_entity_path = NodePath("../Ally")
+stats = ExtResource("4_bgrub")
 
 [node name="Ally3" parent="EntityManager" instance=ExtResource("3")]
 position = Vector2(-177, -121)
 _leader_entity_path = NodePath("../Ally")
+stats = ExtResource("5_dq5n1")
 
 [node name="Imp" parent="EntityManager" instance=ExtResource("4")]
 position = Vector2(-23, 17)
@@ -53,6 +57,3 @@ _behaviors = {
 }
 
 [node name="FPS" parent="." instance=ExtResource("5")]
-
-[editable path="EntityManager/Ally"]
-[editable path="EntityManager/Ally2"]
