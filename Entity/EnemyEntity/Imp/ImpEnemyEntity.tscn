@@ -12,6 +12,9 @@ gambits = null
 attack_targeting_method_resource = ExtResource("5")
 stats = ExtResource("3")
 
+[node name="ChaseCircle" parent="EngagementCircles" index="0"]
+visible = true
+
 [node name="AttackPivot" parent="." index="3"]
 position = Vector2(0, -13)
 

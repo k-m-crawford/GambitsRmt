@@ -34,13 +34,11 @@ static func on_enemy_enter_chase_area(body, entity):
 # TODO: make generic (currently uses chase area + closest only)
 # extra params: range, type of targeting for sorting
 static func update_target_entities(entity):
-	
 	# change: chase area overlap ->  whichever ability range
 	entity.target_entities = entity.attack_targeting_method.sort_targets(
 			entity,
 			entity.chase_area.get_overlapping_bodies()
 	)
-	
 	entity.target_idx = 0
 	entity.emit_signal("set_target_entities", entity)
 
