@@ -1,4 +1,4 @@
-class_name TargetIndicationCurve
+class_name TargetIndicatorCurve
 extends TargetIndicator
 
 @onready var pulse_line = $PulseLine
@@ -34,6 +34,7 @@ func setup(_source, _target, _clr, _persist):
 			self.default_color = antagonistic_base
 			pulse_line.default_color = antagonistic_glow
 
+
 func calculate():
 	
 	var tween_func
@@ -64,8 +65,10 @@ func calculate():
 func ease_out_cubic(number : float) -> float:
 	return 1.0 - pow(1.0 - number, 3.0)
 
+
 func ease_in_cubic(number: float) -> float:
 	return number * number * number
+
 
 func _process(delta):
 	# recalculate based on start/end at this frame
@@ -84,12 +87,16 @@ func _process(delta):
 
 	var _tick_cap = tick_cap_glow if line_pulse_start else tick_cap
 	
+	if fade_tick < 0:
+		fade_out(delta)
+	
 	# update only after tick (x) seconds have passed
-	if kill_sig:
+	if kill_sig and KILL:
 		kill_tick -= delta
+		if kill_sig and FADE:
+			fade_tick -= delta
 	
 	if tick < _tick_cap:
-		
 		tick += delta
 	
 	if kill_tick <= 0:

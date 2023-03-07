@@ -9,7 +9,6 @@ extends RefCounted
 #var _FSM = null
 var entity: Entity
 var name
-var signal_lock = true
 
 func reparent_fsm(_entity):
 		entity = _entity

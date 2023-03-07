@@ -1,3 +1,4 @@
+class_name AllyMoveState
 extends State
 
 enum {
@@ -10,7 +11,7 @@ var mood = FOLLOW_LEADER
 func enter(_msg := {}) -> void:
 	entity.anim_container.set_anim("Idle", "Default")
 	entity.anim_container.set_textures("Move")
-	print("ally move state entered")
+
 
 func physics_update(delta):
 			

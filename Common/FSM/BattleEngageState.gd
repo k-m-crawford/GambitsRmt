@@ -1,3 +1,4 @@
+class_name BattleEngageState
 extends State
 
 func enter(_msg := {}) -> void:

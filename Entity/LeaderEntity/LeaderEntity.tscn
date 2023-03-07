@@ -18,18 +18,13 @@ _behaviors = {
 stats = ExtResource("9")
 
 [node name="ChaseCircle" parent="EngagementCircles" index="0"]
+visible = true
 collision_layer = 0
 collision_mask = 512
 
 [node name="InitiationCircle" parent="EngagementCircles" index="1"]
 collision_layer = 0
 collision_mask = 512
-
-[node name="LeaderRunStray" parent="EngagementCircles" index="2"]
-visible = true
-
-[node name="LeaderStray" parent="EngagementCircles" index="3"]
-visible = true
 
 [node name="AnimationContainer" parent="." index="4" instance=ExtResource("10")]
 

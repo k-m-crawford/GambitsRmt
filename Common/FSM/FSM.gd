@@ -73,7 +73,7 @@ func reparent_fsm(_entity):
 
 
 func set_flag(flag):
-	print("set ", flag, " for ", entity.name)
+	_b.debug("set " + flag + " for " + entity.name, entity)
 	if flags.has(flag):
 		flags.erase(flag)
 	else:

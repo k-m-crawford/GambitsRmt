@@ -1,3 +1,4 @@
+class_name LeaderMoveState
 extends State
 
 var cur_max_speed

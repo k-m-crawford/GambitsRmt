@@ -86,31 +86,34 @@ func get_next_leader(dir):
 	
 	target_select.move(ally_entities[active_idx].global_position)
 
+
 func on_battle_engagement():
 	for ally in get_tree().get_nodes_in_group("Allies"):
 		ally._FSM.set_flag("BATTLE_ENGAGED")
 		if ally == ally_entities[active_idx]:
 			ally._FSM.transition_to("BATTLE_ENGAGE")
 
+
 func _on_FieldUI_field_menu_closed():
 	target_select.kill(TargetIndicator.KILL and TargetIndicator.FADE)
 	field_menu = false
 
-func deal_damage(attacker, defender):
-	return
-#	var dmg = randi() % (attacker.stats.stn - defender.stats.vit) + 1
-#	defender.stats.hp -= dmg
-#
-#	var inst = damage_label.instantiate()
-#	get_parent().add_child(inst)
-#	inst._execute(dmg, defender.get_global_position())
 
-func set_target_entities(source, entities, type="Friendly"):
+func deal_damage(attacker, defender):
+	var dmg = randi() % (attacker.stats.stn - defender.stats.vit) + 1
+	defender.stats.hp -= dmg
+
+	var inst = damage_label.instantiate()
+	get_parent().add_child(inst)
+	inst._execute(dmg, defender.get_global_position())
+
+
+# TODO: add AOE targeting
+func set_target_entities(source, _flags=0, type="Friendly", _AOE=false):
 	source.destroy_target_lines()
-	
-	if entities.size() > 0:
-		for e in entities:
+
+	if source.target_entities.size() > 0:
 			var _target_curve = self.target_curve.instantiate()
-			_target_curve.setup(source, e, type, false)
+			_target_curve.setup(source, source.target_entities[source.target_idx], type, false)
 
 

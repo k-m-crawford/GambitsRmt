@@ -1,3 +1,4 @@
+class_name AttackState
 extends State
 
 var hitbox:Area2D
@@ -14,5 +15,5 @@ func enter(_msg := {}) -> void:
 		entity.emit_signal(
 			"deal_damage", 
 			entity,
-			hit
+			hit.get_parent()
 		)

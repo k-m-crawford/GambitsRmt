@@ -20,18 +20,17 @@ var kill_sig = 0
 var tick: float = 0
 var tick_cap = 0.025
 var kill_tick = 2
+var fade_tick = 1
 
 var alpha = 1.0
 
 func fade_out(delta):
-	alpha -= delta * 5
+	alpha -= delta
 	self.modulate = Color(1,1,1,alpha)
 	if alpha <= 0: queue_free()
 
 
 func kill(flags, immediate=true):
-	
 	if immediate: kill_tick = 0
-	
 	kill_sig = flags
 

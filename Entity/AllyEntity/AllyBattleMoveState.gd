@@ -1,3 +1,4 @@
+class_name AllyBattleMoveState
 extends State
 
 var has_action_queued

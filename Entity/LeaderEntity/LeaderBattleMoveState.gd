@@ -1,25 +1,27 @@
+class_name LeaderBattleMoveState
 extends State
 
+var signal_lock = true
 var alert_flag = false
 
 func exit() -> void:
 	signal_lock = true
-	entity.target_entities = []
-	entity.emit_signal("set_target_entities", entity, [])
+	entity.destroy_target_lines()
 
 
 func initialize(_msg := {}) -> void:
 	# warning-ignore:return_value_discarded
-	entity.chase_area.connect("body_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity, signal_lock))
+	entity.chase_area.connect("body_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity))
 # warning-ignore:return_value_discarded
-	entity.chase_area.connect("body_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity, signal_lock))
+	entity.chase_area.connect("body_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
 
 
-func enter(_msg := {}) -> void:
+func enter(msg := {}) -> void:
 	signal_lock = false
 	entity.anim_container.set_textures("BattleEngagedMove")
 	entity.anim_container.set_anim("Idle", "Battle")
-	Targeting.update_target_entities(entity)
+	if "from_attack" not in msg:
+		Targeting.update_target_entities(entity)
 
 
 func handle_input(event: InputEvent) -> void:
@@ -28,7 +30,6 @@ func handle_input(event: InputEvent) -> void:
 		entity._FSM.transition_to("ATTACK")
 	
 	elif event.is_action_pressed("ui_cancel"):
-		entity.emit_signal("set_target_entities", entity, [])
 		entity.emit_signal("battle_engagement")
 		
 	elif event.is_action_pressed("ui_focus_next"):
@@ -42,7 +43,9 @@ func physics_update(delta) -> void:
 	var direction_override = null
 	
 	if entity.target_entities.size() > 0:
-		direction_override = entity.position.direction_to(entity.target_entities[0].position)
+		direction_override = entity.position.direction_to(
+			entity.target_entities[entity.target_idx].position
+		)
 	
 	var direction = entity.manual_movement(85, delta, direction_override)
 	

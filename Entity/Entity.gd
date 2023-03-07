@@ -62,6 +62,7 @@ func _ready():
 func set_leader_entity(_leader_entity):
 	leader_entity = _leader_entity
 
+
 func move_nav_agent(location, delta, speed=80):
 	nav_agent.set_target_position(location)
 		
@@ -77,15 +78,24 @@ func move_nav_agent(location, delta, speed=80):
 	
 	update_blend_positions(direction)
 
+
 func slow_to_stop(delta):
 	nav_agent.set_target_position(global_position)
 	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 	nav_agent.set_velocity(velocity)
 
+
 func update_blend_positions(direction):
 	anim_container.update_blend_positions(direction)
-	
+
+
 func _animation_handler(anim):
 	if anim_handler:
 		anim_handler.main(anim)
-	
+
+
+func signal_lock():
+	if "signal_lock" in _FSM.state:
+		return _FSM.state.signal_lock
+	else:
+		return true

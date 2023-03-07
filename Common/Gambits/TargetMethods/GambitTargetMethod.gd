@@ -1,8 +1,16 @@
 class_name GambitTargetMethod
 extends Resource
 
-func find_targets(_source, _entities, _sort=false):
-	pass
+# returns a copy of entities list, sorted based
+# on the heuristic defined by Sorter class,
+# Sorter overidden and defined in subclasses
+# i.e., closest, highest HP, etc.
+func sort_targets(source, entities):
+		var sorter = Sorter.new()
+		sorter.source = source
+		entities.sort_custom(Callable(sorter,"do_sort"))
+		return entities
+
 
 class Sorter:
 	var source:Entity

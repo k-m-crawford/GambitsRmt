@@ -60,7 +60,6 @@ func set_anim(anim, state, _flags={}):
 			anim_masks.travel(anim_mask_dict[state][anim])
 			
 	elif state == "root":
-		print("root anim", anim)
 		anim_tree_root.travel(anim)
 		
 	else:

@@ -4,7 +4,7 @@ extends Entity
 # warning-ignore:unused_signal
 signal battle_engagement
 # warning-ignore:unused_signal
-signal set_target_entities(source, entities, type)
+signal set_target_entities(source, flags, type, AOE)
 # warning-ignore:unused_signal
 signal deal_damage(amount, entity)
 
@@ -18,6 +18,7 @@ signal deal_damage(amount, entity)
 @onready var target_lines:Node2D = get_node_or_null("TargetLines")
 
 var target_entities = []
+var target_idx = 0
 
 func _ready():
 	super._ready()
@@ -51,10 +52,10 @@ func _animation_handler(anim):
 			_FSM.transition_to("MOVE")
 		_:
 			if anim in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
-				_FSM.transition_to("BATTLE_MOVE")
+				_FSM.transition_to("BATTLE_MOVE", {"from_attack":1})
 
 
-func destroy_target_lines(fade=true):
+func destroy_target_lines():
 	for l in get_children():
 		if "TargetLines" in l.get_groups():
 			l.kill(TargetIndicator.KILL and TargetIndicator.FADE)
