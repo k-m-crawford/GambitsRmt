@@ -1,6 +1,8 @@
 class_name AllyEntity
 extends BattleEntity
 
+@onready var visibility_node = $VisibleOnScreenNotifier2D
+
 # warning-ignore:unused_signal
 signal request_leader_change(dir)
 

@@ -13,7 +13,7 @@ var active_idx:int = 0
 var field_menu = false
 
 @onready var field_ui = $FieldUI
-@onready var camera = $Camera2D
+@onready var camera = $Camera
 
 @onready var damage_label = preload("res://UI/DamageLabel.tscn")
 @onready var target_curve = preload("res://UI/TargetIndicators/TargetIndicatorCurve.tscn")
@@ -29,7 +29,9 @@ func _ready():
 		ally.battle_engagement.connect(on_battle_engagement)
 		
 	if ally_entities.size() > 0:
-		camera.follow_entities([ally_entities[0]])
+		camera.follow_entities(ally_entities)
+	
+	set_process(true)
 	
 func _input(event):
 	
@@ -46,7 +48,8 @@ func _input(event):
 		)
 		
 		field_ui.activate()
-	
+
+
 func get_next_leader(dir):
 	# determine which ally to switch to next
 	var next_idx = active_idx + dir

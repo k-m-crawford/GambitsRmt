@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://2m0e1c6ojsn5"]
+[gd_scene load_steps=10 format=3 uid="uid://b13n1ej60ub2w"]
 
 [ext_resource type="PackedScene" uid="uid://dr0t27wrw5bn4" path="res://Entity/EntityManager/EntityManager.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://cjhbnnqf3pj6r" path="res://Entity/LeaderEntity/LeaderEntity.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://yfxb51mjd0xs" path="res://Entity/LeaderEntity/LeaderEntity.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://ctcixooijns62" path="res://Entity/AllyEntity/AllyEntity.tscn" id="3"]
+[ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" id="3_58l5f"]
 [ext_resource type="PackedScene" uid="uid://cb1i3mvafyudc" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
 [ext_resource type="Resource" uid="uid://n3iojrtygwhd" path="res://Entity/AllyEntity/SigrunStats.tres" id="4_bgrub"]
 [ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
@@ -20,10 +21,11 @@ position = Vector2(812, 290)
 navigation_polygon = SubResource("1")
 
 [node name="EntityManager" parent="." instance=ExtResource("1")]
-position = Vector2(812, 290)
+position = Vector2(868, 187)
 
 [node name="Ally" parent="EntityManager" instance=ExtResource("2")]
-position = Vector2(-258, -107)
+position = Vector2(-269, -27)
+attack_targeting_method_resource = ExtResource("3_58l5f")
 
 [node name="Ally2" parent="EntityManager" instance=ExtResource("3")]
 position = Vector2(-194, -65)

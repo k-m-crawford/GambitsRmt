@@ -5,14 +5,13 @@
 [ext_resource type="Script" path="res://Entity/EntityManager/EntityManager.gd" id="12"]
 
 [node name="EntityManager" type="Node2D"]
-process_mode = 2
 y_sort_enabled = true
-position = Vector2(216, 259)
 script = ExtResource("12")
 
 [node name="FieldUI" parent="." instance=ExtResource("1")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
+position_smoothing_speed = 2.0
 script = ExtResource("2")
 
 [connection signal="field_menu_closed" from="FieldUI" to="." method="_on_FieldUI_field_menu_closed"]
