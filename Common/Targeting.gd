@@ -1,9 +1,10 @@
 class_name Targeting
 extends Resource
 
-static func on_enemy_leave_chase_area(body, entity):
+static func on_enemy_leave_chase_area(area, entity):
 	if entity.signal_lock(): return
 	
+	var body = area.get_parent()
 	var cur_target = entity.target_entities[entity.target_idx]
 	
 	entity.target_entities.erase(body)
@@ -20,8 +21,10 @@ static func on_enemy_leave_chase_area(body, entity):
 # for LEADER ENTITY, if an enemy enters your engagement area
 # while in battle mode, and you aren't already targeting
 # an enemy, target this new enemy.
-static func on_enemy_enter_chase_area(body, entity):
+static func on_enemy_enter_chase_area(area, entity):
 	if entity.signal_lock(): return
+	
+	var body = area.get_parent()
 	
 	if entity.target_entities.size() == 0:
 		entity.target_idx = 0
@@ -35,9 +38,13 @@ static func on_enemy_enter_chase_area(body, entity):
 # extra params: range, type of targeting for sorting
 static func update_target_entities(entity):
 	# change: chase area overlap ->  whichever ability range
+	var bodies = []
+	for a in entity.chase_area.get_overlapping_areas():
+		bodies.append(a.get_parent())
+		
 	entity.target_entities = entity.attack_targeting_method.sort_targets(
 			entity,
-			entity.chase_area.get_overlapping_bodies()
+			bodies
 	)
 	entity.target_idx = 0
 	entity.emit_signal("set_target_entities", entity)

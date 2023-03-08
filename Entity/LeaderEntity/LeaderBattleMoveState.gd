@@ -11,9 +11,9 @@ func exit() -> void:
 
 func initialize(_msg := {}) -> void:
 	# warning-ignore:return_value_discarded
-	entity.chase_area.connect("body_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity))
+	entity.chase_area.connect("area_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity))
 # warning-ignore:return_value_discarded
-	entity.chase_area.connect("body_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
+	entity.chase_area.connect("area_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
 
 
 func enter(msg := {}) -> void:
