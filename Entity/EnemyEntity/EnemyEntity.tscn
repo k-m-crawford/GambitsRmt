@@ -1,22 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://botdnligigu8s"]
+[gd_scene load_steps=3 format=3 uid="uid://bnx5aoj6s8cya"]
 
 [ext_resource type="PackedScene" uid="uid://ek5w2h3yc04k" path="res://Entity/EnemyEntity/EnemyFSM.tscn" id="2_3rqcq"]
-[ext_resource type="PackedScene" uid="uid://dm8s56tq2k0sp" path="res://Entity/Entity.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://bxl2spnhga0xg" path="res://Entity/BattleEntity.tscn" id="5"]
 
 [node name="Enemy" instance=ExtResource("5")]
 collision_layer = 512
-collision_mask = 769
 _behaviors = {
 "FollowLeader": true,
 "Wander": true
 }
 
 [node name="ChaseCircle" parent="EngagementCircles" index="0"]
-collision_layer = 0
 collision_mask = 256
 
 [node name="InitiationCircle" parent="EngagementCircles" index="1"]
-collision_layer = 0
 collision_mask = 256
 
 [node name="LeaderRunStray" parent="EngagementCircles" index="2"]
@@ -30,6 +27,5 @@ collision_mask = 256
 
 [node name="Hurtbox" parent="." index="4"]
 collision_layer = 512
-collision_mask = 0
 
 [node name="FSM" parent="." index="5" instance=ExtResource("2_3rqcq")]

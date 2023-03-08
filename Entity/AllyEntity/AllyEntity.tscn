@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctcixooijns62"]
+[gd_scene load_steps=7 format=3 uid="uid://cg8ikjnd0k144"]
 
-[ext_resource type="PackedScene" uid="uid://dm8s56tq2k0sp" path="res://Entity/Entity.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://bxl2spnhga0xg" path="res://Entity/BattleEntity.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://c4nygpccli4f4" path="res://Entity/AllyEntity/AllyFSM.tscn" id="6_dss7s"]
 [ext_resource type="Script" path="res://Entity/AllyEntity/AllyEntity.gd" id="7"]
 [ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" id="8"]
-[ext_resource type="Resource" path="res://Entity/AllyEntity/DefaultStats.tres" id="9"]
+[ext_resource type="Resource" uid="uid://lj0axlyf0oqf" path="res://Entity/AllyEntity/DefaultStats.tres" id="9"]
 [ext_resource type="PackedScene" uid="uid://c0wnpc788xiyu" path="res://Entity/AnimationContainers/HumanoidAnimationContainer.tscn" id="10"]
 
 [node name="Ally" instance=ExtResource("6")]
+collision_layer = 256
 script = ExtResource("7")
 gambits = null
 attack_targeting_method_resource = ExtResource("8")
@@ -18,14 +19,24 @@ _behaviors = {
 stats = ExtResource("9")
 
 [node name="ChaseCircle" parent="EngagementCircles" index="0"]
-collision_layer = 0
 collision_mask = 512
 
 [node name="InitiationCircle" parent="EngagementCircles" index="1"]
-collision_layer = 0
+collision_mask = 512
+
+[node name="LeaderRunStray" parent="EngagementCircles" index="2"]
+collision_mask = 256
+
+[node name="LeaderStray" parent="EngagementCircles" index="3"]
+collision_mask = 256
+
+[node name="Hitbox" parent="AttackPivot" index="0"]
 collision_mask = 512
 
 [node name="AnimationContainer" parent="." index="4" instance=ExtResource("10")]
+
+[node name="Hurtbox" parent="." index="5"]
+collision_layer = 256
 
 [node name="FSM" parent="." index="6" instance=ExtResource("6_dss7s")]
 

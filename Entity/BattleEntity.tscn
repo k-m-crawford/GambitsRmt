@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxl2spnhga0xg"]
+
+[ext_resource type="PackedScene" uid="uid://dm8s56tq2k0sp" path="res://Entity/Entity.tscn" id="1_vr656"]
+
+[node name="BattleEntity" instance=ExtResource("1_vr656")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="ChaseCircle" parent="EngagementCircles" index="0"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="InitiationCircle" parent="EngagementCircles" index="1"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="LeaderRunStray" parent="EngagementCircles" index="2"]
+collision_mask = 0
+
+[node name="LeaderStray" parent="EngagementCircles" index="3"]
+collision_mask = 0
+
+[node name="Hitbox" parent="AttackPivot" index="0"]
+collision_mask = 0
+
+[node name="Hurtbox" parent="." index="4"]
+collision_layer = 0
+collision_mask = 0

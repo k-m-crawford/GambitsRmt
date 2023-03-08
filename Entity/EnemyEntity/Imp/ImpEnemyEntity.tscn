@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cb1i3mvafyudc"]
 
-[ext_resource type="PackedScene" uid="uid://botdnligigu8s" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cwyphjtupjj1h" path="res://Entity/EnemyEntity/Imp/ImpAnimationContainer.tscn" id="2"]
-[ext_resource type="Resource" path="res://Entity/AllyEntity/DefaultStats.tres" id="3"]
+[ext_resource type="Resource" uid="uid://lj0axlyf0oqf" path="res://Entity/AllyEntity/DefaultStats.tres" id="3"]
 [ext_resource type="Script" path="res://Entity/BattleEntity.gd" id="4"]
 [ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" id="5"]
 

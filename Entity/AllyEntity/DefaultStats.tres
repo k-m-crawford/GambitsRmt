@@ -1,14 +1,14 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="BattleStats" load_steps=2 format=3 uid="uid://lj0axlyf0oqf"]
 
-[ext_resource path="res://Entity/BattlerStats.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1"]
 
 [resource]
-script = ExtResource( 1 )
-max_walk_speed = 80
-max_run_speed = 130
-acceleration = 500
+script = ExtResource("1")
 name = "Imp"
 max_hp = 126
 hp = 126
 stn = 3
 vit = 2
+max_walk_speed = 80
+max_run_speed = 130
+acceleration = 500
