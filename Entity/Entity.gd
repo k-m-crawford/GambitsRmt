@@ -26,7 +26,6 @@ enum {
 
 # ONREADY
 @onready var anim_container:AnimationContainer = get_node_or_null("AnimationContainer")
-@onready var camera_grab:RemoteTransform2D = get_node_or_null("CameraGrab")
 @onready var nav_agent:NavigationAgent2D = get_node_or_null("NavigationAgent2D")
 
 @onready var leader_stray:Area2D = get_node_or_null("EngagementCircles/LeaderStray")

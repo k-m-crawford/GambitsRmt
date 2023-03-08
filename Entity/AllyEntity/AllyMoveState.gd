@@ -14,7 +14,6 @@ func enter(_msg := {}) -> void:
 
 
 func physics_update(delta):
-			
 	# follow leader
 	match mood:
 		

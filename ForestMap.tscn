@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3]
 
-[ext_resource path="res://Maps/Common/TileMapFader.gd" type="Script" id=1]
-[ext_resource path="res://Entity/LeaderEntity/LeaderEntity.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Maps/Common/TileMapLayer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Entity/AllyEntity/AllyEntity.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Maps/Common/AltitudeChange.gd" type="Script" id=11]
+[ext_resource type="Script" path="res://Maps/Common/TileMapFader.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://cjhbnnqf3pj6r" path="res://Entity/LeaderEntity/LeaderEntityBackup.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Maps/Common/TileMapLayer.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://ctcixooijns62" path="res://Entity/AllyEntity/AllyEntity.tscn" id="5"]
+[ext_resource type="Script" path="res://Maps/Common/AltitudeChange.gd" id="11"]
 
 [sub_resource type="SegmentShape2D" id=11]
 b = Vector2( 0, 55 )
