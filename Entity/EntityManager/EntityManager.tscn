@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://Entity/EntityManager/EntityManager.gd" id="12"]
 
 [node name="EntityManager" type="Node2D"]
+process_mode = 3
 y_sort_enabled = true
 script = ExtResource("12")
 

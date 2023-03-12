@@ -11,7 +11,14 @@ func enter(_msg := {}) -> void:
 func physics_update(_delta) -> void:
 	
 	if not entity._FSM.check_flag("BATTLE_ENGAGED"):
-		entity._FSM.transition_to("BATTLE_ENGAGE", {"EXIT":null})
+		entity._FSM.transition_to("BATTLE_ENGAGE")
 		return
-		
+
+	# if no action queue
+	# do gambit ladder
+	if entity.action_queue:
+		pass
+	
+	else:
+		Gambit.do_gambit_ladder(entity)
 	

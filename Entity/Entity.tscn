@@ -93,6 +93,7 @@ rotation = 1.5708
 shape = SubResource("4")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+process_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("7")

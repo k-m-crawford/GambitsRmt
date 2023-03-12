@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4k14y0mh08n5"]
 
 [ext_resource type="Script" path="res://UI/TargetIndicators/TargetIndicationCurve.gd" id="1"]
-[ext_resource type="Curve" path="res://UI/TargetIndicators/WidthCurve.tres" id="2"]
+[ext_resource type="Curve" uid="uid://brs8b7rv3ix0u" path="res://UI/TargetIndicators/WidthCurve.tres" id="2"]
 
 [node name="TargetIndicatorCurve" type="Line2D" groups=["TargetLines"]]
 z_index = 998

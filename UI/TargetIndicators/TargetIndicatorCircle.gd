@@ -2,8 +2,8 @@ class_name TargetIndicatorCircle
 extends TargetIndicator
 
 @onready var glow_circle = $GlowCircle
-@onready var tween = $Tween
 
+var tween
 var follow_entity:Entity
 var appearing = true
 var _points
@@ -15,6 +15,9 @@ func _ready():
 	self.default_color = friendly_base
 	glow_circle.default_color = friendly_glow
 	visible = false
+	
+	tween = create_tween()
+	tween.stop()
 
 func setup(pos, _scale, _color_scheme):
 	self.position = pos
@@ -75,16 +78,17 @@ func _process(delta):
 	if not follow_entity: return
 
 	move(follow_entity.global_position)
-	tween.start()
 
 func move(dest):
 # warning-ignore:return_value_discarded
-	tween.interpolate_property(
-		self, "global_position", self.global_position, 
-		dest, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
-# warning-ignore:return_value_discarded
-	tween.start()
+	tween.tween_property(
+		self, "global_position",
+		dest, 0.1
+	).set_trans(Tween.TRANS_LINEAR) \
+	.set_ease(Tween.EASE_IN)
+	
+	tween.play()
 	await tween.finished
+	tween = create_tween()
+	tween.stop()
 
-func set_follow(to_entity):
-	follow_entity = to_entity 

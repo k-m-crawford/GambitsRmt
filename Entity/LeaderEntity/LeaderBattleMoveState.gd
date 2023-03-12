@@ -25,20 +25,24 @@ func enter(msg := {}) -> void:
 
 
 func handle_input(event: InputEvent) -> void:
-		
+
 	if event.is_action_pressed("ui_accept"):
 		entity._FSM.transition_to("ATTACK")
-	
+
 	elif event.is_action_pressed("ui_cancel"):
 		entity.emit_signal("battle_engagement")
-		
+
 	elif event.is_action_pressed("ui_focus_next"):
 		Targeting.get_next_target(1, entity)
-	
+
 	elif event.is_action_pressed("ui_focus_prev"):
 		Targeting.get_next_target(-1, entity)
 
+
 func physics_update(delta) -> void:
+	
+	if entity.target_entity != null:
+		print(entity.global_position.distance_to(entity.target_entity.global_position))
 	
 	var direction_override = null
 	

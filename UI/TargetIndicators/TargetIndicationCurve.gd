@@ -23,8 +23,8 @@ func setup(_source, _target, _clr, _persist):
 	source = _source
 	target = _target
 	persist = _persist
-	source.add_child(self)
-	
+	source.add_child.call_deferred(self)
+	await self.ready
 	
 	match _clr:
 		"Friendly":

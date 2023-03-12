@@ -9,6 +9,7 @@ signal request_leader_change(dir)
 func _init():
 	add_to_group("Allies")
 
+
 func manual_movement(max_speed, delta, direction_override=null):
 	var direction
 	# calculate direction

@@ -1,17 +1,31 @@
-[gd_scene load_steps=8 format=3 uid="uid://yfxb51mjd0xs"]
+[gd_scene load_steps=10 format=3 uid="uid://yfxb51mjd0xs"]
 
 [ext_resource type="PackedScene" uid="uid://cg8ikjnd0k144" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
 [ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetMethod.gd" id="2_8b7jp"]
+[ext_resource type="Script" path="res://Gambit.gd" id="2_e6sdk"]
 [ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="2_j5tty"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" id="3_t71ut"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderMoveState.gd" id="4_c3fi4"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/AttackState.gd" id="5_ea4ha"]
 [ext_resource type="Resource" uid="uid://bglkimog4pd10" path="res://Entity/AllyEntity/BrynhildrStats.tres" id="9"]
 
+[sub_resource type="Resource" id="Resource_ymhfe"]
+script = ExtResource("2_e6sdk")
+gambit_name = ""
+target = 1
+trigger = 0
+trigger_val = 0.0
+condition = 1
+action = "Attack"
+
 [node name="Ally" instance=ExtResource("1_vg7n7")]
 collision_mask = 256
+gambits = Array[ExtResource("2_e6sdk")]([SubResource("Resource_ymhfe"), null])
 attack_targeting_method_resource = ExtResource("2_8b7jp")
 stats = ExtResource("9")
+
+[node name="ChaseCircle" parent="EngagementCircles" index="0"]
+collision_mask = 768
 
 [node name="FSM" parent="." index="6"]
 state_scripts = {

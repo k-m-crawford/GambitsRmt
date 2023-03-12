@@ -8,7 +8,7 @@ signal set_target_entities(source, flags, type, AOE)
 # warning-ignore:unused_signal
 signal deal_damage(amount, entity)
 
-@export var gambits:Resource
+@export var gambits: Array[Gambit] = []
 @export var attack_targeting_method_resource:Resource
 
 @onready var attack_targeting_method = attack_targeting_method_resource.new()
@@ -20,13 +20,18 @@ signal deal_damage(amount, entity)
 var target_entities = []
 var target_idx = 0
 
+var target_entity = null
+var action_queue = null
+
 func _ready():
 	super._ready()
 	# warning-ignore:return_value_discarded
 	set_target_entities.connect(manager.set_target_entities)
 	# warning-ignore:return_value_discarded
 	deal_damage.connect(manager.deal_damage)
-
+	
+	for g in gambits:
+		g.set_gambit_owner(self)
 
 func update_blend_positions(direction):
 	
