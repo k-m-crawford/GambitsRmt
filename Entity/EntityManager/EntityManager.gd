@@ -112,7 +112,7 @@ func deal_damage(attacker, defender):
 
 
 # TODO: add AOE targeting
-func set_target_entities(source, type="Friendly", _AOE=false):
+func set_target_entity(source, type="Friendly", _AOE=false):
 	source.destroy_target_lines()
 
 	if source.target_entity != null:

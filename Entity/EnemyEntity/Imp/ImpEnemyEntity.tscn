@@ -1,18 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb1i3mvafyudc"]
+[gd_scene load_steps=9 format=3 uid="uid://cb1i3mvafyudc"]
 
 [ext_resource type="PackedScene" uid="uid://bnx5aoj6s8cya" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cwyphjtupjj1h" path="res://Entity/EnemyEntity/Imp/ImpAnimationContainer.tscn" id="2"]
 [ext_resource type="Resource" uid="uid://lj0axlyf0oqf" path="res://Entity/AllyEntity/DefaultStats.tres" id="3"]
-[ext_resource type="Script" path="res://Entity/BattleEntity.gd" id="4"]
-[ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" id="5"]
+
+[sub_resource type="CircleShape2D" id="5"]
+radius = 150.0
+
+[sub_resource type="CircleShape2D" id="6"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="3"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="2"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lioio"]
+resource_local_to_scene = true
+radius = 150.0
 
 [node name="Imp" instance=ExtResource("1")]
-script = ExtResource("4")
-gambits = Array[Resource("res://Gambit.gd")]([])
-attack_targeting_method_resource = ExtResource("5")
 stats = ExtResource("3")
 
-[node name="AttackPivot" parent="." index="3"]
+[node name="AttackPivot" parent="." index="2"]
 position = Vector2(0, -13)
 
 [node name="Hitbox" parent="AttackPivot" index="0"]
@@ -22,7 +33,26 @@ collision_mask = 1
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, -8)
 
+[node name="FSM" parent="." index="4"]
+debug = true
+
 [node name="AnimationContainer" parent="." index="5" instance=ExtResource("2")]
 
-[node name="FSM" parent="." index="6"]
-debug = true
+[node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
+shape = SubResource("5")
+
+[node name="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
+shape = SubResource("6")
+
+[node name="CollisionShape2D" parent="RangeAreas/LeaderRunStray" index="0"]
+shape = SubResource("3")
+
+[node name="CollisionShape2D" parent="RangeAreas/LeaderStray" index="0"]
+shape = SubResource("2")
+
+[node name="RangeArea" parent="RangeAreas" index="4"]
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
+shape = SubResource("CircleShape2D_lioio")

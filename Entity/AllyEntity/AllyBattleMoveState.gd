@@ -1,12 +1,16 @@
 class_name AllyBattleMoveState
 extends State
 
-var has_action_queued
 
 func enter(_msg := {}) -> void:
 	entity.anim_container.set_textures("BattleEngagedMove")
 	entity.anim_container.set_anim("Idle", "Battle")
-	has_action_queued = false
+
+
+func exit() -> void:
+	entity.action_queue = null
+	entity.target_entity = null
+
 
 func physics_update(_delta) -> void:
 	

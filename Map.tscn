@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://b13n1ej60ub2w"]
+[gd_scene load_steps=12 format=3 uid="uid://b13n1ej60ub2w"]
 
 [ext_resource type="PackedScene" uid="uid://dr0t27wrw5bn4" path="res://Entity/EntityManager/EntityManager.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://yfxb51mjd0xs" path="res://Entity/LeaderEntity/LeaderEntity.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://cg8ikjnd0k144" path="res://Entity/AllyEntity/AllyEntity.tscn" id="3"]
-[ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetClosest.gd" id="3_58l5f"]
 [ext_resource type="Script" path="res://Gambit.gd" id="3_qkcf4"]
 [ext_resource type="PackedScene" uid="uid://cb1i3mvafyudc" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
 [ext_resource type="Resource" uid="uid://n3iojrtygwhd" path="res://Entity/AllyEntity/SigrunStats.tres" id="4_bgrub"]
@@ -22,7 +21,6 @@ target = 0
 trigger = 6
 trigger_val = 0.0
 condition = 6
-action = "Attack2"
 
 [sub_resource type="Resource" id="Resource_ymhfe"]
 script = ExtResource("3_qkcf4")
@@ -31,7 +29,6 @@ target = 0
 trigger = 0
 trigger_val = 0.0
 condition = 1
-action = "Attack"
 
 [node name="Map" type="Node2D"]
 
@@ -45,7 +42,6 @@ position = Vector2(868, 187)
 [node name="Ally" parent="EntityManager" instance=ExtResource("2")]
 position = Vector2(-86, 2)
 gambits = Array[ExtResource("3_qkcf4")]([SubResource("Resource_kt2v2"), SubResource("Resource_ymhfe")])
-attack_targeting_method_resource = ExtResource("3_58l5f")
 
 [node name="Ally2" parent="EntityManager" instance=ExtResource("3")]
 position = Vector2(-11, -36)

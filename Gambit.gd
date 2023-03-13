@@ -35,15 +35,13 @@ enum Trigger {
 @export var trigger = Trigger.HP
 @export var trigger_val = 0.0
 @export var condition = Condition.LESS_THAN
-@export var action = "Attack"
+@export var action:GambitAction
 
-var gambit_owner:BattleEntity
 
-func set_gambit_owner(e):
-	gambit_owner = e
-
-func evaluate_gambit(target_pool) -> BattleEntity:
+func evaluate_gambit(e) -> BattleEntity:
 	print(target, trigger, trigger_val, condition, action)
+	e.range_area_shape.shape.radius = action.targeting_range
+	var target_pool = e.range_area.get_overlapping_bodies()
 	
 	match target:
 		Target.ALLY:
@@ -51,9 +49,10 @@ func evaluate_gambit(target_pool) -> BattleEntity:
 		Target.ENEMY:
 			target_pool = target_pool.filter(func(e): return e.is_in_group("Enemies"))
 		Target.SELF:
-			target_pool = [gambit_owner]
+			target_pool = [e]
 			
 	if target_pool.size() < 1: return null
+	print("still have targets")
 	
 	var trigger_get_func:Callable
 	var trigger_cap_get_func:Callable
@@ -73,29 +72,32 @@ func evaluate_gambit(target_pool) -> BattleEntity:
 			target_pool = target_pool.filter(func(e): \
 					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) > trigger_val
 			)
+			target_pool = [target_pool.pick_random()]
 
 		Condition.LESS_THAN:
 			target_pool = target_pool.filter(func(e): \
 					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) < trigger_val
 			)
+			target_pool = [target_pool.pick_random()]
 
 		Condition.EQUAL:
 			#TODO: add status support (status is an array)
 			target_pool = target_pool.filter(func(e): \
 					return trigger_get_func.call(e) == trigger_val
 			)
+			target_pool = [target_pool.pick_random()]
 
 		Condition.CLOSEST:
 			target_pool.sort_custom(func(a, b): return \
-					a.global_position.distance_to(gambit_owner.global_position) < \
-					b.global_position.distance_to(gambit_owner.global_position)
+					a.global_position.distance_to(e.global_position) < \
+					b.global_position.distance_to(e.global_position)
 			)
 			target_pool = [target_pool[0]]
 
 		Condition.FURTHEST:
 			target_pool.sort_custom(func(a, b): return \
-					a.global_position.distance_to(gambit_owner.global_position) > \
-					b.global_position.distance_to(gambit_owner.global_position)
+					a.global_position.distance_to(e.global_position) > \
+					b.global_position.distance_to(e.global_position)
 			)
 			target_pool = [target_pool[0]]
 
@@ -121,7 +123,7 @@ func evaluate_gambit(target_pool) -> BattleEntity:
 	
 	# TODO add action-specific conditionals here
 	# extracted directly from "action" object
-	
+	print("got target")
 	return target_pool
 
 
@@ -135,16 +137,14 @@ static func do_gambit_ladder(e):
 	while not gambit_target and g < e.gambits.size() - 1:
 		g += 1
 		print("evaluating gambit ", e.gambits[g].gambit_name)
-		gambit_target = e.gambits[g].evaluate_gambit(
-			e.chase_area.get_overlapping_bodies()
-		)
+		gambit_target = e.gambits[g].evaluate_gambit(e)
 		gambit_action = e.gambits[g].action
 
 	if gambit_target != null:
 		e.action_queue = gambit_action
-		e.target_entities = [gambit_target]
+		e.target_entity = gambit_target
 	else:
 		e.action_queue = null
-		e.target_entities = []
+		e.target_entities = null
 	
-	e.emit_signal("set_target_entities", e)
+	e.emit_signal("set_target_entity", e)

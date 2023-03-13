@@ -1,36 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnx5aoj6s8cya"]
+[gd_scene load_steps=9 format=3 uid="uid://bnx5aoj6s8cya"]
 
 [ext_resource type="PackedScene" uid="uid://ek5w2h3yc04k" path="res://Entity/EnemyEntity/EnemyFSM.tscn" id="2_3rqcq"]
 [ext_resource type="Script" path="res://Entity/EnemyEntity/EnemyEntity.gd" id="2_g5vqa"]
 [ext_resource type="PackedScene" uid="uid://bxl2spnhga0xg" path="res://Entity/BattleEntity.tscn" id="5"]
 
+[sub_resource type="CircleShape2D" id="5"]
+radius = 150.0
+
+[sub_resource type="CircleShape2D" id="6"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="3"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="2"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ii0er"]
+resource_local_to_scene = true
+radius = 150.0
+
 [node name="Enemy" instance=ExtResource("5")]
 collision_layer = 512
 script = ExtResource("2_g5vqa")
-gambits = Array[Resource("res://Gambit.gd")]([])
-attack_targeting_method_resource = null
-_behaviors = {
-"FollowLeader": true,
-"Wander": true
-}
-
-[node name="ChaseCircle" parent="EngagementCircles" index="0"]
-collision_mask = 256
-
-[node name="InitiationCircle" parent="EngagementCircles" index="1"]
-collision_mask = 256
-
-[node name="LeaderRunStray" parent="EngagementCircles" index="2"]
-collision_mask = 512
-
-[node name="LeaderStray" parent="EngagementCircles" index="3"]
-collision_mask = 512
+friction = 500
 
 [node name="Hitbox" parent="AttackPivot" index="0"]
 collision_mask = 256
 
-[node name="Hurtbox" parent="." index="4"]
+[node name="Hurtbox" parent="." index="3"]
 process_mode = 0
 collision_layer = 512
 
-[node name="FSM" parent="." index="5" instance=ExtResource("2_3rqcq")]
+[node name="FSM" parent="." index="4" instance=ExtResource("2_3rqcq")]
+
+[node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
+shape = SubResource("5")
+
+[node name="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
+shape = SubResource("6")
+
+[node name="CollisionShape2D" parent="RangeAreas/LeaderRunStray" index="0"]
+shape = SubResource("3")
+
+[node name="CollisionShape2D" parent="RangeAreas/LeaderStray" index="0"]
+shape = SubResource("2")
+
+[node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
+shape = SubResource("CircleShape2D_ii0er")

@@ -1,7 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://yfxb51mjd0xs"]
 
 [ext_resource type="PackedScene" uid="uid://cg8ikjnd0k144" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
-[ext_resource type="Script" path="res://Common/Gambits/TargetMethods/GambitTargetMethod.gd" id="2_8b7jp"]
 [ext_resource type="Script" path="res://Gambit.gd" id="2_e6sdk"]
 [ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="2_j5tty"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" id="3_t71ut"]
@@ -16,21 +15,26 @@ target = 1
 trigger = 0
 trigger_val = 0.0
 condition = 1
-action = "Attack"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r5fno"]
+resource_local_to_scene = true
+radius = 150.0
 
 [node name="Ally" instance=ExtResource("1_vg7n7")]
 collision_mask = 256
 gambits = Array[ExtResource("2_e6sdk")]([SubResource("Resource_ymhfe"), null])
-attack_targeting_method_resource = ExtResource("2_8b7jp")
 stats = ExtResource("9")
 
-[node name="ChaseCircle" parent="EngagementCircles" index="0"]
-collision_mask = 768
-
-[node name="FSM" parent="." index="6"]
+[node name="FSM" parent="." index="5"]
 state_scripts = {
 "ATTACK": ExtResource("5_ea4ha"),
 "BATTLE_ENGAGE": ExtResource("2_j5tty"),
 "BATTLE_MOVE": ExtResource("3_t71ut"),
 "MOVE": ExtResource("4_c3fi4")
 }
+
+[node name="RangeArea" parent="RangeAreas" index="4"]
+collision_layer = 1
+
+[node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
+shape = SubResource("CircleShape2D_r5fno")

@@ -28,11 +28,6 @@ enum {
 @onready var anim_container:AnimationContainer = get_node_or_null("AnimationContainer")
 @onready var nav_agent:NavigationAgent2D = get_node_or_null("NavigationAgent2D")
 
-@onready var leader_stray:Area2D = get_node_or_null("EngagementCircles/LeaderStray")
-@onready var leader_run_stray:Area2D = get_node_or_null("EngagementCircles/LeaderRunStray")
-@onready var engagement_area:Area2D = get_node_or_null("EngagementCircles/InitiationCircle")
-@onready var chase_area:Area2D = get_node_or_null("EngagementCircles/ChaseCircle")
-
 @onready var manager = get_node_or_null("..")
 @onready var _FSM = get_node_or_null("FSM")
 

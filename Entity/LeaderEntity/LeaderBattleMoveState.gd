@@ -20,8 +20,8 @@ func enter(msg := {}) -> void:
 	signal_lock = false
 	entity.anim_container.set_textures("BattleEngagedMove")
 	entity.anim_container.set_anim("Idle", "Battle")
-	if "from_attack" not in msg:
-		Targeting.update_target_entities(entity)
+#	if "from_attack" not in msg:
+#		Targeting.update_target_entities(entity)
 
 
 func handle_input(event: InputEvent) -> void:
@@ -40,9 +40,6 @@ func handle_input(event: InputEvent) -> void:
 
 
 func physics_update(delta) -> void:
-	
-	if entity.target_entity != null:
-		print(entity.global_position.distance_to(entity.target_entity.global_position))
 	
 	var direction_override = null
 	
