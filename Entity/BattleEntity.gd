@@ -26,6 +26,7 @@ signal deal_damage(amount, entity)
 var target_entity:BattleEntity = null
 var target_entities = []
 var target_idx = 0
+var stun_tick = 0
 
 var action_queue = null
 
@@ -53,22 +54,22 @@ func update_blend_positions(direction):
 	super.update_blend_positions(direction)
 
 
-func _animation_handler(anim):
-	
+func _animation_handler(anim_name):
+	print("in anim handler")
 	# reverse look up from anim mask dict to properly transition
 	# TODO: method for if one animation used for multiple masks
 	for k in anim_container.anim_mask_dict.keys():
 		for v in anim_container.anim_mask_dict[k].values():
-			if v == anim:
-				anim = anim_container.anim_mask_dict[k].find_key(v)
+			if v == anim_name:
+				anim_name = anim_container.anim_mask_dict[k].find_key(v)
 	
-	match anim:
+	match anim_name:
 		"EnterBattleEngagement":
 			_FSM.transition_to("BATTLE_MOVE")
 		"ExitBattleEngagement":
 			_FSM.transition_to("MOVE")
 		_:
-			if anim in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
+			if anim_name in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
 				_FSM.transition_to("BATTLE_MOVE", {"from_attack":1})
 			
 

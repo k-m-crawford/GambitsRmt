@@ -52,9 +52,12 @@ func update_blend_positions(direction):
 # change to a new state machine (set of animations) to the animation
 # no animation -> default anim for that state machine
 func set_anim(anim, state, _flags={}):
-	
-	if state in anim_mask_dict.keys():
-		if anim in anim_mask_dict[state].keys():
+	if state == "Battle": 
+		print("playing anim ", anim)
+		print(state in anim_mask_dict.keys())
+	if state in anim_mask_dict.keys() \
+		and anim in anim_mask_dict[state].keys():
+			print("traveling to mask anim ", state, anim)
 			# it is, travel to the mask animation state & play the mask
 			anim_tree_root.travel("MaskAnimations")
 			anim_masks.travel(anim_mask_dict[state][anim])
@@ -66,6 +69,16 @@ func set_anim(anim, state, _flags={}):
 		anim_tree_root.travel(state + "Animations")
 		anim_states[state][0].travel(anim)
 
+		if state == "Battle":
+			print("traveling to ", state, "Animations, anim ", anim)
+			print(anim_states[state])
+			print(anim_tree_root.get_current_node())
+			print(anim_states[state][0].get_current_node())
 
 func move_layer(node_path:String, layer:int):
 	move_child(get_node(node_path), layer)
+
+
+func _on_animation_tree_animation_started(anim_name):
+	if anim_name.contains("Attack"):
+		print("START ", anim_name)

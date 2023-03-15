@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnx5aoj6s8cya"]
+[gd_scene load_steps=15 format=3 uid="uid://bnx5aoj6s8cya"]
 
 [ext_resource type="PackedScene" uid="uid://ek5w2h3yc04k" path="res://Entity/EnemyEntity/EnemyFSM.tscn" id="2_3rqcq"]
 [ext_resource type="Script" path="res://Entity/EnemyEntity/EnemyEntity.gd" id="2_g5vqa"]
+[ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="4_x08on"]
 [ext_resource type="PackedScene" uid="uid://bxl2spnhga0xg" path="res://Entity/BattleEntity.tscn" id="5"]
+[ext_resource type="Script" path="res://Entity/AllyEntity/AIBattleMoveState.gd" id="5_0ld0v"]
+[ext_resource type="Script" path="res://Entity/EnemyEntity/EnemyMoveState.gd" id="6_agrup"]
+[ext_resource type="Script" path="res://Entity/LeaderEntity/AttackState.gd" id="7_h5ow0"]
 
 [sub_resource type="CircleShape2D" id="5"]
 radius = 150.0
@@ -20,19 +24,19 @@ radius = 25.0
 resource_local_to_scene = true
 radius = 150.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y4r3h"]
+resource_local_to_scene = true
+radius = 7.0
+height = 25.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0tnvm"]
+resource_local_to_scene = true
+
 [node name="Enemy" instance=ExtResource("5")]
 collision_layer = 512
+collision_mask = 512
 script = ExtResource("2_g5vqa")
 friction = 500
-
-[node name="Hitbox" parent="AttackPivot" index="0"]
-collision_mask = 256
-
-[node name="Hurtbox" parent="." index="3"]
-process_mode = 0
-collision_layer = 512
-
-[node name="FSM" parent="." index="4" instance=ExtResource("2_3rqcq")]
 
 [node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
 shape = SubResource("5")
@@ -48,3 +52,24 @@ shape = SubResource("2")
 
 [node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
 shape = SubResource("CircleShape2D_ii0er")
+
+[node name="FSM" parent="." index="3" instance=ExtResource("2_3rqcq")]
+state_scripts = {
+"ATTACK": ExtResource("7_h5ow0"),
+"BATTLE_ENGAGE": ExtResource("4_x08on"),
+"BATTLE_MOVE": ExtResource("5_0ld0v"),
+"MOVE": ExtResource("6_agrup")
+}
+
+[node name="Hitbox" parent="AttackPivot" index="0"]
+collision_mask = 256
+
+[node name="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
+shape = SubResource("CapsuleShape2D_y4r3h")
+
+[node name="Hurtbox" parent="." index="5"]
+collision_layer = 512
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CapsuleShape2D_0tnvm")

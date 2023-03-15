@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://yfxb51mjd0xs"]
+[gd_scene load_steps=11 format=3 uid="uid://yfxb51mjd0xs"]
 
-[ext_resource type="PackedScene" uid="uid://cg8ikjnd0k144" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
+[ext_resource type="PackedScene" uid="uid://cmhxdotvlkgfy" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
 [ext_resource type="Script" path="res://Gambit.gd" id="2_e6sdk"]
 [ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="2_j5tty"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" id="3_t71ut"]
@@ -20,12 +20,22 @@ condition = 1
 resource_local_to_scene = true
 radius = 150.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8kba"]
+resource_local_to_scene = true
+radius = 7.0
+height = 25.0
+
 [node name="Ally" instance=ExtResource("1_vg7n7")]
-collision_mask = 256
 gambits = Array[ExtResource("2_e6sdk")]([SubResource("Resource_ymhfe"), null])
 stats = ExtResource("9")
 
-[node name="FSM" parent="." index="5"]
+[node name="RangeArea" parent="RangeAreas" index="4"]
+collision_layer = 1
+
+[node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
+shape = SubResource("CircleShape2D_r5fno")
+
+[node name="FSM" parent="." index="4"]
 state_scripts = {
 "ATTACK": ExtResource("5_ea4ha"),
 "BATTLE_ENGAGE": ExtResource("2_j5tty"),
@@ -33,8 +43,8 @@ state_scripts = {
 "MOVE": ExtResource("4_c3fi4")
 }
 
-[node name="RangeArea" parent="RangeAreas" index="4"]
-collision_layer = 1
+[node name="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
+shape = SubResource("CapsuleShape2D_o8kba")
 
-[node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
-shape = SubResource("CircleShape2D_r5fno")
+[node name="Hurtbox" parent="." index="7"]
+collision_mask = 0

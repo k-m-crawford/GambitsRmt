@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://c0wnpc788xiyu"]
+[gd_scene load_steps=121 format=3 uid="uid://c0wnpc788xiyu"]
 
 [ext_resource type="PackedScene" uid="uid://cmfuf36x0h50l" path="res://Entity/AnimationContainers/AnimationContainer.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://c1sd2dv1fgp3t" path="res://Sprites/char_a_p1_0bas_humn_v01.png" id="2"]
@@ -1603,9 +1603,6 @@ blend_point_3/node = SubResource("63")
 blend_point_3/pos = Vector2(-1, 0)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="65"]
-animation = &"AttackExitTransition"
-
 [sub_resource type="AnimationNodeAnimation" id="66"]
 animation = &"BattleMoveDown"
 
@@ -1660,23 +1657,18 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="79"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="80"]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="81"]
-switch_mode = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uox53"]
 
 [sub_resource type="AnimationNodeStateMachine" id="97"]
 states/Attack/node = SubResource("64")
 states/Attack/position = Vector2(574.09, 241.089)
-states/AttackExitTransition/node = SubResource("65")
-states/AttackExitTransition/position = Vector2(328.09, 241.089)
 states/Idle/node = SubResource("70")
 states/Idle/position = Vector2(328.09, 133.089)
+states/Start/position = Vector2(201, 133.089)
 states/Walk/node = SubResource("75")
 states/Walk/position = Vector2(776.09, 133.089)
-transitions = ["Idle", "Walk", SubResource("76"), "Walk", "Attack", SubResource("77"), "Walk", "Idle", SubResource("78"), "Idle", "Attack", SubResource("79"), "Attack", "AttackExitTransition", SubResource("80"), "AttackExitTransition", "Idle", SubResource("81")]
-graph_offset = Vector2(81.0898, -39.9107)
+transitions = ["Idle", "Walk", SubResource("76"), "Walk", "Attack", SubResource("77"), "Walk", "Idle", SubResource("78"), "Idle", "Attack", SubResource("79"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_uox53")]
+graph_offset = Vector2(81.0898, 99.5081)
 
 [sub_resource type="AnimationNodeStateMachine" id="104"]
 
@@ -1812,6 +1804,9 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="108"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wun1b"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="112"]
 resource_local_to_scene = true
 states/BattleAnimations/node = SubResource("97")
@@ -1820,15 +1815,16 @@ states/CustomAnimations/node = SubResource("104")
 states/CustomAnimations/position = Vector2(427, 553.256)
 states/DefaultAnimations/node = SubResource("13")
 states/DefaultAnimations/position = Vector2(128, 252)
+states/End/position = Vector2(754, 119)
 states/EnterBattleEngagement/node = SubResource("82")
 states/EnterBattleEngagement/position = Vector2(427, 119)
 states/ExitBattleEngagement/node = SubResource("83")
 states/ExitBattleEngagement/position = Vector2(427, 387)
 states/MaskAnimations/node = SubResource("88")
 states/MaskAnimations/position = Vector2(427, 252)
-states/Start/position = Vector2(145, 182)
-transitions = ["BattleAnimations", "ExitBattleEngagement", SubResource("84"), "ExitBattleEngagement", "DefaultAnimations", SubResource("85"), "EnterBattleEngagement", "BattleAnimations", SubResource("86"), "DefaultAnimations", "EnterBattleEngagement", SubResource("87"), "MaskAnimations", "DefaultAnimations", SubResource("89"), "DefaultAnimations", "MaskAnimations", SubResource("90"), "MaskAnimations", "EnterBattleEngagement", SubResource("91"), "MaskAnimations", "ExitBattleEngagement", SubResource("92"), "ExitBattleEngagement", "MaskAnimations", SubResource("93"), "EnterBattleEngagement", "MaskAnimations", SubResource("94"), "BattleAnimations", "MaskAnimations", SubResource("95"), "MaskAnimations", "BattleAnimations", SubResource("96"), "DefaultAnimations", "CustomAnimations", SubResource("105"), "CustomAnimations", "DefaultAnimations", SubResource("106"), "CustomAnimations", "BattleAnimations", SubResource("107"), "BattleAnimations", "CustomAnimations", SubResource("108")]
-graph_offset = Vector2(0, -24.3254)
+states/Start/position = Vector2(128, 119)
+transitions = ["BattleAnimations", "ExitBattleEngagement", SubResource("84"), "ExitBattleEngagement", "DefaultAnimations", SubResource("85"), "EnterBattleEngagement", "BattleAnimations", SubResource("86"), "DefaultAnimations", "EnterBattleEngagement", SubResource("87"), "MaskAnimations", "DefaultAnimations", SubResource("89"), "DefaultAnimations", "MaskAnimations", SubResource("90"), "MaskAnimations", "EnterBattleEngagement", SubResource("91"), "MaskAnimations", "ExitBattleEngagement", SubResource("92"), "ExitBattleEngagement", "MaskAnimations", SubResource("93"), "EnterBattleEngagement", "MaskAnimations", SubResource("94"), "BattleAnimations", "MaskAnimations", SubResource("95"), "MaskAnimations", "BattleAnimations", SubResource("96"), "DefaultAnimations", "CustomAnimations", SubResource("105"), "CustomAnimations", "DefaultAnimations", SubResource("106"), "CustomAnimations", "BattleAnimations", SubResource("107"), "BattleAnimations", "CustomAnimations", SubResource("108"), "Start", "DefaultAnimations", SubResource("AnimationNodeStateMachineTransition_wun1b")]
+graph_offset = Vector2(0, 82.5616)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="102"]
 

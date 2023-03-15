@@ -16,7 +16,7 @@ func initialize(_msg := {}) -> void:
 	entity.chase_area.connect("area_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
 
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
 	signal_lock = false
 	entity.anim_container.set_textures("BattleEngagedMove")
 	entity.anim_container.set_anim("Idle", "Battle")
@@ -26,7 +26,7 @@ func enter(msg := {}) -> void:
 
 func handle_input(event: InputEvent) -> void:
 
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_accept") and entity.stun_tick <= 0:
 		entity._FSM.transition_to("ATTACK")
 
 	elif event.is_action_pressed("ui_cancel"):
@@ -40,6 +40,9 @@ func handle_input(event: InputEvent) -> void:
 
 
 func physics_update(delta) -> void:
+	
+	if entity.stun_tick > 0:
+		entity.stun_tick -= delta
 	
 	var direction_override = null
 	

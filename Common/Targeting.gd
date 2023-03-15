@@ -1,7 +1,7 @@
 class_name Targeting
 extends Resource
 
-static func on_enemy_leave_chase_area(area, entity):
+static func on_enemy_leave_chase_area(_area, _entity):
 	pass
 #	if entity.signal_lock(): return
 #
@@ -22,7 +22,7 @@ static func on_enemy_leave_chase_area(area, entity):
 # for LEADER ENTITY, if an enemy enters your engagement area
 # while in battle mode, and you aren't already targeting
 # an enemy, target this new enemy.
-static func on_enemy_enter_chase_area(area, entity):
+static func on_enemy_enter_chase_area(_area, _entity):
 	pass
 #	if entity.signal_lock(): return
 #

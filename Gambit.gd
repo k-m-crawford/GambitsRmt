@@ -39,7 +39,7 @@ enum Trigger {
 
 
 func evaluate_gambit(e) -> BattleEntity:
-	print(target, trigger, trigger_val, condition, action)
+#	print(target, trigger, trigger_val, condition, action)
 	e.range_area_shape.shape.radius = action.targeting_range
 	var target_pool = e.range_area.get_overlapping_bodies()
 	
@@ -52,7 +52,7 @@ func evaluate_gambit(e) -> BattleEntity:
 			target_pool = [e]
 			
 	if target_pool.size() < 1: return null
-	print("still have targets")
+	
 	
 	var trigger_get_func:Callable
 	var trigger_cap_get_func:Callable
@@ -123,7 +123,7 @@ func evaluate_gambit(e) -> BattleEntity:
 	
 	# TODO add action-specific conditionals here
 	# extracted directly from "action" object
-	print("got target")
+	
 	return target_pool
 
 
@@ -136,7 +136,7 @@ static func do_gambit_ladder(e):
 	
 	while not gambit_target and g < e.gambits.size() - 1:
 		g += 1
-		print("evaluating gambit ", e.gambits[g].gambit_name)
+		
 		gambit_target = e.gambits[g].evaluate_gambit(e)
 		gambit_action = e.gambits[g].action
 
