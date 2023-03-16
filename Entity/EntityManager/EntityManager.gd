@@ -110,6 +110,7 @@ func deal_damage(attacker, defender):
 	get_parent().add_child(inst)
 	inst._execute(dmg, defender.get_global_position())
 	
+	defender.set_knockback(Vector2(-1, -1))
 
 
 # TODO: add AOE targeting

@@ -27,6 +27,8 @@ var target_entity:BattleEntity = null
 var target_entities = []
 var target_idx = 0
 var stun_tick = 0
+var knockback_tick = 0
+var knockback_vec = Vector2.ZERO
 
 var action_queue = null
 
@@ -78,3 +80,23 @@ func destroy_target_lines():
 	for l in get_children():
 		if "TargetLines" in l.get_groups():
 			l.kill(TargetIndicator.KILL and TargetIndicator.FADE)
+
+
+func _physics_process(delta):
+	if knockback_tick > 0:
+		apply_knockback(delta)
+
+
+func apply_knockback(delta):
+	velocity = velocity.move_toward(knockback_vec * 250,  
+									1000 * delta)
+	nav_agent.set_velocity(velocity)
+	set_velocity(velocity)
+	move_and_slide()
+	
+	knockback_tick -= delta
+
+
+func set_knockback(dir):
+	knockback_vec = dir
+	knockback_tick = 1

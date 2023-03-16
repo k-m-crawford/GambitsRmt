@@ -36,6 +36,7 @@ var leader_entity:Entity
 var behaviors = {}
 
 
+
 func _ready():
 	if _leader_entity_path: leader_entity = get_node(_leader_entity_path)
 
@@ -68,7 +69,6 @@ func move_nav_agent(location, delta, speed=80):
 	nav_agent.set_velocity(velocity)
 	set_velocity(velocity)
 	move_and_slide()
-	velocity = velocity
 	
 	update_blend_positions(direction)
 
