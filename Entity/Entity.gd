@@ -34,6 +34,7 @@ enum {
 var anim_state
 var leader_entity:Entity
 var behaviors = {}
+var direction:Vector2 = Vector2.ZERO
 
 
 func _ready():
@@ -60,7 +61,7 @@ func set_leader_entity(_leader_entity):
 func move_nav_agent(location, delta, speed=80):
 	nav_agent.set_target_position(location)
 		
-	var direction = global_position.direction_to(nav_agent.get_next_path_position())
+	direction = global_position.direction_to(nav_agent.get_next_path_position())
 	direction = direction.normalized()
 	
 	velocity = velocity.move_toward(direction * speed,  
@@ -68,7 +69,6 @@ func move_nav_agent(location, delta, speed=80):
 	nav_agent.set_velocity(velocity)
 	set_velocity(velocity)
 	move_and_slide()
-	velocity = velocity
 	
 	update_blend_positions(direction)
 
@@ -79,8 +79,8 @@ func slow_to_stop(delta):
 	nav_agent.set_velocity(velocity)
 
 
-func update_blend_positions(direction):
-	anim_container.update_blend_positions(direction)
+func update_blend_positions(_direction):
+	anim_container.update_blend_positions(_direction)
 
 
 func _animation_handler(anim):

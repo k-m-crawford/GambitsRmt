@@ -7,6 +7,7 @@ func initialize(_msg := {}) -> void:
 	hitbox = entity.attack_pivot.get_node("Hitbox")
 
 func enter(_msg := {}) -> void:
+	entity.stun_tick = 1
 	entity.anim_container.set_anim("Attack", "Battle")
 	
 	var hits = entity.hitbox.get_overlapping_areas()

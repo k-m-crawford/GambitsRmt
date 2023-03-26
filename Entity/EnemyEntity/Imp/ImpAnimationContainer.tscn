@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://cwyphjtupjj1h"]
+[gd_scene load_steps=123 format=3 uid="uid://cwyphjtupjj1h"]
 
 [ext_resource type="PackedScene" uid="uid://cmfuf36x0h50l" path="res://Entity/AnimationContainers/AnimationContainer.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://2lgfm1l8u7a1" path="res://Sprites/green_imp.png" id="2"]
@@ -465,9 +465,6 @@ blend_point_3/node = SubResource("63")
 blend_point_3/pos = Vector2(-1, 0)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="65"]
-animation = &"AttackExitTransition"
-
 [sub_resource type="AnimationNodeAnimation" id="66"]
 animation = &"BattleMoveDown"
 
@@ -522,23 +519,24 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="79"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="80"]
-switch_mode = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_blqkv"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="81"]
-switch_mode = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j1ps8"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p031r"]
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="97"]
 states/Attack/node = SubResource("64")
 states/Attack/position = Vector2(574.09, 241.089)
-states/AttackExitTransition/node = SubResource("65")
-states/AttackExitTransition/position = Vector2(328.09, 241.089)
+states/End/position = Vector2(226, 148)
 states/Idle/node = SubResource("70")
 states/Idle/position = Vector2(328.09, 133.089)
+states/Start/position = Vector2(226, 93)
 states/Walk/node = SubResource("75")
 states/Walk/position = Vector2(776.09, 133.089)
-transitions = ["Idle", "Walk", SubResource("76"), "Walk", "Attack", SubResource("77"), "Walk", "Idle", SubResource("78"), "Idle", "Attack", SubResource("79"), "Attack", "AttackExitTransition", SubResource("80"), "AttackExitTransition", "Idle", SubResource("81")]
-graph_offset = Vector2(81.0898, -39.9107)
+transitions = ["Idle", "Walk", SubResource("76"), "Walk", "Attack", SubResource("77"), "Walk", "Idle", SubResource("78"), "Idle", "Attack", SubResource("79"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_blqkv"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_j1ps8"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_p031r")]
+graph_offset = Vector2(81.0898, 21.0462)
 
 [sub_resource type="AnimationNodeStateMachine" id="104"]
 
@@ -694,18 +692,26 @@ animation = &"StickOutTongue"
 switch_mode = 2
 advance_condition = &"enter_battle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ppat7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b4x43"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="117"]
 resource_local_to_scene = true
 states/BattleIdle/node = SubResource("130")
 states/BattleIdle/position = Vector2(-330.766, -171)
 states/BattleMove/node = SubResource("125")
 states/BattleMove/position = Vector2(-330.766, -246)
+states/End/position = Vector2(-29, -233)
 states/EnterBattleEngagement/node = SubResource("114")
 states/EnterBattleEngagement/position = Vector2(-5.76569, -329)
+states/Start/position = Vector2(-132, -233)
 states/StickOutTongue/node = SubResource("115")
 states/StickOutTongue/position = Vector2(-323.766, -329)
-transitions = ["StickOutTongue", "EnterBattleEngagement", SubResource("116")]
-graph_offset = Vector2(-643.766, -388.55)
+transitions = ["StickOutTongue", "EnterBattleEngagement", SubResource("116"), "BattleIdle", "BattleMove", SubResource("AnimationNodeStateMachineTransition_ppat7"), "BattleMove", "BattleIdle", SubResource("AnimationNodeStateMachineTransition_b4x43")]
+graph_offset = Vector2(-587.569, -428.837)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="84"]
 
@@ -756,7 +762,7 @@ states/ExitBattleEngagement/position = Vector2(427, 387)
 states/MaskAnimations/node = SubResource("117")
 states/MaskAnimations/position = Vector2(427, 252)
 transitions = ["BattleAnimations", "ExitBattleEngagement", SubResource("84"), "ExitBattleEngagement", "DefaultAnimations", SubResource("85"), "EnterBattleEngagement", "BattleAnimations", SubResource("86"), "DefaultAnimations", "EnterBattleEngagement", SubResource("87"), "MaskAnimations", "DefaultAnimations", SubResource("89"), "DefaultAnimations", "MaskAnimations", SubResource("90"), "MaskAnimations", "EnterBattleEngagement", SubResource("91"), "MaskAnimations", "ExitBattleEngagement", SubResource("92"), "ExitBattleEngagement", "MaskAnimations", SubResource("93"), "EnterBattleEngagement", "MaskAnimations", SubResource("94"), "BattleAnimations", "MaskAnimations", SubResource("95"), "MaskAnimations", "BattleAnimations", SubResource("96"), "DefaultAnimations", "CustomAnimations", SubResource("105"), "CustomAnimations", "DefaultAnimations", SubResource("106"), "CustomAnimations", "BattleAnimations", SubResource("107"), "BattleAnimations", "CustomAnimations", SubResource("108")]
-graph_offset = Vector2(18.6862, 105.582)
+graph_offset = Vector2(18.6862, 169.385)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="103"]
 
@@ -769,6 +775,10 @@ graph_offset = Vector2(18.6862, 105.582)
 [sub_resource type="AnimationNodeStateMachinePlayback" id="109"]
 
 [node name="AnimationContainer" instance=ExtResource("1")]
+_anim_states = {
+"Battle": PackedStringArray("Attack"),
+"Default": PackedStringArray("Idle", "Walk", "Run")
+}
 anim_mask_dict = {
 "Battle": {
 "Idle": "BattleIdle",
@@ -782,7 +792,6 @@ anim_mask_dict = {
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(1, -9)
 texture = ExtResource("2")
-flip_h = true
 hframes = 3
 vframes = 8
 
@@ -795,11 +804,13 @@ libraries = {
 tree_root = SubResource("118")
 parameters/playback = SubResource("103")
 parameters/BattleAnimations/playback = SubResource("119")
-parameters/BattleAnimations/Attack/blend_position = Vector2(0.00512826, -0.981308)
+parameters/BattleAnimations/Attack/blend_position = Vector2(-0.00480771, 1)
 parameters/CustomAnimations/playback = SubResource("113")
 parameters/DefaultAnimations/playback = SubResource("120")
 parameters/DefaultAnimations/Idle/blend_position = Vector2(-0.00454545, 0.962963)
 parameters/MaskAnimations/playback = SubResource("109")
 parameters/MaskAnimations/conditions/enter_battle = true
 parameters/MaskAnimations/BattleIdle/blend_position = Vector2(0, 0)
-parameters/MaskAnimations/BattleMove/blend_position = Vector2(0, 0)
+parameters/MaskAnimations/BattleMove/blend_position = Vector2(0.00721157, 0.976048)
+
+[connection signal="animation_started" from="AnimationTree" to="." method="_on_animation_tree_animation_started"]

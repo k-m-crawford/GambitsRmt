@@ -1,8 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb1i3mvafyudc"]
+[gd_scene load_steps=15 format=3 uid="uid://cb1i3mvafyudc"]
 
 [ext_resource type="PackedScene" uid="uid://bnx5aoj6s8cya" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cwyphjtupjj1h" path="res://Entity/EnemyEntity/Imp/ImpAnimationContainer.tscn" id="2"]
+[ext_resource type="Resource" uid="uid://ohr53lmuq451" path="res://Common/Gambits/MeleAttackGambitAction.tres" id="2_a2aib"]
 [ext_resource type="Resource" uid="uid://lj0axlyf0oqf" path="res://Entity/AllyEntity/DefaultStats.tres" id="3"]
+[ext_resource type="Script" path="res://Gambit.gd" id="3_188ol"]
+
+[sub_resource type="Resource" id="Resource_pdq8g"]
+script = ExtResource("3_188ol")
+gambit_name = "Ally: Closest"
+target = 1
+trigger = 6
+trigger_val = -1.0
+condition = 6
+action = ExtResource("2_a2aib")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f27pj"]
+radius = 9.0
+height = 24.0
 
 [sub_resource type="CircleShape2D" id="5"]
 radius = 150.0
@@ -20,26 +35,34 @@ radius = 25.0
 resource_local_to_scene = true
 radius = 150.0
 
+[sub_resource type="CapsuleShape2D" id="4"]
+radius = 7.0
+height = 25.0
+
+[sub_resource type="CapsuleShape2D" id="7"]
+radius = 8.0
+height = 22.0
+
 [node name="Imp" instance=ExtResource("1")]
+gambits = Array[ExtResource("3_188ol")]([SubResource("Resource_pdq8g")])
 stats = ExtResource("3")
-
-[node name="AttackPivot" parent="." index="2"]
-position = Vector2(0, -13)
-
-[node name="Hitbox" parent="AttackPivot" index="0"]
-collision_layer = 1
-collision_mask = 1
-
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(0, -8)
-
-[node name="FSM" parent="." index="4"]
 debug = true
 
-[node name="AnimationContainer" parent="." index="5" instance=ExtResource("2")]
+[node name="MovementCollider" parent="." index="1"]
+visible = true
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_f27pj")
+debug_color = Color(1, 0.345098, 1, 0.419608)
+
+[node name="RangeAreas" parent="." index="2"]
+visible = false
 
 [node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
 shape = SubResource("5")
+
+[node name="EngagementArea" parent="RangeAreas" index="1"]
+collision_layer = 0
+collision_mask = 256
 
 [node name="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
 shape = SubResource("6")
@@ -51,8 +74,27 @@ shape = SubResource("3")
 shape = SubResource("2")
 
 [node name="RangeArea" parent="RangeAreas" index="4"]
-collision_layer = 1
-collision_mask = 1
+collision_mask = 256
 
 [node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
 shape = SubResource("CircleShape2D_lioio")
+
+[node name="FSM" parent="." index="3"]
+debug = true
+
+[node name="AttackPivot" parent="." index="4"]
+position = Vector2(0, -6)
+gizmo_extents = 1.0
+
+[node name="Hitbox" parent="AttackPivot" index="0"]
+position = Vector2(0, -18)
+
+[node name="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
+shape = SubResource("4")
+
+[node name="AnimationContainer" parent="." index="5" instance=ExtResource("2")]
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("7")
+debug_color = Color(0.0588235, 1, 1, 0.419608)

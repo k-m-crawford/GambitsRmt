@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4nygpccli4f4"]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://Common/FSM/FSM.gd" id="1_mi0g2"]
-[ext_resource type="Script" path="res://Entity/AllyEntity/AllyBattleMoveState.gd" id="3_hp3lx"]
+[ext_resource type="Script" path="res://Entity/AllyEntity/AIBattleMoveState.gd" id="3_hp3lx"]
 [ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="3_lnefx"]
 [ext_resource type="Script" path="res://Entity/AllyEntity/AllyMoveState.gd" id="4_uraqw"]
 

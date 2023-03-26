@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxl2spnhga0xg"]
+[gd_scene load_steps=10 format=3 uid="uid://bxl2spnhga0xg"]
 
 [ext_resource type="PackedScene" uid="uid://dm8s56tq2k0sp" path="res://Entity/Entity.tscn" id="1_vr656"]
+[ext_resource type="Script" path="res://Entity/BattleEntity.gd" id="2_ooku8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oxs64"]
 radius = 150.0
@@ -18,18 +19,21 @@ radius = 25.0
 resource_local_to_scene = true
 radius = 150.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2nclw"]
+resource_local_to_scene = true
+radius = 7.0
+height = 25.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7v61j"]
+resource_local_to_scene = true
+
 [node name="BattleEntity" instance=ExtResource("1_vr656")]
 collision_layer = 0
 collision_mask = 0
+script = ExtResource("2_ooku8")
+gambits = Array[Resource("res://Gambit.gd")]([])
 
-[node name="Hitbox" parent="AttackPivot" index="0"]
-collision_mask = 0
-
-[node name="Hurtbox" parent="." index="3"]
-collision_layer = 0
-collision_mask = 0
-
-[node name="RangeAreas" type="Node2D" parent="." index="4"]
+[node name="RangeAreas" type="Node2D" parent="." index="2"]
 
 [node name="ChaseArea" type="Area2D" parent="RangeAreas" index="0"]
 visible = false
@@ -73,3 +77,21 @@ collision_mask = 768
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
 shape = SubResource("CircleShape2D_dyofn")
 debug_color = Color(0.247059, 0, 0.14902, 0.419608)
+
+[node name="AttackPivot" type="Marker2D" parent="." index="3"]
+
+[node name="Hitbox" type="Area2D" parent="AttackPivot" index="0"]
+position = Vector2(0, 3)
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
+position = Vector2(0, 18)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2nclw")
+
+[node name="Hurtbox" type="Area2D" parent="." index="4"]
+process_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CapsuleShape2D_7v61j")

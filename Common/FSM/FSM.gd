@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 # and calls its enter function.
 # It optionally takes a `msg` dictionary to pass to the next state's enter() function.
 func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
-	if debug:
+	if entity.debug:
 		print(entity.name, " ", state.name, " -> ", target_state_name)
 	
 	# Safety check, you could use an assert() here to report an error if the state name is incorrect.

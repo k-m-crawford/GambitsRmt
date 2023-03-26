@@ -26,6 +26,9 @@ signal deal_damage(amount, entity)
 var target_entity:BattleEntity = null
 var target_entities = []
 var target_idx = 0
+var stun_tick = 0
+var knockback_tick = 0
+var knockback_vec = Vector2.ZERO
 
 var action_queue = null
 
@@ -37,38 +40,38 @@ func _ready():
 	deal_damage.connect(manager.deal_damage)
 
 
-func update_blend_positions(direction):
+func update_blend_positions(_direction):
 	
-	if abs(direction.x) > abs(direction.y):
-		if direction.x < 0:
+	if abs(_direction.x) > abs(_direction.y):
+		if _direction.x < 0:
 			attack_pivot.rotation_degrees = 90
 		else:
 			attack_pivot.rotation_degrees = 270
 	else:
-		if direction.y > 0:
+		if _direction.y > 0:
 			attack_pivot.rotation_degrees = 0
 		else:
 			attack_pivot.rotation_degrees = 180
 
-	super.update_blend_positions(direction)
+	super.update_blend_positions(_direction)
 
 
-func _animation_handler(anim):
-	
+func _animation_handler(anim_name):
+	print("in anim handler")
 	# reverse look up from anim mask dict to properly transition
 	# TODO: method for if one animation used for multiple masks
 	for k in anim_container.anim_mask_dict.keys():
 		for v in anim_container.anim_mask_dict[k].values():
-			if v == anim:
-				anim = anim_container.anim_mask_dict[k].find_key(v)
+			if v == anim_name:
+				anim_name = anim_container.anim_mask_dict[k].find_key(v)
 	
-	match anim:
+	match anim_name:
 		"EnterBattleEngagement":
 			_FSM.transition_to("BATTLE_MOVE")
 		"ExitBattleEngagement":
 			_FSM.transition_to("MOVE")
 		_:
-			if anim in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
+			if anim_name in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
 				_FSM.transition_to("BATTLE_MOVE", {"from_attack":1})
 			
 
@@ -77,3 +80,23 @@ func destroy_target_lines():
 	for l in get_children():
 		if "TargetLines" in l.get_groups():
 			l.kill(TargetIndicator.KILL and TargetIndicator.FADE)
+
+
+func _physics_process(delta):
+	if knockback_tick > 100:
+		apply_knockback(delta)
+
+
+func apply_knockback(delta):
+	velocity = velocity.move_toward(knockback_vec * 10,  
+									1000 * delta)
+	nav_agent.set_velocity(velocity)
+	set_velocity(velocity)
+	move_and_slide()
+	
+	knockback_tick -= delta
+
+
+func set_knockback(dir):
+	knockback_vec = dir
+	knockback_tick = 1

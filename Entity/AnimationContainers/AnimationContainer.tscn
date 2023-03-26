@@ -509,7 +509,7 @@ states/ExitBattleEngagement/position = Vector2(427, 387)
 states/MaskAnimations/node = SubResource("88")
 states/MaskAnimations/position = Vector2(427, 252)
 transitions = ["BattleAnimations", "ExitBattleEngagement", SubResource("84"), "ExitBattleEngagement", "DefaultAnimations", SubResource("85"), "EnterBattleEngagement", "BattleAnimations", SubResource("86"), "DefaultAnimations", "EnterBattleEngagement", SubResource("87"), "MaskAnimations", "DefaultAnimations", SubResource("89"), "DefaultAnimations", "MaskAnimations", SubResource("90"), "MaskAnimations", "EnterBattleEngagement", SubResource("91"), "MaskAnimations", "ExitBattleEngagement", SubResource("92"), "ExitBattleEngagement", "MaskAnimations", SubResource("93"), "EnterBattleEngagement", "MaskAnimations", SubResource("94"), "BattleAnimations", "MaskAnimations", SubResource("95"), "MaskAnimations", "BattleAnimations", SubResource("96"), "DefaultAnimations", "CustomAnimations", SubResource("105"), "CustomAnimations", "DefaultAnimations", SubResource("106"), "CustomAnimations", "BattleAnimations", SubResource("107"), "BattleAnimations", "CustomAnimations", SubResource("108")]
-graph_offset = Vector2(-175.241, 105.582)
+graph_offset = Vector2(-43.5137, 105.582)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="2"]
 
