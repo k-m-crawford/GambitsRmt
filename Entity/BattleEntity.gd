@@ -40,20 +40,20 @@ func _ready():
 	deal_damage.connect(manager.deal_damage)
 
 
-func update_blend_positions(direction):
+func update_blend_positions(_direction):
 	
-	if abs(direction.x) > abs(direction.y):
-		if direction.x < 0:
+	if abs(_direction.x) > abs(_direction.y):
+		if _direction.x < 0:
 			attack_pivot.rotation_degrees = 90
 		else:
 			attack_pivot.rotation_degrees = 270
 	else:
-		if direction.y > 0:
+		if _direction.y > 0:
 			attack_pivot.rotation_degrees = 0
 		else:
 			attack_pivot.rotation_degrees = 180
 
-	super.update_blend_positions(direction)
+	super.update_blend_positions(_direction)
 
 
 func _animation_handler(anim_name):
@@ -83,12 +83,12 @@ func destroy_target_lines():
 
 
 func _physics_process(delta):
-	if knockback_tick > 0:
+	if knockback_tick > 100:
 		apply_knockback(delta)
 
 
 func apply_knockback(delta):
-	velocity = velocity.move_toward(knockback_vec * 250,  
+	velocity = velocity.move_toward(knockback_vec * 10,  
 									1000 * delta)
 	nav_agent.set_velocity(velocity)
 	set_velocity(velocity)

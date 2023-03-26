@@ -39,22 +39,48 @@ position = Vector2(360, 182)
 
 [node name="Ally" parent="EntityManager" instance=ExtResource("2")]
 position = Vector2(-235, -18)
+collision_mask = 256
+motion_mode = 0
+platform_floor_layers = 4294967295
 gambits = Array[ExtResource("3_qkcf4")]([SubResource("Resource_kt2v2"), SubResource("Resource_ymhfe")])
 debug = true
 
 [node name="Imp" parent="EntityManager" instance=ExtResource("4")]
 position = Vector2(-184, -37)
 collision_mask = 0
+motion_mode = 0
+platform_floor_layers = 4294967295
+
+[node name="Imp2" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-311, -135)
+collision_mask = 0
+motion_mode = 0
+platform_floor_layers = 4294967295
+
+[node name="Imp3" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-148, -201)
+collision_mask = 0
+motion_mode = 0
+platform_floor_layers = 4294967295
+
+[node name="Imp4" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-230, -128)
+collision_mask = 0
+motion_mode = 0
+platform_floor_layers = 4294967295
 
 [node name="Ally2" parent="EntityManager" instance=ExtResource("5_dgwi2")]
+platform_floor_layers = 4294967295
 _leader_entity_path = NodePath("../Ally")
 
 [node name="Ally3" parent="EntityManager" instance=ExtResource("5_dgwi2")]
 position = Vector2(-138, 57)
+platform_floor_layers = 4294967295
 _leader_entity_path = NodePath("../Ally")
 
 [node name="Ally4" parent="EntityManager" instance=ExtResource("5_dgwi2")]
 position = Vector2(-111, -72)
+platform_floor_layers = 4294967295
 _leader_entity_path = NodePath("../Ally")
 
 [node name="FPS" parent="." instance=ExtResource("5")]

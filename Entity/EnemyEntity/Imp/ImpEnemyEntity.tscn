@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cb1i3mvafyudc"]
+[gd_scene load_steps=15 format=3 uid="uid://cb1i3mvafyudc"]
 
 [ext_resource type="PackedScene" uid="uid://bnx5aoj6s8cya" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cwyphjtupjj1h" path="res://Entity/EnemyEntity/Imp/ImpAnimationContainer.tscn" id="2"]
@@ -14,6 +14,10 @@ trigger = 6
 trigger_val = -1.0
 condition = 6
 action = ExtResource("2_a2aib")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f27pj"]
+radius = 9.0
+height = 24.0
 
 [sub_resource type="CircleShape2D" id="5"]
 radius = 150.0
@@ -36,11 +40,22 @@ radius = 7.0
 height = 25.0
 
 [sub_resource type="CapsuleShape2D" id="7"]
+radius = 8.0
+height = 22.0
 
 [node name="Imp" instance=ExtResource("1")]
 gambits = Array[ExtResource("3_188ol")]([SubResource("Resource_pdq8g")])
 stats = ExtResource("3")
 debug = true
+
+[node name="MovementCollider" parent="." index="1"]
+visible = true
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_f27pj")
+debug_color = Color(1, 0.345098, 1, 0.419608)
+
+[node name="RangeAreas" parent="." index="2"]
+visible = false
 
 [node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
 shape = SubResource("5")

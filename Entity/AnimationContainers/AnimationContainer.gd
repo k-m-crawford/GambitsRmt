@@ -18,6 +18,7 @@ extends Node2D
 @export var default_anim:String
 
 @onready var texture = $Sprite2D
+@onready var anim = $AnimationPlayer
 @onready var anim_tree = $AnimationTree
 @onready var anim_tree_root = $AnimationTree.get("parameters/playback")
 @onready var anim_masks = $AnimationTree.get("parameters/MaskAnimations/playback")
@@ -39,6 +40,11 @@ func set_textures(_type):
 
 # update all blend states for this animation container
 func update_blend_positions(direction):
+	
+	direction = direction.round()
+	
+	
+	
 	for state in anim_states.keys():
 		for anim in anim_states[state][1]:
 			anim_tree.set("parameters/" + state + "Animations/" + 

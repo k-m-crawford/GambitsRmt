@@ -29,6 +29,9 @@ height = 25.0
 gambits = Array[ExtResource("2_e6sdk")]([SubResource("Resource_ymhfe"), null])
 stats = ExtResource("9")
 
+[node name="MovementCollider" parent="." index="1"]
+position = Vector2(0, 0)
+
 [node name="RangeArea" parent="RangeAreas" index="4"]
 collision_layer = 1
 

@@ -11,7 +11,6 @@ func _init():
 
 
 func manual_movement(max_speed, delta, direction_override=null):
-	var direction
 	# calculate direction
 	direction = Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
