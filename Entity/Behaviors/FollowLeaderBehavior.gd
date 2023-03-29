@@ -18,19 +18,18 @@ func move(delta) -> bool:
 		
 		if entity.leader_run_stray.overlaps_body(entity.leader_entity):
 			entity.move_nav_agent(entity.leader_entity.global_position, delta)
-			entity.anim_container.set_anim("Walk", "Default")
 			return true
 
 		else:
 			entity.move_nav_agent(entity.leader_entity.global_position,
 					delta, entity.stats.max_run_speed)
-			entity.anim_container.set_anim("Run", "Default")	
+			entity.anim_container.set_anim("Run")
 			return false
 
 	# close to leader, stop walking
 	else:
 		if entity.velocity == Vector2.ZERO:
-			entity.anim_container.set_anim("Idle", "Default")
+			entity.anim_container.set_anim("Idle")
 			return true
 			
 		else:

@@ -8,30 +8,20 @@
 class_name AnimationContainer
 extends Node2D
 
-# states: format -> { state_name : [list of anims for state] }
-@export var _anim_states = {}
-# anim masks for states
-# format -> { state_name : { anim_name : anim_mask } }
-# replaces anim_name for state_name with anim_mask
-@export var anim_mask_dict = {}
-@export var default_state:String
-@export var default_anim:String
 
 @onready var texture = $Sprite2D
 @onready var anim = $AnimationPlayer
-@onready var anim_tree = $AnimationTree
-@onready var anim_tree_root = $AnimationTree.get("parameters/playback")
-@onready var anim_masks = $AnimationTree.get("parameters/MaskAnimations/playback")
+@onready var direction = "Down"
 
-var anim_states = {}
 
 signal animation_finished(anim)
 
-func initialize():
-	for k in _anim_states.keys():
-		anim_states[k] = [$AnimationTree.get("parameters/" + k + "Animations/playback"), _anim_states[k]]
+func _ready():
+	anim.play("Idle/Down")
 
-	anim_tree.active = true
+
+func hook(e:Entity):
+	anim.animation_finished.connect(e._animation_handler)
 
 
 func set_textures(_type):
@@ -39,52 +29,28 @@ func set_textures(_type):
 
 
 # update all blend states for this animation container
-func update_blend_positions(direction):
+func update_blend_positions(_direction):
+	var dirvec = _direction.round()
 	
-	direction = direction.round()
-	
-	
-	
-	for state in anim_states.keys():
-		for anim in anim_states[state][1]:
-			anim_tree.set("parameters/" + state + "Animations/" + 
-								anim + "/blend_position", direction)
-	
-	for k in anim_mask_dict.keys():
-		for v in anim_mask_dict[k].values():
-			anim_tree.set("parameters/MaskAnimations/" + v + "/blend_position", direction)
+	if dirvec.x < 0:
+		direction = "Left"
+	elif dirvec.x > 0:
+		direction = "Right"
+	elif dirvec.y > 0:
+		direction = "Down"
+	elif dirvec.y < 0:
+		direction = "Up"
 
 
 # change to a new state machine (set of animations) to the animation
 # no animation -> default anim for that state machine
-func set_anim(anim, state, _flags={}):
-	if state == "Battle": 
-		print("playing anim ", anim)
-		print(state in anim_mask_dict.keys())
-	if state in anim_mask_dict.keys() \
-		and anim in anim_mask_dict[state].keys():
-			print("traveling to mask anim ", state, anim)
-			# it is, travel to the mask animation state & play the mask
-			anim_tree_root.travel("MaskAnimations")
-			anim_masks.travel(anim_mask_dict[state][anim])
-			
-	elif state == "root":
-		anim_tree_root.travel(anim)
-		
+func set_anim(s_anim, no_dir=false):
+	if no_dir:
+		anim.play(s_anim)
 	else:
-		anim_tree_root.travel(state + "Animations")
-		anim_states[state][0].travel(anim)
+		anim.play(s_anim + "/" + direction)
 
-		if state == "Battle":
-			print("traveling to ", state, "Animations, anim ", anim)
-			print(anim_states[state])
-			print(anim_tree_root.get_current_node())
-			print(anim_states[state][0].get_current_node())
 
 func move_layer(node_path:String, layer:int):
 	move_child(get_node(node_path), layer)
 
-
-func _on_animation_tree_animation_started(anim_name):
-	if anim_name.contains("Attack"):
-		print("START ", anim_name)

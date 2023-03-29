@@ -10,7 +10,6 @@ signal deal_damage(amount, entity)
 
 @export var gambits: Array[Gambit] = []
 
-
 @onready var leader_stray:Area2D = get_node_or_null("RangeAreas/LeaderStray")
 @onready var leader_run_stray:Area2D = get_node_or_null("RangeAreas/LeaderRunStray")
 @onready var engagement_area:Area2D = get_node_or_null("RangeAreas/EngagementArea")
@@ -22,13 +21,14 @@ signal deal_damage(amount, entity)
 @onready var hurtbox:Area2D = get_node_or_null("Hurtbox")
 @onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
 @onready var target_lines:Node2D = get_node_or_null("TargetLines")
+@onready var effects_player:AnimationPlayer = get_node_or_null("EffectsPlayer")
 
 var target_entity:BattleEntity = null
+var prev_target:BattleEntity = null
 var target_entities = []
 var target_idx = 0
 var stun_tick = 0
-var knockback_tick = 0
-var knockback_vec = Vector2.ZERO
+var interruptible = true
 
 var action_queue = null
 
@@ -56,22 +56,14 @@ func update_blend_positions(_direction):
 	super.update_blend_positions(_direction)
 
 
-func _animation_handler(anim_name):
-	print("in anim handler")
-	# reverse look up from anim mask dict to properly transition
-	# TODO: method for if one animation used for multiple masks
-	for k in anim_container.anim_mask_dict.keys():
-		for v in anim_container.anim_mask_dict[k].values():
-			if v == anim_name:
-				anim_name = anim_container.anim_mask_dict[k].find_key(v)
-	
+func _animation_handler(anim_name):	
 	match anim_name:
 		"EnterBattleEngagement":
 			_FSM.transition_to("BATTLE_MOVE")
 		"ExitBattleEngagement":
 			_FSM.transition_to("MOVE")
 		_:
-			if anim_name in ["AttackUp","AttackDown","AttackLeft","AttackRight"]:
+			if "Attack" in anim_name	:
 				_FSM.transition_to("BATTLE_MOVE", {"from_attack":1})
 			
 
@@ -82,21 +74,4 @@ func destroy_target_lines():
 			l.kill(TargetIndicator.KILL and TargetIndicator.FADE)
 
 
-func _physics_process(delta):
-	if knockback_tick > 100:
-		apply_knockback(delta)
-
-
-func apply_knockback(delta):
-	velocity = velocity.move_toward(knockback_vec * 10,  
-									1000 * delta)
-	nav_agent.set_velocity(velocity)
-	set_velocity(velocity)
-	move_and_slide()
-	
-	knockback_tick -= delta
-
-
-func set_knockback(dir):
-	knockback_vec = dir
-	knockback_tick = 1
+func is_interruptible(): return interruptible

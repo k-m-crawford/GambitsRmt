@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://b13n1ej60ub2w"]
+[gd_scene load_steps=11 format=3 uid="uid://b13n1ej60ub2w"]
 
 [ext_resource type="PackedScene" uid="uid://dr0t27wrw5bn4" path="res://Entity/EntityManager/EntityManager.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://yfxb51mjd0xs" path="res://Entity/LeaderEntity/LeaderEntity.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://tjrtj0m3efp7" path="res://Entity/LeaderEntity/LeaderEntity.tscn" id="2"]
+[ext_resource type="Resource" uid="uid://ohr53lmuq451" path="res://Common/Gambits/MeleAttackGambitAction.tres" id="3_hm6s5"]
 [ext_resource type="Script" path="res://Gambit.gd" id="3_qkcf4"]
 [ext_resource type="PackedScene" uid="uid://cb1i3mvafyudc" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
-[ext_resource type="PackedScene" uid="uid://cmhxdotvlkgfy" path="res://Entity/AllyEntity/AllyEntity.tscn" id="5_dgwi2"]
+[ext_resource type="PackedScene" uid="uid://de7niwp0cfqra" path="res://Entity/AllyEntity/AllyEntity.tscn" id="5_dgwi2"]
+[ext_resource type="Texture2D" uid="uid://d4flatsjwq5vu" path="res://Maps/ForestBase/gentle trees 80x96 v01.png" id="6_654a6"]
 
 [sub_resource type="NavigationPolygon" id="1"]
 vertices = PackedVector2Array(742, 398, -208, 407, -485, -393, 748, -444)
@@ -19,14 +21,7 @@ target = 0
 trigger = 6
 trigger_val = 0.0
 condition = 6
-
-[sub_resource type="Resource" id="Resource_ymhfe"]
-script = ExtResource("3_qkcf4")
-gambit_name = "Foe: HP < 0%"
-target = 0
-trigger = 0
-trigger_val = 0.0
-condition = 1
+action = ExtResource("3_hm6s5")
 
 [node name="Map" type="Node2D"]
 
@@ -39,48 +34,34 @@ position = Vector2(360, 182)
 
 [node name="Ally" parent="EntityManager" instance=ExtResource("2")]
 position = Vector2(-235, -18)
-collision_mask = 256
-motion_mode = 0
 platform_floor_layers = 4294967295
-gambits = Array[ExtResource("3_qkcf4")]([SubResource("Resource_kt2v2"), SubResource("Resource_ymhfe")])
-debug = true
-
-[node name="Imp" parent="EntityManager" instance=ExtResource("4")]
-position = Vector2(-184, -37)
-collision_mask = 0
-motion_mode = 0
-platform_floor_layers = 4294967295
-
-[node name="Imp2" parent="EntityManager" instance=ExtResource("4")]
-position = Vector2(-311, -135)
-collision_mask = 0
-motion_mode = 0
-platform_floor_layers = 4294967295
-
-[node name="Imp3" parent="EntityManager" instance=ExtResource("4")]
-position = Vector2(-148, -201)
-collision_mask = 0
-motion_mode = 0
-platform_floor_layers = 4294967295
-
-[node name="Imp4" parent="EntityManager" instance=ExtResource("4")]
-position = Vector2(-230, -128)
-collision_mask = 0
-motion_mode = 0
-platform_floor_layers = 4294967295
+gambits = Array[ExtResource("3_qkcf4")]([SubResource("Resource_kt2v2")])
 
 [node name="Ally2" parent="EntityManager" instance=ExtResource("5_dgwi2")]
-platform_floor_layers = 4294967295
+position = Vector2(-372, -119)
 _leader_entity_path = NodePath("../Ally")
 
 [node name="Ally3" parent="EntityManager" instance=ExtResource("5_dgwi2")]
-position = Vector2(-138, 57)
-platform_floor_layers = 4294967295
+position = Vector2(-167, -109)
 _leader_entity_path = NodePath("../Ally")
 
-[node name="Ally4" parent="EntityManager" instance=ExtResource("5_dgwi2")]
-position = Vector2(-111, -72)
+[node name="Imp" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-184, -37)
 platform_floor_layers = 4294967295
-_leader_entity_path = NodePath("../Ally")
+debug = false
+
+[node name="Imp2" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-252, -54)
+platform_floor_layers = 4294967295
+debug = false
+
+[node name="Imp3" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-269, -118)
+platform_floor_layers = 4294967295
+debug = false
 
 [node name="FPS" parent="." instance=ExtResource("5")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(336, 37)
+texture = ExtResource("6_654a6")

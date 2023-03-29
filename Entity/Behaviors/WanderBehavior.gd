@@ -36,7 +36,7 @@ func move(delta):
 		if entity.nav_agent.is_navigation_finished():
 #			
 			if entity.velocity == Vector2.ZERO:
-				entity.anim_container.set_anim("Idle", "Default")
+				entity.anim_container.set_anim("Idle")
 				timer.start()
 			else:
 				entity.slow_to_stop(delta)
@@ -47,4 +47,4 @@ func move(delta):
 				delta, 
 				entity.stats.max_walk_speed
 			)
-			entity.anim_container.set_anim("Walk", "Default")
+			entity.anim_container.set_anim("Move")

@@ -7,6 +7,3 @@ script = ExtResource("1_sevba")
 action_name = "Attack"
 execution_range = 0
 targeting_range = 150
-action_bits = Array[Resource("res://Common/Gambits/GambitActionBit.gd")]([null, null])
-conditionals = {}
-trigger_index = 0

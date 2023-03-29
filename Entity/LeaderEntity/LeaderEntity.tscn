@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://yfxb51mjd0xs"]
+[gd_scene load_steps=12 format=3 uid="uid://tjrtj0m3efp7"]
 
-[ext_resource type="PackedScene" uid="uid://cmhxdotvlkgfy" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
+[ext_resource type="PackedScene" uid="uid://de7niwp0cfqra" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
 [ext_resource type="Script" path="res://Gambit.gd" id="2_e6sdk"]
 [ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="2_j5tty"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" id="3_t71ut"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderMoveState.gd" id="4_c3fi4"]
-[ext_resource type="Script" path="res://Entity/LeaderEntity/AttackState.gd" id="5_ea4ha"]
+[ext_resource type="Script" path="res://Common/FSM/AttackState.gd" id="4_ii71q"]
+[ext_resource type="Script" path="res://Common/FSM/KnockbackState.gd" id="8_dd5t0"]
 [ext_resource type="Resource" uid="uid://bglkimog4pd10" path="res://Entity/AllyEntity/BrynhildrStats.tres" id="9"]
 
 [sub_resource type="Resource" id="Resource_ymhfe"]
@@ -40,9 +41,10 @@ shape = SubResource("CircleShape2D_r5fno")
 
 [node name="FSM" parent="." index="4"]
 state_scripts = {
-"ATTACK": ExtResource("5_ea4ha"),
+"ATTACK": ExtResource("4_ii71q"),
 "BATTLE_ENGAGE": ExtResource("2_j5tty"),
 "BATTLE_MOVE": ExtResource("3_t71ut"),
+"KNOCKBACK": ExtResource("8_dd5t0"),
 "MOVE": ExtResource("4_c3fi4")
 }
 
