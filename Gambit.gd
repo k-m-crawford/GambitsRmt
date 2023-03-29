@@ -39,7 +39,7 @@ enum Trigger {
 
 
 func evaluate_gambit(e) -> BattleEntity:
-#	print(target, trigger, trigger_val, condition, action)
+	
 	e.range_area_shape.shape.radius = action.targeting_range
 	var target_pool = e.range_area.get_overlapping_bodies()
 	
@@ -52,7 +52,6 @@ func evaluate_gambit(e) -> BattleEntity:
 			target_pool = [e]
 			
 	if target_pool.size() < 1: return null
-	
 	
 	var trigger_get_func:Callable
 	var trigger_cap_get_func:Callable
@@ -108,7 +107,7 @@ func evaluate_gambit(e) -> BattleEntity:
 			)
 			target_pool = [target_pool[0]]
 
-		Condition.HIGHEST:
+		Condition.LOWEST:
 			target_pool.sort_custom(func(a, b): return \
 					trigger_get_func.call(a) < \
 					trigger_get_func.call(b)
@@ -141,10 +140,12 @@ static func do_gambit_ladder(e):
 		gambit_action = e.gambits[g].action
 
 	if gambit_target != null:
+		e.prev_target = e.target_entity
 		e.action_queue = gambit_action
 		e.target_entity = gambit_target
 	else:
 		e.action_queue = null
+		e.target_entity = null
 		e.target_entities = null
 	
 	e.emit_signal("set_target_entity", e)

@@ -9,6 +9,7 @@ extends CanvasLayer
 	$ActionMenu/VBoxContainer/Command3
 ]
 @onready var action_menu = $ActionMenu
+@onready var party_stats = $PartyStats
 
 var active = false
 var selected = 0
@@ -62,4 +63,3 @@ func activate():
 		pointer.position = pointer_default_pos
 		
 	active = !active
-		

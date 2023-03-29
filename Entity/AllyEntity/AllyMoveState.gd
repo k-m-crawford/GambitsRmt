@@ -9,7 +9,7 @@ enum {
 var mood = FOLLOW_LEADER
 
 func enter(_msg := {}) -> void:
-	entity.anim_container.set_anim("Idle", "Default")
+	entity.anim_container.set_anim("Idle")
 	entity.anim_container.set_textures("Move")
 
 

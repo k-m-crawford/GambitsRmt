@@ -1,10 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://cb1i3mvafyudc"]
+[gd_scene load_steps=20 format=3 uid="uid://cb1i3mvafyudc"]
 
-[ext_resource type="PackedScene" uid="uid://bnx5aoj6s8cya" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://grf4i4csusit" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://cwyphjtupjj1h" path="res://Entity/EnemyEntity/Imp/ImpAnimationContainer.tscn" id="2"]
 [ext_resource type="Resource" uid="uid://ohr53lmuq451" path="res://Common/Gambits/MeleAttackGambitAction.tres" id="2_a2aib"]
 [ext_resource type="Resource" uid="uid://lj0axlyf0oqf" path="res://Entity/AllyEntity/DefaultStats.tres" id="3"]
 [ext_resource type="Script" path="res://Gambit.gd" id="3_188ol"]
+[ext_resource type="Script" path="res://Common/FSM/AttackState.gd" id="5_646u6"]
+[ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="6_d4h0v"]
+[ext_resource type="Script" path="res://Common/FSM/AIBattleMoveState.gd" id="7_32d0k"]
+[ext_resource type="Script" path="res://Entity/EnemyEntity/EnemyMoveState.gd" id="8_n5ubu"]
+[ext_resource type="Script" path="res://Common/FSM/KnockbackState.gd" id="9_5lf3n"]
 
 [sub_resource type="Resource" id="Resource_pdq8g"]
 script = ExtResource("3_188ol")
@@ -16,8 +21,8 @@ condition = 6
 action = ExtResource("2_a2aib")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f27pj"]
-radius = 9.0
-height = 24.0
+radius = 7.5
+height = 15.0
 
 [sub_resource type="CircleShape2D" id="5"]
 radius = 150.0
@@ -50,7 +55,8 @@ debug = true
 
 [node name="MovementCollider" parent="." index="1"]
 visible = true
-position = Vector2(0, -8)
+top_level = true
+position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_f27pj")
 debug_color = Color(1, 0.345098, 1, 0.419608)
 
@@ -80,19 +86,29 @@ collision_mask = 256
 shape = SubResource("CircleShape2D_lioio")
 
 [node name="FSM" parent="." index="3"]
+state_scripts = {
+"ATTACK": ExtResource("5_646u6"),
+"BATTLE_ENGAGE": ExtResource("6_d4h0v"),
+"BATTLE_MOVE": ExtResource("7_32d0k"),
+"KNOCKBACK": ExtResource("9_5lf3n"),
+"MOVE": ExtResource("8_n5ubu")
+}
 debug = true
 
 [node name="AttackPivot" parent="." index="4"]
-position = Vector2(0, -6)
-gizmo_extents = 1.0
+position = Vector2(0, -8)
 
 [node name="Hitbox" parent="AttackPivot" index="0"]
 position = Vector2(0, -18)
 
 [node name="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
+position = Vector2(0, 22)
 shape = SubResource("4")
 
 [node name="AnimationContainer" parent="." index="5" instance=ExtResource("2")]
+
+[node name="Hurtbox" parent="." index="6"]
+visible = false
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, -8)

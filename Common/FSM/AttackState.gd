@@ -8,7 +8,7 @@ func initialize(_msg := {}) -> void:
 
 func enter(_msg := {}) -> void:
 	entity.stun_tick = 1
-	entity.anim_container.set_anim("Attack", "Battle")
+	entity.anim_container.set_anim("Attack")
 	
 	var hits = entity.hitbox.get_overlapping_areas()
 	

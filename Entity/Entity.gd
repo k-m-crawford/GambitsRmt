@@ -11,17 +11,18 @@ enum {
 }
 
 # EXPORTS
-@export_category("Behaviors")
-@export var FSM_Type:String
+@export var debug = false
+
 @export var _leader_entity_path:NodePath
+
 @export var _behaviors = {
 	"Wander": true,
 	"FollowLeader": true
 }
-@export var anim_handler:Resource
+
 @export var friction:int
 @export var stats:Resource
-@export var debug = false
+@export var _FSM:FSM
 
 
 # ONREADY
@@ -29,7 +30,6 @@ enum {
 @onready var nav_agent:NavigationAgent2D = get_node_or_null("NavigationAgent2D")
 
 @onready var manager = get_node_or_null("..")
-@onready var _FSM = get_node_or_null("FSM")
 
 var anim_state
 var leader_entity:Entity
@@ -48,10 +48,9 @@ func _ready():
 			"FollowLeader":
 				behaviors[k] = FollowLeaderBehavior.new(self)
 	
-	anim_container.initialize()
-	_FSM.initialize()
 	
-	anim_container.anim_tree.animation_finished.connect(_animation_handler)
+	_FSM.initialize()
+	anim_container.hook(self)
 
 
 func set_leader_entity(_leader_entity):
@@ -59,6 +58,7 @@ func set_leader_entity(_leader_entity):
 
 
 func move_nav_agent(location, delta, speed=80):
+	
 	nav_agent.set_target_position(location)
 		
 	direction = global_position.direction_to(nav_agent.get_next_path_position())
@@ -67,7 +67,7 @@ func move_nav_agent(location, delta, speed=80):
 	velocity = velocity.move_toward(direction * speed,  
 									stats.acceleration * delta)
 	nav_agent.set_velocity(velocity)
-	set_velocity(velocity)
+#	set_velocity(velocity)
 	move_and_slide()
 	
 	update_blend_positions(direction)
@@ -83,9 +83,8 @@ func update_blend_positions(_direction):
 	anim_container.update_blend_positions(_direction)
 
 
-func _animation_handler(anim):
-	if anim_handler:
-		anim_handler.main(anim)
+func _animation_handler(_anim):
+	pass
 
 
 func signal_lock():

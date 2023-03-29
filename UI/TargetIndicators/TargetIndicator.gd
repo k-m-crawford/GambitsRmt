@@ -19,7 +19,7 @@ var kill_sig = 0
 
 var tick: float = 0
 var tick_cap = 0.025
-var kill_tick = 2
+var kill_tick = 1
 var fade_tick = 1
 
 var alpha = 1.0

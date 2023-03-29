@@ -29,7 +29,7 @@ func _ready():
 		ally.battle_engagement.connect(on_battle_engagement)
 		
 	if ally_entities.size() > 0:
-		camera.follow_entities(ally_entities)
+		camera.follow_entities([ally_entities[0]])
 	
 	set_process(true)
 	
@@ -105,19 +105,33 @@ func _on_FieldUI_field_menu_closed():
 func deal_damage(attacker, defender):
 	var dmg = randi() % (attacker.stats.stn - defender.stats.vit) + 1
 	defender.stats.hp -= dmg
+	defender.effects_player.play("HurtFlash")
+	
+	if defender.is_in_group("Allies"):
+		field_ui.party_stats.update_hitpoints(defender.stats)
+
+	if defender.is_interruptible():
+		defender._FSM.transition_to(
+			"KNOCKBACK",
+			{
+				"knockback_vec": -defender.global_position.direction_to(attacker.global_position),
+				"return_state": defender._FSM.state.name
+			}
+		)
 
 	var inst = damage_label.instantiate()
 	get_parent().add_child(inst)
 	inst._execute(dmg, defender.get_global_position())
-	
-	defender.set_knockback(attacker.direction)
 
 
 # TODO: add AOE targeting
 func set_target_entity(source, type="Friendly", _AOE=false):
 	source.destroy_target_lines()
+	
+	print(source.target_entity == source.prev_target)
+	print(source.target_entity, source.prev_target)
 
-	if source.target_entity != null:
+	if source.target_entity != null and source.target_entity != source.prev_target:
 			var _target_curve = self.target_curve.instantiate()
 			_target_curve.setup(source, source.target_entity, type, false)
 

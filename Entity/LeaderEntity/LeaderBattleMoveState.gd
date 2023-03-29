@@ -12,16 +12,16 @@ func exit() -> void:
 func initialize(_msg := {}) -> void:
 	# warning-ignore:return_value_discarded
 	entity.chase_area.connect("area_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity))
-# warning-ignore:return_value_discarded
+	# warning-ignore:return_value_discarded
 	entity.chase_area.connect("area_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
 
 
 func enter(_msg := {}) -> void:
 	signal_lock = false
 	entity.anim_container.set_textures("BattleEngagedMove")
-	entity.anim_container.set_anim("Idle", "Battle")
+	entity.anim_container.set_anim("BattleIdle")
 #	if "from_attack" not in msg:
-#		Targeting.update_target_entities(entity)
+#	Targeting.update_target_entities(entity)
 
 
 func handle_input(event: InputEvent) -> void:
@@ -54,11 +54,11 @@ func physics_update(delta) -> void:
 	var direction = entity.manual_movement(85, delta, direction_override)
 	
 	if direction != Vector2.ZERO:
-		entity.anim_container.set_anim("Walk", "Battle")
+		entity.anim_container.set_anim("BattleMove")
 	
 	else:
 		entity.velocity = entity.velocity.move_toward(Vector2.ZERO, entity.friction * delta)
-		entity.anim_container.set_anim("Idle", "Battle")
+		entity.anim_container.set_anim("BattleMove")
 
 	entity.set_velocity(entity.velocity)
 	entity.move_and_slide()
