@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cmfuf36x0h50l"]
+[gd_scene load_steps=70 format=3 uid="uid://cmfuf36x0h50l"]
 
 [ext_resource type="Script" path="res://Entity/AnimationContainers/AnimationContainer.gd" id="1"]
 
@@ -344,6 +344,22 @@ _data = {
 "Up": SubResource("Animation_hsfe7")
 }
 
+[sub_resource type="Animation" id="Animation_22b3a"]
+
+[sub_resource type="Animation" id="Animation_s51re"]
+
+[sub_resource type="Animation" id="Animation_bxhia"]
+
+[sub_resource type="Animation" id="Animation_25e1f"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bbwdo"]
+_data = {
+"Down": SubResource("Animation_s51re"),
+"Left": SubResource("Animation_bxhia"),
+"Right": SubResource("Animation_25e1f"),
+"Up": SubResource("Animation_22b3a")
+}
+
 [sub_resource type="Animation" id="Animation_hx3bs"]
 resource_name = "IdleDown"
 length = 0.1
@@ -482,6 +498,28 @@ _data = {
 "Up": SubResource("Animation_ph1mj")
 }
 
+[sub_resource type="Animation" id="Animation_qqrsi"]
+resource_name = "HurtFlash"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4i7m0"]
+_data = {
+"HurtFlash": SubResource("Animation_qqrsi")
+}
+
 [node name="AnimationContainer" type="Node2D"]
 script = ExtResource("1")
 
@@ -493,7 +531,14 @@ libraries = {
 "Attack": SubResource("AnimationLibrary_lbmgh"),
 "BattleIdle": SubResource("AnimationLibrary_dxam8"),
 "BattleMove": SubResource("AnimationLibrary_ruwaf"),
+"Hit": SubResource("AnimationLibrary_bbwdo"),
 "Idle": SubResource("AnimationLibrary_5k35u"),
 "Move": SubResource("AnimationLibrary_qm7ea"),
 "Run": SubResource("AnimationLibrary_5xlxj")
+}
+
+[node name="EffectsPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+libraries = {
+"": SubResource("AnimationLibrary_4i7m0")
 }

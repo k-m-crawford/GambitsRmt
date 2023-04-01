@@ -22,6 +22,7 @@ func _init(_entity=null):
 
 
 func start_wander():
+	_b.debug("begin wander", entity)
 	wander_target =  entity.global_position + Vector2(
 			randi()%300 - 150, 
 			randi()%300 - 150
@@ -34,7 +35,6 @@ func move(delta):
 	if timer.is_stopped():
 	# stop walking if you're in a reasonable distance
 		if entity.nav_agent.is_navigation_finished():
-#			
 			if entity.velocity == Vector2.ZERO:
 				entity.anim_container.set_anim("Idle")
 				timer.start()

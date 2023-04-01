@@ -10,22 +10,24 @@ func exit() -> void:
 
 
 func initialize(_msg := {}) -> void:
+	pass
 	# warning-ignore:return_value_discarded
-	entity.chase_area.connect("area_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity))
+#	entity.chase_area.connect("area_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity))
 	# warning-ignore:return_value_discarded
-	entity.chase_area.connect("area_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
+#	entity.chase_area.connect("area_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
 
 
 func enter(_msg := {}) -> void:
 	signal_lock = false
 	entity.anim_container.set_textures("BattleEngagedMove")
 	entity.anim_container.set_anim("BattleIdle")
-#	if "from_attack" not in msg:
-#	Targeting.update_target_entities(entity)
-
+	
+	# retrieve a target (closest)
+	entity.update_target_entity(
+		Gambit.get_next_target(entity, "Enemies")
+	)
 
 func handle_input(event: InputEvent) -> void:
-
 	if event.is_action_pressed("ui_accept") and entity.stun_tick <= 0:
 		entity._FSM.transition_to("ATTACK")
 
@@ -33,10 +35,14 @@ func handle_input(event: InputEvent) -> void:
 		entity.emit_signal("battle_engagement")
 
 	elif event.is_action_pressed("ui_focus_next"):
-		Targeting.get_next_target(1, entity)
+		entity.update_target_entity(
+			Gambit.get_next_target(entity, "Enemies", 1)
+		)
 
 	elif event.is_action_pressed("ui_focus_prev"):
-		Targeting.get_next_target(-1, entity)
+		entity.update_target_entity(
+			Gambit.get_next_target(entity, "Enemies", -1)
+		)
 
 
 func physics_update(delta) -> void:
@@ -46,9 +52,9 @@ func physics_update(delta) -> void:
 	
 	var direction_override = null
 	
-	if entity.target_entities.size() > 0:
-		direction_override = entity.position.direction_to(
-			entity.target_entities[entity.target_idx].position
+	if entity.target_entity != null:
+		direction_override = entity.global_position.direction_to(
+			entity.target_entity.global_position
 		)
 	
 	var direction = entity.manual_movement(85, delta, direction_override)
@@ -58,7 +64,7 @@ func physics_update(delta) -> void:
 	
 	else:
 		entity.velocity = entity.velocity.move_toward(Vector2.ZERO, entity.friction * delta)
-		entity.anim_container.set_anim("BattleMove")
+		entity.anim_container.set_anim("BattleIdle")
 
 	entity.set_velocity(entity.velocity)
 	entity.move_and_slide()

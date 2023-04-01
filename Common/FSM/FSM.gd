@@ -7,8 +7,8 @@ extends Node
 @export var start_state:String
 @export var debug:bool
 
-@onready var state = State.new()
-@onready var states := {}
+var state = State.new()
+var states := {}
 
 var entity:Entity
 var flags = []
@@ -16,8 +16,8 @@ var flags = []
 # Emitted when transitioning to a new state.
 signal transitioned(state_name)
 		
-func initialize() -> void:
-	entity = get_parent()
+func hook(e) -> void:
+	entity = e
 	
 	for key in state_scripts.keys():
 		states[key] = state_scripts[key].new()
@@ -82,3 +82,17 @@ func set_flag(flag):
 
 func check_flag(flag):
 	return flags.has(flag)
+
+
+func switch_reserve_movement():
+	var temp = states["MOVE"]
+	states["MOVE"] = states["RESERVE_MOVE"]
+	states["RESERVE_MOVE"] = temp
+	temp = states["BATTLE_MOVE"]
+	states["BATTLE_MOVE"] = states["RESERVE_BATTLE_MOVE"]
+	states["RESERVE_BATTLE_MOVE"] = temp
+	transition_to(state.name)
+	states["MOVE"].name = "MOVE"
+	states["BATTLE_MOVE"].name = "BATTLE_MOVE"
+	states["RESERVE_MOVE"].name = "RESERVE_MOVE"
+	states["RESERVE_BATTLE_MOVE"].name = "RESERVE_BATTLE_MOVE"

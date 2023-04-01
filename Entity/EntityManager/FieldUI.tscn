@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cslxfhh3r5hq7" path="res://UI/Sprites/Cursor.png" id="1"]
 [ext_resource type="Theme" uid="uid://7l22upj7t1q7" path="res://UI/DefaultUITheme.tres" id="2_7k1p8"]
 [ext_resource type="Texture2D" uid="uid://b1qlx277g7jwu" path="res://UI/Sprites/gui_gradient.png" id="4"]
-[ext_resource type="Script" path="res://Entity/EntityManager/PartyStats.gd" id="5"]
+[ext_resource type="Script" path="res://Entity/EntityManager/PartyStatsUI.gd" id="5"]
 [ext_resource type="Script" path="res://Entity/EntityManager/FieldUI.gd" id="6"]
 
 [sub_resource type="AtlasTexture" id="10"]

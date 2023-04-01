@@ -23,13 +23,21 @@ var target_select:TargetIndicatorCircle
 
 func _ready():
 	
-	for ally in get_tree().get_nodes_in_group("Allies"):
-		ally_entities.append(ally)
-		ally.request_leader_change.connect(get_next_leader)
-		ally.battle_engagement.connect(on_battle_engagement)
-		
+	for e in get_children():
+		#TODO: decouple UI from Entity Manager so dont have to do this
+		if e.get_class() == "CharacterBody2D": 
+			e.hook(self)
+		if e  in get_tree().get_nodes_in_group("Allies"):
+			ally_entities.append(e)
+			e.request_leader_change.connect(get_next_leader)
+			e.battle_engagement.connect(on_battle_engagement)
+			e.set_leader_entity(ally_entities[0])
+	
 	if ally_entities.size() > 0:
+		ally_entities[0].switch_leader_state()
 		camera.follow_entities([ally_entities[0]])
+		
+#	camera.follow_entities([$Imp])
 	
 	set_process(true)
 	
@@ -60,25 +68,9 @@ func get_next_leader(dir):
 	var active_ally:Entity = ally_entities[active_idx]
 	var next_ally:Entity = ally_entities[next_idx]
 	
-	# retrieve active and next ally FSMs
-	var active_ally_fsm:FSM = active_ally.get_node("FSM")
-	var next_ally_fsm:FSM = next_ally.get_node("FSM")
+	active_ally.switch_leader_state()
+	next_ally.switch_leader_state()
 	
-	# remove FSMs
-	active_ally.remove_child(active_ally_fsm)
-	next_ally.remove_child(next_ally_fsm)
-	
-	# switch FSMs
-	active_ally.add_child(next_ally_fsm)
-	next_ally_fsm.reparent_fsm(active_ally)
-	next_ally_fsm.set_owner(active_ally)
-	next_ally.add_child(active_ally_fsm)
-	active_ally_fsm.reparent_fsm(next_ally)
-	active_ally_fsm.set_owner(next_ally)
-	
-	# get camera
-	
-		
 	# set new leader entity for all entities
 	for ally_entity in ally_entities:
 		if ally_entity != next_ally:
@@ -102,10 +94,13 @@ func _on_FieldUI_field_menu_closed():
 	field_menu = false
 
 
-func deal_damage(attacker, defender):
+func deal_damage(attacker:BattleEntity, defender:BattleEntity):
+	
 	var dmg = randi() % (attacker.stats.stn - defender.stats.vit) + 1
 	defender.stats.hp -= dmg
-	defender.effects_player.play("HurtFlash")
+#	defender.anim_container.set_textures("DrawWeapon")
+#	defender.anim_container.set_anim("Hit")
+	defender.anim_container.play_effect("HurtFlash")
 	
 	if defender.is_in_group("Allies"):
 		field_ui.party_stats.update_hitpoints(defender.stats)
@@ -127,12 +122,7 @@ func deal_damage(attacker, defender):
 # TODO: add AOE targeting
 func set_target_entity(source, type="Friendly", _AOE=false):
 	source.destroy_target_lines()
-	
-	print(source.target_entity == source.prev_target)
-	print(source.target_entity, source.prev_target)
-
+	_b.debug("TARGETS " + str(source.target_entity), source)
 	if source.target_entity != null and source.target_entity != source.prev_target:
 			var _target_curve = self.target_curve.instantiate()
 			_target_curve.setup(source, source.target_entity, type, false)
-
-

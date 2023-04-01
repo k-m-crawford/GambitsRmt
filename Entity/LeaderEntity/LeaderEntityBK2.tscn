@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://tjrtj0m3efp7"]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="PackedScene" uid="uid://de7niwp0cfqra" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
-[ext_resource type="Script" path="res://Gambit.gd" id="2_e6sdk"]
+[ext_resource type="PackedScene" uid="uid://6772grslueoo" path="res://Entity/AllyEntity/AllyEntity.tscn" id="1_vg7n7"]
+[ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="2_e6sdk"]
 [ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="2_j5tty"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" id="3_t71ut"]
 [ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderMoveState.gd" id="4_c3fi4"]

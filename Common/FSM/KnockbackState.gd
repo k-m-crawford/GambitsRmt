@@ -7,6 +7,9 @@ var knockback_tick = 0
 
 func enter(msg:={}):
 	knockback_vec = msg["knockback_vec"]
+	
+	_b.debug("RET STATE" + msg["return_state"], entity)
+	
 	if msg["return_state"] != "KNOCKBACK": return_state = msg["return_state"]
 	knockback_tick += 0.1
 	

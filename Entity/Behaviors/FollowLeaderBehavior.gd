@@ -18,6 +18,7 @@ func move(delta) -> bool:
 		
 		if entity.leader_run_stray.overlaps_body(entity.leader_entity):
 			entity.move_nav_agent(entity.leader_entity.global_position, delta)
+			entity.anim_container.set_anim("Move")
 			return true
 
 		else:

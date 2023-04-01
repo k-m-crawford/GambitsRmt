@@ -16,6 +16,11 @@ func _ready():
 		hps[i].visible = true
 		
 		i -= 1
+	
+	while i >= 0:
+		names[i].visible = false
+		hps[i].visible = false
+		i -= 1
 
 
 func update_hitpoints(who):

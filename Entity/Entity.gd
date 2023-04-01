@@ -13,25 +13,30 @@ enum {
 # EXPORTS
 @export var debug = false
 
-@export var _leader_entity_path:NodePath
+#@export_group("Animation")
+#@export var _animation_container:PackedScene
 
+@export_group("FSM")
+@export var __FSM:PackedScene
+@export_enum("Allies", "Enemies", "NPCs") var group_type: String
+
+@export_group("Stats")
+@export var stats:EntityStats
+@export var friction:int
+
+@export_group("Behaviors")
 @export var _behaviors = {
 	"Wander": true,
 	"FollowLeader": true
 }
-
-@export var friction:int
-@export var stats:Resource
-@export var _FSM:FSM
-
+@export var _leader_entity_path:NodePath
 
 # ONREADY
 @onready var anim_container:AnimationContainer = get_node_or_null("AnimationContainer")
 @onready var nav_agent:NavigationAgent2D = get_node_or_null("NavigationAgent2D")
 
-@onready var manager = get_node_or_null("..")
-
 var anim_state
+var _FSM:FSM
 var leader_entity:Entity
 var behaviors = {}
 var direction:Vector2 = Vector2.ZERO
@@ -39,18 +44,22 @@ var direction:Vector2 = Vector2.ZERO
 
 func _ready():
 	if _leader_entity_path: leader_entity = get_node(_leader_entity_path)
-
+	
+	add_to_group(group_type)
+	
 	for k in _behaviors.keys():
 		match k:
 			"Wander":
 				behaviors[k] = WanderBehavior.new(self)
-
+				
 			"FollowLeader":
 				behaviors[k] = FollowLeaderBehavior.new(self)
-	
-	
-	_FSM.initialize()
+
 	anim_container.hook(self)
+	
+	_FSM = __FSM.instantiate()
+	self.add_child(_FSM)
+	_FSM.hook(self)
 
 
 func set_leader_entity(_leader_entity):
@@ -74,9 +83,9 @@ func move_nav_agent(location, delta, speed=80):
 
 
 func slow_to_stop(delta):
-	nav_agent.set_target_position(global_position)
 	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 	nav_agent.set_velocity(velocity)
+	move_and_slide()
 
 
 func update_blend_positions(_direction):

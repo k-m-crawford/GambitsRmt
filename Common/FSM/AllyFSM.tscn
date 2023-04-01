@@ -1,0 +1,21 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjrbvej5ix2qx"]
+
+[ext_resource type="PackedScene" uid="uid://qlk7aokie45h" path="res://Common/FSM/BattlerFSM.tscn" id="1_g0dl7"]
+[ext_resource type="Script" path="res://Common/FSM/AttackState.gd" id="2_55lcn"]
+[ext_resource type="Script" path="res://Common/FSM/BattleEngageState.gd" id="3_bntda"]
+[ext_resource type="Script" path="res://Common/FSM/AIBattleMoveState.gd" id="4_wx4lg"]
+[ext_resource type="Script" path="res://Common/FSM/KnockbackState.gd" id="5_8dyto"]
+[ext_resource type="Script" path="res://Entity/AllyEntity/AllyMoveState.gd" id="6_lsqnn"]
+[ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderMoveState.gd" id="7_vtner"]
+[ext_resource type="Script" path="res://Entity/LeaderEntity/LeaderBattleMoveState.gd" id="8_med0c"]
+
+[node name="FSM" instance=ExtResource("1_g0dl7")]
+state_scripts = {
+"ATTACK": ExtResource("2_55lcn"),
+"BATTLE_ENGAGE": ExtResource("3_bntda"),
+"BATTLE_MOVE": ExtResource("4_wx4lg"),
+"KNOCKBACK": ExtResource("5_8dyto"),
+"MOVE": ExtResource("6_lsqnn"),
+"RESERVE_BATTLE_MOVE": ExtResource("8_med0c"),
+"RESERVE_MOVE": ExtResource("7_vtner")
+}

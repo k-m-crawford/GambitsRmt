@@ -149,3 +149,27 @@ static func do_gambit_ladder(e):
 		e.target_entities = null
 	
 	e.emit_signal("set_target_entity", e)
+
+
+# get next manual target within range of e given entity
+static func get_next_target(e:BattleEntity, group:String, dir=0):
+	
+	# TODO: add default "weapon" ranges
+	var target_pool = e.range_area.get_overlapping_bodies()
+	target_pool = target_pool.filter(func(e): return e.is_in_group(group))
+	
+	target_pool.sort_custom(func(a, b): return \
+			a.global_position.distance_to(e.global_position) < \
+			b.global_position.distance_to(e.global_position)
+	)
+	
+	if target_pool.size() < 1: return null
+	
+	var i = 0
+	if e.target_entity != null:
+		i = target_pool.find(e.target_entity) + dir
+		
+		if i < 0: i = target_pool.size() - 1
+		if i >= target_pool.size(): i = 0
+	
+	return target_pool[i]

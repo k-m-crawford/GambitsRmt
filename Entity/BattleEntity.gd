@@ -7,6 +7,8 @@ signal battle_engagement
 signal set_target_entity(source, flags, type, AOE)
 # warning-ignore:unused_signal
 signal deal_damage(amount, entity)
+# warning-ignore:unused_signal
+signal request_leader_change(dir)
 
 @export var gambits: Array[Gambit] = []
 
@@ -21,7 +23,6 @@ signal deal_damage(amount, entity)
 @onready var hurtbox:Area2D = get_node_or_null("Hurtbox")
 @onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
 @onready var target_lines:Node2D = get_node_or_null("TargetLines")
-@onready var effects_player:AnimationPlayer = get_node_or_null("EffectsPlayer")
 
 var target_entity:BattleEntity = null
 var prev_target:BattleEntity = null
@@ -34,6 +35,9 @@ var action_queue = null
 
 func _ready():
 	super._ready()
+
+
+func hook(manager):
 	# warning-ignore:return_value_discarded
 	set_target_entity.connect(manager.set_target_entity)
 	# warning-ignore:return_value_discarded
@@ -41,7 +45,6 @@ func _ready():
 
 
 func update_blend_positions(_direction):
-	
 	if abs(_direction.x) > abs(_direction.y):
 		if _direction.x < 0:
 			attack_pivot.rotation_degrees = 90
@@ -52,7 +55,6 @@ func update_blend_positions(_direction):
 			attack_pivot.rotation_degrees = 0
 		else:
 			attack_pivot.rotation_degrees = 180
-
 	super.update_blend_positions(_direction)
 
 
@@ -63,9 +65,8 @@ func _animation_handler(anim_name):
 		"ExitBattleEngagement":
 			_FSM.transition_to("MOVE")
 		_:
-			if "Attack" in anim_name	:
+			if "Attack" in anim_name:
 				_FSM.transition_to("BATTLE_MOVE", {"from_attack":1})
-			
 
 
 func destroy_target_lines():
@@ -74,4 +75,34 @@ func destroy_target_lines():
 			l.kill(TargetIndicator.KILL and TargetIndicator.FADE)
 
 
+func manual_movement(max_speed, delta, direction_override=null):
+	# calculate direction
+	direction = Vector2(
+		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	)
+	direction = direction.normalized()
+	if direction != Vector2.ZERO:
+		
+		velocity = velocity.move_toward(direction * max_speed, \
+										stats.acceleration * delta)
+		if direction_override:
+			update_blend_positions(direction_override)
+		else:
+			update_blend_positions(direction)
+	
+	return direction
+
+
 func is_interruptible(): return interruptible
+
+
+func switch_leader_state():
+	_FSM.switch_reserve_movement()
+
+
+func update_target_entity(s_target_entity:BattleEntity):
+	prev_target = target_entity
+	target_entity = s_target_entity
+	print("TARGET", target_entity)
+	emit_signal("set_target_entity", self)

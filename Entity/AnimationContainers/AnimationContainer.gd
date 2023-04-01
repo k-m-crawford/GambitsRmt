@@ -12,7 +12,7 @@ extends Node2D
 @onready var texture = $Sprite2D
 @onready var anim = $AnimationPlayer
 @onready var direction = "Down"
-
+@onready var effects_player:AnimationPlayer = get_node_or_null("EffectsPlayer")
 
 signal animation_finished(anim)
 
@@ -45,7 +45,11 @@ func update_blend_positions(_direction):
 # change to a new state machine (set of animations) to the animation
 # no animation -> default anim for that state machine
 func set_anim(s_anim, no_dir=false):
-	if no_dir:
+	
+	if anim.get_assigned_animation() == s_anim + "/" + direction or \
+			anim.get_assigned_animation() == s_anim:
+		return
+	elif no_dir:
 		anim.play(s_anim)
 	else:
 		anim.play(s_anim + "/" + direction)
@@ -54,3 +58,6 @@ func set_anim(s_anim, no_dir=false):
 func move_layer(node_path:String, layer:int):
 	move_child(get_node(node_path), layer)
 
+
+func play_effect(effect:String):
+	effects_player.play(effect)

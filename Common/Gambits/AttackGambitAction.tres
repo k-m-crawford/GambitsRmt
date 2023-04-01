@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="GambitAction" load_steps=2 format=3 uid="uid://xtisw4yg1tt2"]
-
-[ext_resource type="Script" path="res://Common/Gambits/GambitAction.gd" id="1_sevba"]
-
-[resource]
-script = ExtResource("1_sevba")
-action_name = "Attack"
-execution_range = 0
-targeting_range = 150
