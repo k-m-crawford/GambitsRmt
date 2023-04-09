@@ -66,17 +66,15 @@ func set_leader_entity(_leader_entity):
 	leader_entity = _leader_entity
 
 
-func move_nav_agent(location, delta, speed=80):
-	
+func move_nav_agent(location, delta):
 	nav_agent.set_target_position(location)
 		
 	direction = global_position.direction_to(nav_agent.get_next_path_position())
 	direction = direction.normalized()
 	
-	velocity = velocity.move_toward(direction * speed,  
+	velocity = velocity.move_toward(direction * stats.max_walk_speed,  
 									stats.acceleration * delta)
 	nav_agent.set_velocity(velocity)
-#	set_velocity(velocity)
 	move_and_slide()
 	
 	update_blend_positions(direction)

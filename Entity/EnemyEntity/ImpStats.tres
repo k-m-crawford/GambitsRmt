@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BattleStats" load_steps=2 format=3 uid="uid://whdq2dum165a"]
+
+[ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1_meinv"]
+
+[resource]
+script = ExtResource("1_meinv")
+name = "Imp"
+lvl = 1
+max_hp = 126
+hp = 126
+max_mp = 10
+mp = 10
+stn = 26
+vit = 17
+mag = 14
+spr = 12
+acc = 1.0
+eva = 0.0
+max_walk_speed = 80
+max_run_speed = 130
+acceleration = 500

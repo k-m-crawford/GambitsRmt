@@ -1,0 +1,21 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://qxqaqtn0mv1b"]
+
+[resource]
+lifetime_randomness = 0.1
+emission_shape = 6
+emission_ring_axis = Vector3(0, 10, 1)
+emission_ring_height = 5.0
+emission_ring_radius = 10.0
+emission_ring_inner_radius = 5.0
+particle_flag_disable_z = true
+gravity = Vector3(0, -72, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_max = 10.0
+scale_max = 2.0
+color = Color(0.0470588, 0.545098, 0.811765, 1)
+hue_variation_min = -0.02
+hue_variation_max = 0.02
+turbulence_noise_speed = Vector3(0, 0, 0)
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.05

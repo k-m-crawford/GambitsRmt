@@ -23,7 +23,7 @@ func enter(_msg := {}) -> void:
 	entity.anim_container.set_anim("BattleIdle")
 	
 	# retrieve a target (closest)
-	entity.update_target_entity(
+	entity.set_target_entity(
 		Gambit.get_next_target(entity, "Enemies")
 	)
 
@@ -35,12 +35,12 @@ func handle_input(event: InputEvent) -> void:
 		entity.emit_signal("battle_engagement")
 
 	elif event.is_action_pressed("ui_focus_next"):
-		entity.update_target_entity(
+		entity.set_target_entity(
 			Gambit.get_next_target(entity, "Enemies", 1)
 		)
 
 	elif event.is_action_pressed("ui_focus_prev"):
-		entity.update_target_entity(
+		entity.set_target_entity(
 			Gambit.get_next_target(entity, "Enemies", -1)
 		)
 

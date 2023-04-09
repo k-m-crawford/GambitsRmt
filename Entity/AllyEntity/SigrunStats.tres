@@ -5,10 +5,17 @@
 [resource]
 script = ExtResource("1_55sqm")
 name = "SIGRUN"
+lvl = 1
 max_hp = 345
 hp = 345
-stn = 6
-vit = 4
+max_mp = 10
+mp = 10
+stn = 27
+vit = 27
+mag = 25
+spr = 27
+acc = 1.0
+eva = 0.0
 max_walk_speed = 80
 max_run_speed = 130
 acceleration = 500

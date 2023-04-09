@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BattleStats" load_steps=2 format=3 uid="uid://bemehhbs0ddqn"]
+
+[ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1_lvahx"]
+
+[resource]
+script = ExtResource("1_lvahx")
+name = "HEJRA"
+lvl = 1
+max_hp = 220
+hp = 220
+max_mp = 10
+mp = 10
+stn = 27
+vit = 24
+mag = 26
+spr = 28
+acc = 1.0
+eva = 0.0
+max_walk_speed = 80
+max_run_speed = 130
+acceleration = 500

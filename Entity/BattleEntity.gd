@@ -4,9 +4,11 @@ extends Entity
 # warning-ignore:unused_signal
 signal battle_engagement
 # warning-ignore:unused_signal
-signal set_target_entity(source, flags, type, AOE)
+signal to_Manager_set_target_entity(source, flags, type, AOE)
 # warning-ignore:unused_signal
-signal deal_damage(amount, entity)
+signal deal_physical_damage(attacker, defender)
+# warning-ignore:unused_signal
+signal apply_magical_healing(source, target)
 # warning-ignore:unused_signal
 signal request_leader_change(dir)
 
@@ -39,9 +41,11 @@ func _ready():
 
 func hook(manager):
 	# warning-ignore:return_value_discarded
-	set_target_entity.connect(manager.set_target_entity)
+	to_Manager_set_target_entity.connect(manager.set_target_entity)
 	# warning-ignore:return_value_discarded
-	deal_damage.connect(manager.deal_damage)
+	deal_physical_damage.connect(manager.deal_physical_damage)
+	# warning-ignore:return_value_discarded
+	apply_magical_healing.connect(manager.apply_magical_healing)
 
 
 func update_blend_positions(_direction):
@@ -101,8 +105,12 @@ func switch_leader_state():
 	_FSM.switch_reserve_movement()
 
 
-func update_target_entity(s_target_entity:BattleEntity):
+func set_target_entity(s_target_entity:BattleEntity):
 	prev_target = target_entity
 	target_entity = s_target_entity
-	print("TARGET", target_entity)
-	emit_signal("set_target_entity", self)
+#	print("TARGET", target_entity)
+	emit_signal("to_Manager_set_target_entity", self)
+
+
+func pop_action_queue():
+	action_queue = null

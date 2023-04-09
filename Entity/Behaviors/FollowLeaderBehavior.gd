@@ -22,8 +22,7 @@ func move(delta) -> bool:
 			return true
 
 		else:
-			entity.move_nav_agent(entity.leader_entity.global_position,
-					delta, entity.stats.max_run_speed)
+			entity.move_nav_agent(entity.leader_entity.global_position, delta)
 			entity.anim_container.set_anim("Run")
 			return false
 

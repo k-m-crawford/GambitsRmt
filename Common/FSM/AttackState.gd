@@ -14,7 +14,7 @@ func enter(_msg := {}) -> void:
 	
 	for hit in hits:
 		entity.emit_signal(
-			"deal_damage", 
+			"deal_physical_damage", 
 			entity,
 			hit.get_parent()
 		)

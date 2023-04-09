@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://6772grslueoo"]
 
-[ext_resource type="PackedScene" uid="uid://qlk7aokie45h" path="res://Common/FSM/BattlerFSM.tscn" id="2_ennk2"]
+[ext_resource type="PackedScene" uid="uid://bjrbvej5ix2qx" path="res://Common/FSM/AllyFSM.tscn" id="2_xv2ah"]
 [ext_resource type="PackedScene" uid="uid://bxl2spnhga0xg" path="res://Entity/BattleEntity.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://c0wnpc788xiyu" path="res://Entity/AnimationContainers/HumanoidAnimationContainer.tscn" id="10"]
 
@@ -37,14 +37,12 @@ height = 25.0
 collision_layer = 256
 collision_mask = 768
 debug = false
-__FSM = ExtResource("2_ennk2")
+__FSM = ExtResource("2_xv2ah")
 stats = null
 friction = 0
 
 [node name="MovementCollider" parent="." index="1"]
 visible = true
-top_level = true
-position = Vector2(-1, 5)
 shape = SubResource("CapsuleShape2D_sfp32")
 
 [node name="AnimationContainer" parent="." index="2" instance=ExtResource("10")]

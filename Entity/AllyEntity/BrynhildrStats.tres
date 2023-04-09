@@ -5,12 +5,15 @@
 [resource]
 script = ExtResource("1")
 name = "BRYNHILDR"
+lvl = 1
 max_hp = 166
 hp = 166
-stn = 6
-vit = 4
-mag = 10
-spr = 10
+max_mp = 10
+mp = 10
+stn = 26
+vit = 24
+mag = 28
+spr = 27
 acc = 1.0
 eva = 0.0
 max_walk_speed = 80

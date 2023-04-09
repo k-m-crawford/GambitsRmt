@@ -94,9 +94,10 @@ func _on_FieldUI_field_menu_closed():
 	field_menu = false
 
 
-func deal_damage(attacker:BattleEntity, defender:BattleEntity):
-	
-	var dmg = randi() % (attacker.stats.stn - defender.stats.vit) + 1
+func deal_physical_damage(attacker:BattleEntity, defender:BattleEntity):
+	var dmg:int = (attacker.stats.stn * randf_range(1, 1.125) - defender.stats.vit) * \
+			attacker.stats.stn * (attacker.stats.lvl+attacker.stats.stn)/256
+
 	defender.stats.hp -= dmg
 #	defender.anim_container.set_textures("DrawWeapon")
 #	defender.anim_container.set_anim("Hit")
@@ -105,7 +106,7 @@ func deal_damage(attacker:BattleEntity, defender:BattleEntity):
 	if defender.is_in_group("Allies"):
 		field_ui.party_stats.update_hitpoints(defender.stats)
 
-	if defender.is_interruptible():
+	if defender.is_interruptible(): 	
 		defender._FSM.transition_to(
 			"KNOCKBACK",
 			{
@@ -119,10 +120,27 @@ func deal_damage(attacker:BattleEntity, defender:BattleEntity):
 	inst._execute(dmg, defender.get_global_position())
 
 
+func apply_magical_healing(source:BattleEntity, target:BattleEntity):
+	var dmg:int = 20 * randf_range(1, 1.125) * (2 + source.stats.mag * \
+			(source.stats.lvl+source.stats.mag)/256)
+	
+	target.stats.hp += dmg
+	if target.stats.hp > target.stats.max_hp: target.stats.hp = target.stats.max_hp
+	
+	if target.is_in_group("Allies"):
+		field_ui.party_stats.update_hitpoints(target.stats)
+	
+	var inst = damage_label.instantiate()
+	inst.modulate = Color(0, 1, 0, 1)
+	get_parent().add_child(inst)
+	inst._execute(dmg, target.get_global_position())
+
 # TODO: add AOE targeting
-func set_target_entity(source, type="Friendly", _AOE=false):
+func set_target_entity(source, _AOE=false):
 	source.destroy_target_lines()
-	_b.debug("TARGETS " + str(source.target_entity), source)
+	
+	var type = "Friendly" if source.is_in_group("Allies") else "Antagonistic"
+	
 	if source.target_entity != null and source.target_entity != source.prev_target:
 			var _target_curve = self.target_curve.instantiate()
 			_target_curve.setup(source, source.target_entity, type, false)

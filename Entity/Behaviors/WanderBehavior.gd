@@ -16,13 +16,19 @@ func _init(_entity=null):
 	timer.wait_time = randi() % wait_time_max - 1 + wait_time_min
 	# warning-ignore:return_value_discarded
 	timer.timeout.connect(start_wander)
-
 	entity.add_child(timer)
+
+
+func start_behavior():
+	timer.wait_time = randi() % wait_time_max - 1 + wait_time_min
 	timer.start()
 
 
+func end_behavior():
+	timer.stop()
+
+
 func start_wander():
-	_b.debug("begin wander", entity)
 	wander_target =  entity.global_position + Vector2(
 			randi()%300 - 150, 
 			randi()%300 - 150
@@ -42,9 +48,5 @@ func move(delta):
 				entity.slow_to_stop(delta)
 				
 		else:
-			entity.move_nav_agent(
-				wander_target, 
-				delta, 
-				entity.stats.max_walk_speed
-			)
+			entity.move_nav_agent(wander_target, delta)
 			entity.anim_container.set_anim("Move")

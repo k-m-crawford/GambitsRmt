@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GambitAction" load_steps=2 format=3 uid="uid://w0vy8e2hek0b"]
+
+[ext_resource type="Script" path="res://Common/Gambits/GambitAction.gd" id="1_j7jdu"]
+
+[resource]
+script = ExtResource("1_j7jdu")
+action_name = "Test"
+execution_range = 100.0
+targeting_range = 250.0
+charge_time = 5.0

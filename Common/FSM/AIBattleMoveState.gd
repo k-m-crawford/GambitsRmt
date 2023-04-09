@@ -7,8 +7,8 @@ func enter(_msg := {}) -> void:
 	entity.anim_container.set_anim("BattleIdle")
 
 
-func exit() -> void:
-	entity.action_queue = null
+#func exit() -> void:
+#	entity.action_queue = null
 
 
 func physics_update(delta) -> void:

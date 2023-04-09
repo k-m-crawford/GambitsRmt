@@ -8,8 +8,11 @@ func _while_queued(e:BattleEntity, delta):
 	
 	if e.target_entity.hurtbox in hits:
 		if e.stun_tick <= 0:
+			e.action_queue = null
 			e._FSM.transition_to("ATTACK")
+		else:
+			e.anim_container.set_anim("BattleIdle")
 	
 	else:
-		e.move_nav_agent(e.target_entity.global_position, delta, e.stats.max_walk_speed)
+		e.move_nav_agent(e.target_entity.global_position, delta)
 		e.anim_container.set_anim("BattleMove")

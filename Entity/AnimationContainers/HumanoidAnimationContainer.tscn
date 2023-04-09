@@ -2432,8 +2432,8 @@ _data = {
 "Up": SubResource("Animation_sowxh")
 }
 
-[sub_resource type="Animation" id="Animation_kt454"]
-resource_name = "Right"
+[sub_resource type="Animation" id="Animation_5lsvf"]
+resource_name = "Down"
 length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
@@ -2446,7 +2446,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.00138778),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [21]
+"values": [13]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -2458,7 +2458,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.00138778),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [21]
+"values": [13]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -2470,7 +2470,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [21]
+"values": [13]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -2482,7 +2482,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [21]
+"values": [5]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -2494,7 +2494,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [-1]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_5ge53"]
@@ -2548,6 +2548,71 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [37]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Weapon:z_index")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+
+[sub_resource type="Animation" id="Animation_kt454"]
+resource_name = "Right"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00138778),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hair:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.00138778),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Outfit:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Weapon:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -2625,71 +2690,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [-1]
-}
-
-[sub_resource type="Animation" id="Animation_5lsvf"]
-resource_name = "Down"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.00138778),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [13]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hair:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.00138778),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [13]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Outfit:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [13]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Weapon:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Weapon:z_index")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rg7v3"]
@@ -3277,26 +3277,22 @@ flip_h = true
 texture = ExtResource("2")
 hframes = 8
 vframes = 8
-frame = 2
 
 [node name="Outfit" type="Sprite2D" parent="." index="2"]
 texture = ExtResource("8")
 hframes = 8
 vframes = 8
-frame = 5
 
 [node name="Hair" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("11")
 hframes = 8
 vframes = 8
-frame = 2
 
 [node name="Weapon" type="Sprite2D" parent="." index="4"]
 z_index = -1
 texture = ExtResource("9")
 hframes = 8
 vframes = 8
-frame = 5
 
 [node name="AnimationPlayer" parent="." index="5"]
 libraries = {
@@ -3309,3 +3305,6 @@ libraries = {
 "Move": SubResource("AnimationLibrary_lhqbj"),
 "Run": SubResource("AnimationLibrary_e53d3")
 }
+
+[node name="ParticleEmitter" parent="." index="6"]
+position = Vector2(0, 11)

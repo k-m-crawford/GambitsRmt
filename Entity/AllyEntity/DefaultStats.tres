@@ -5,8 +5,11 @@
 [resource]
 script = ExtResource("1")
 name = "Imp"
+lvl = 1
 max_hp = 126
 hp = 126
+max_mp = 10
+mp = 10
 stn = 3
 vit = 2
 mag = 10

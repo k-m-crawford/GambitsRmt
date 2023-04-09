@@ -11,6 +11,7 @@ extends Node2D
 
 @onready var texture = $Sprite2D
 @onready var anim = $AnimationPlayer
+@onready var emitter = $ParticleEmitter
 @onready var direction = "Down"
 @onready var effects_player:AnimationPlayer = get_node_or_null("EffectsPlayer")
 
@@ -40,7 +41,6 @@ func update_blend_positions(_direction):
 		direction = "Down"
 	elif dirvec.y < 0:
 		direction = "Up"
-
 
 # change to a new state machine (set of animations) to the animation
 # no animation -> default anim for that state machine

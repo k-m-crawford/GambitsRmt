@@ -39,15 +39,15 @@ enum Trigger {
 
 
 func evaluate_gambit(e) -> BattleEntity:
-	
+	_b.debug("evaluating gambit " + gambit_name, e)
 	e.range_area_shape.shape.radius = action.targeting_range
 	var target_pool = e.range_area.get_overlapping_bodies()
 	
 	match target:
 		Target.ALLY:
-			target_pool = target_pool.filter(func(e): return e.is_in_group("Allies"))
+			target_pool = target_pool.filter(func(en): return en.is_in_group("Allies"))
 		Target.ENEMY:
-			target_pool = target_pool.filter(func(e): return e.is_in_group("Enemies"))
+			target_pool = target_pool.filter(func(en): return en.is_in_group("Enemies"))
 		Target.SELF:
 			target_pool = [e]
 			
@@ -58,8 +58,8 @@ func evaluate_gambit(e) -> BattleEntity:
 	
 	match trigger:
 		Trigger.HP:
-			trigger_get_func = func(e): return e.stats.hp 
-			trigger_cap_get_func = func(e): return e.stats.max_hp
+			trigger_get_func = func(e): return float(e.stats.hp)
+			trigger_cap_get_func = func(e): return float(e.stats.max_hp)
 		Trigger.MP:
 			trigger_get_func = func(e): return e.stats.mp
 			trigger_cap_get_func = func(e): return e.stats.max_mp
@@ -71,51 +71,52 @@ func evaluate_gambit(e) -> BattleEntity:
 			target_pool = target_pool.filter(func(e): \
 					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) > trigger_val
 			)
-			target_pool = [target_pool.pick_random()]
+			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 
 		Condition.LESS_THAN:
 			target_pool = target_pool.filter(func(e): \
 					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) < trigger_val
 			)
-			target_pool = [target_pool.pick_random()]
+			_b.debug("target pool after cond " + str(target_pool), e)
+			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 
 		Condition.EQUAL:
 			#TODO: add status support (status is an array)
 			target_pool = target_pool.filter(func(e): \
 					return trigger_get_func.call(e) == trigger_val
 			)
-			target_pool = [target_pool.pick_random()]
+			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 
 		Condition.CLOSEST:
 			target_pool.sort_custom(func(a, b): return \
 					a.global_position.distance_to(e.global_position) < \
 					b.global_position.distance_to(e.global_position)
 			)
-			target_pool = [target_pool[0]]
+			if target_pool.size() > 0: target_pool = [target_pool[0]]
 
 		Condition.FURTHEST:
 			target_pool.sort_custom(func(a, b): return \
 					a.global_position.distance_to(e.global_position) > \
 					b.global_position.distance_to(e.global_position)
 			)
-			target_pool = [target_pool[0]]
+			if target_pool.size() > 0: target_pool = [target_pool[0]]
 
 		Condition.HIGHEST:
 			target_pool.sort_custom(func(a, b): return \
 					trigger_get_func.call(a) > \
 					trigger_get_func.call(b)
 			)
-			target_pool = [target_pool[0]]
+			if target_pool.size() > 0: target_pool = [target_pool[0]]
 
 		Condition.LOWEST:
 			target_pool.sort_custom(func(a, b): return \
 					trigger_get_func.call(a) < \
 					trigger_get_func.call(b)
 			)
-			target_pool = [target_pool[0]]
+			if target_pool.size() > 0: target_pool = [target_pool[0]]
 
 		Condition.ANY:
-			target_pool = [target_pool.pick_random()]
+			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 	
 	if target_pool.size() >= 1: target_pool = target_pool[0]
 	else: return null
@@ -141,14 +142,14 @@ static func do_gambit_ladder(e):
 
 	if gambit_target != null:
 		e.prev_target = e.target_entity
-		e.action_queue = gambit_action
 		e.target_entity = gambit_target
+		gambit_action.enqueue(e)
 	else:
 		e.action_queue = null
 		e.target_entity = null
 		e.target_entities = null
 	
-	e.emit_signal("set_target_entity", e)
+	e.emit_signal("to_Manager_set_target_entity", e)
 
 
 # get next manual target within range of e given entity

@@ -2,6 +2,14 @@ class_name EnemyMoveState
 extends State
 
 
+func enter(_msg:={}):
+	entity.behaviors["Wander"].start_behavior()
+
+
+func exit():
+	entity.behaviors["Wander"].end_behavior()
+
+
 func physics_update(delta) ->  void:
 	if entity.engagement_area.get_overlapping_bodies().size() > 0:
 		entity._FSM.set_flag("BATTLE_ENGAGED")

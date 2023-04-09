@@ -1,15 +1,13 @@
 class_name CureGambitAction
 extends GambitAction
 
+var i_cure_anim = preload("res://Animations/EffectAnimations/CureAnimation.tscn")
 
-func _while_queued(e:BattleEntity, delta):
-	
-	var hits = e.range_area_shape.get_overlapping_areas()
-	
-	if e.target_entity.hurtbox in hits:
-		if e.stun_tick <= 0:
-			pass
-	
-	else:
-		e.move_nav_agent(e.target_entity.global_position, delta, e.stats.max_walk_speed)
-		e.anim_container.set_anim("BattleMove")
+func _execute(e:BattleEntity, _delta):
+	var cure_anim = i_cure_anim.instantiate()
+	e.target_entity.add_child(cure_anim)
+	cure_anim.get_node("AnimationPlayer").play("Default")
+	e.target_entity.anim_container.play_effect("CureFlash")
+	e.pop_action_queue()
+	e.emit_signal("apply_magical_healing", e, e.target_entity)
+	e.stun_tick = randf_range(1, 1.2)
