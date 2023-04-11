@@ -69,6 +69,9 @@ shape = SubResource("2")
 [node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
 shape = SubResource("CircleShape2D_atobf")
 
+[node name="AttackPivot" parent="." index="4"]
+visible = false
+
 [node name="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
 shape = SubResource("CapsuleShape2D_a8ysq")
 

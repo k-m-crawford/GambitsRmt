@@ -141,10 +141,12 @@ static func do_gambit_ladder(e):
 		gambit_action = e.gambits[g].action
 
 	if gambit_target != null:
+		_b.debug("gambit target " + str(gambit_target), e)
 		e.prev_target = e.target_entity
 		e.target_entity = gambit_target
 		gambit_action.enqueue(e)
 	else:
+		_b.debug("no targ", e)
 		e.action_queue = null
 		e.target_entity = null
 		e.target_entities = null

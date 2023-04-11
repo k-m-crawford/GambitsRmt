@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dr0t27wrw5bn4" path="res://Entity/EntityManager/EntityManager.tscn" id="1"]
 [ext_resource type="Script" path="res://Common/Gambits/CureGambitAction.gd" id="3_08em4"]
 [ext_resource type="PackedScene" uid="uid://6772grslueoo" path="res://Entity/AllyEntity/AllyEntity.tscn" id="3_s0ypy"]
-[ext_resource type="PackedScene" uid="uid://cmu5sym2nhyev" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dxkmau03vl7fh" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
 [ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="4_nfr03"]
 [ext_resource type="Resource" uid="uid://bglkimog4pd10" path="res://Entity/AllyEntity/BrynhildrStats.tres" id="4_o8b63"]
 [ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
@@ -50,6 +50,12 @@ navigation_polygon = SubResource("1")
 [node name="EntityManager" parent="." instance=ExtResource("1")]
 position = Vector2(360, 182)
 
+[node name="Imp" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-196, -76)
+
+[node name="Imp2" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-248, 1)
+
 [node name="Ally" parent="EntityManager" instance=ExtResource("3_s0ypy")]
 position = Vector2(-267, -79)
 group_type = "Allies"
@@ -59,13 +65,10 @@ friction = 500
 [node name="Ally2" parent="EntityManager" instance=ExtResource("3_s0ypy")]
 position = Vector2(-222, -142)
 gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_vl4uu"), SubResource("Resource_cwlhw")])
+debug = true
 group_type = "Allies"
 stats = ExtResource("4_o8b63")
 friction = 500
-
-[node name="Enemy" parent="EntityManager" instance=ExtResource("4")]
-position = Vector2(-47, -43)
-debug = true
 
 [node name="FPS" parent="." instance=ExtResource("5")]
 
