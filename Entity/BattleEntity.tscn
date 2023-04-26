@@ -44,6 +44,7 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("2_ooku8")
 gambits = Array[ExtResource("4_pucpq")]([SubResource("Resource_cwlhw")])
+manual_control = false
 debug = true
 stats = ExtResource("4_rb82t")
 friction = 500

@@ -3249,6 +3249,7 @@ _data = {
 }
 
 [node name="AnimationContainer" instance=ExtResource("1")]
+modulate = Color(1, 1, 1, 1)
 script = ExtResource("3")
 battle_textures = {
 "body_p1": ExtResource("5"),
@@ -3308,3 +3309,4 @@ libraries = {
 
 [node name="ParticleEmitter" parent="." index="6"]
 position = Vector2(0, 11)
+emitting = false

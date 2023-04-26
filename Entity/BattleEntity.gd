@@ -13,6 +13,7 @@ signal apply_magical_healing(source, target)
 signal request_leader_change(dir)
 
 @export var gambits: Array[Gambit] = []
+@export var manual_control = false
 
 @onready var leader_stray:Area2D = get_node_or_null("RangeAreas/LeaderStray")
 @onready var leader_run_stray:Area2D = get_node_or_null("RangeAreas/LeaderRunStray")
@@ -37,16 +38,17 @@ var action_queue = null
 
 func _ready():
 	super._ready()
-
-
-func hook(manager):
+	if manual_control:
+		switch_leader_state()
 	# warning-ignore:return_value_discarded
-	to_Manager_set_target_entity.connect(manager.set_target_entity)
+	to_Manager_set_target_entity.connect(EntityMgr.set_target_entity)
 	# warning-ignore:return_value_discarded
-	deal_physical_damage.connect(manager.deal_physical_damage)
+	deal_physical_damage.connect(EntityMgr.deal_physical_damage)
 	# warning-ignore:return_value_discarded
-	apply_magical_healing.connect(manager.apply_magical_healing)
-
+	apply_magical_healing.connect(EntityMgr.apply_magical_healing)
+	battle_engagement.connect(EntityMgr.on_battle_engagement)
+	request_leader_change.connect(EntityMgr.get_next_leader)
+	
 
 func update_blend_positions(_direction):
 	if abs(_direction.x) > abs(_direction.y):

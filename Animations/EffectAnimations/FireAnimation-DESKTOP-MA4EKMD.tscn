@@ -264,7 +264,6 @@ draw_order = 2
 trail_lifetime = 0.4
 
 [node name="Blaze" type="GPUParticles2D" parent="AnimationPlayer"]
-emitting = false
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_rf0c5")
 lifetime = 1.2

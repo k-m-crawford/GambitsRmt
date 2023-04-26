@@ -1,175 +1,76 @@
-[gd_scene load_steps=18 format=3 uid="uid://brhvsqeumqmn"]
+[gd_scene load_steps=10 format=3 uid="uid://brhvsqeumqmn"]
 
-[ext_resource type="Texture2D" uid="uid://c8mide7mk28u2" path="res://Sprites/Heal Effect Sprite Sheet.png" id="1_5wvk2"]
+[ext_resource type="Script" path="res://Animations/EffectAnimations/EffectAnimation.gd" id="1_odgt6"]
+[ext_resource type="Texture2D" uid="uid://cndljioyfunj8" path="res://Sprites/SparkleParticle.png" id="3_o43oj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w7ddt"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(0, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cqy4m"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(0, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jcxuv"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(128, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_od5c7"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(128, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gbxbs"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(128, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ptojx"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(128, 384, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_51sg1"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(256, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mkmrl"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(256, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iiwys"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(256, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b62tl"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(256, 384, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxoij"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(384, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujuwu"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(384, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ai1sy"]
-atlas = ExtResource("1_5wvk2")
-region = Rect2(384, 256, 128, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qo1ua"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w7ddt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cqy4m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jcxuv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_od5c7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gbxbs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ptojx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_51sg1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mkmrl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iiwys")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b62tl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xxoij")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ujuwu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ai1sy")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
-
-[sub_resource type="Animation" id="Animation_dl23e"]
-resource_name = "Default"
-length = 0.8
+[sub_resource type="Animation" id="Animation_lov3e"]
+resource_name = "1"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 12), Vector2(0, -12)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.8),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"default", 1.0, false],
-"method": &"play"
-}]
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_au4y6"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4iio"]
 _data = {
-"Default": SubResource("Animation_dl23e")
+"1": SubResource("Animation_lov3e")
 }
 
-[node name="CureSprite" type="AnimatedSprite2D"]
-position = Vector2(0, 12)
-sprite_frames = SubResource("SpriteFrames_qo1ua")
-autoplay = "default"
-frame = 2
-frame_progress = 0.051942
+[sub_resource type="Gradient" id="Gradient_lej33"]
+offsets = PackedFloat32Array(0, 0.118519, 0.392593, 0.674074, 1)
+colors = PackedColorArray(0, 1, 0, 0, 0, 0.847765, 0, 0.537255, 0, 0.803263, 0, 1, 0, 0.922831, 3.08037e-06, 1, 0, 0.741176, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7ht4w"]
+gradient = SubResource("Gradient_lej33")
+
+[sub_resource type="Curve" id="Curve_vd7yi"]
+_data = [Vector2(0, 0.181818), 0.0, 0.0, 0, 0, Vector2(0.0903615, 1), 0.0, 0.0, 0, 0, Vector2(0.626506, 0.709091), 0.0, 0.0, 0, 0, Vector2(0.975904, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_r3maw"]
+curve = SubResource("Curve_vd7yi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ftv7r"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 25.0
+gravity = Vector3(0, -3, 0)
+initial_velocity_min = -5.0
+initial_velocity_max = 5.0
+angular_velocity_min = 50.0
+angular_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 20.0
+tangential_accel_max = 20.0
+angle_max = 10.0
+scale_curve = SubResource("CurveTexture_r3maw")
+color_ramp = SubResource("GradientTexture1D_7ht4w")
+
+[node name="Animation" type="Node2D"]
+script = ExtResource("1_odgt6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_au4y6")
+"": SubResource("AnimationLibrary_e4iio")
 }
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_ftv7r")
+texture = ExtResource("3_o43oj")
+lifetime = 3.0
+one_shot = true
+speed_scale = 9.0
+fixed_fps = 60
+visibility_rect = Rect2(-47.291, -52.493, 101.22, 93.4147)
+trail_sections = 12
+trail_section_subdivisions = 12

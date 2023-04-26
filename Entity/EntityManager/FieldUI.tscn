@@ -1,36 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://fl18upfqm2ey"]
+[gd_scene load_steps=5 format=3 uid="uid://fl18upfqm2ey"]
 
-[ext_resource type="Texture2D" uid="uid://cslxfhh3r5hq7" path="res://UI/Sprites/Cursor.png" id="1"]
 [ext_resource type="Theme" uid="uid://7l22upj7t1q7" path="res://UI/DefaultUITheme.tres" id="2_7k1p8"]
-[ext_resource type="Texture2D" uid="uid://b1qlx277g7jwu" path="res://UI/Sprites/gui_gradient.png" id="4"]
+[ext_resource type="PackedScene" uid="uid://bmrt6vle1hfy4" path="res://UI/FieldUIActionMenu.tscn" id="4_8yrg5"]
 [ext_resource type="Script" path="res://Entity/EntityManager/PartyStatsUI.gd" id="5"]
 [ext_resource type="Script" path="res://Entity/EntityManager/FieldUI.gd" id="6"]
 
-[sub_resource type="AtlasTexture" id="10"]
-atlas = ExtResource("4")
-region = Rect2(160, 224, 64, 64)
-
-[sub_resource type="Animation" id="12"]
-resource_name = "Hover"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:offset_left")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [4.69024, 8]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jjr54"]
-_data = {
-"Hover": SubResource("12")
-}
-
 [node name="FieldUI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("6")
 
 [node name="PartyStats" type="HBoxContainer" parent="."]
@@ -39,15 +15,66 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -170.0
-offset_top = -75.0
-offset_right = -10.0
-offset_bottom = -1.0
+offset_left = -107.0
+offset_top = -53.0
 grow_horizontal = 0
 grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme = ExtResource("2_7k1p8")
 alignment = 2
 script = ExtResource("5")
+metadata/_edit_use_anchors_ = true
+
+[node name="ChargeBars" type="VBoxContainer" parent="PartyStats"]
+layout_mode = 2
+theme = ExtResource("2_7k1p8")
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PartyStats/ChargeBars"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="PartyStats/ChargeBars/MarginContainer"]
+visible = false
+modulate = Color(1, 0.8, 0.2, 1)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="PartyStats/ChargeBars"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="PartyStats/ChargeBars/MarginContainer2"]
+visible = false
+modulate = Color(1, 0.8, 0.2, 1)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="MarginContainer3" type="MarginContainer" parent="PartyStats/ChargeBars"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="PartyStats/ChargeBars/MarginContainer3"]
+visible = false
+modulate = Color(1, 0.8, 0.2, 1)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+value = 1.0
+show_percentage = false
 
 [node name="Names" type="VBoxContainer" parent="PartyStats"]
 layout_mode = 2
@@ -57,7 +84,7 @@ alignment = 2
 [node name="Name3" type="Label" parent="PartyStats/Names"]
 layout_mode = 2
 theme = ExtResource("2_7k1p8")
-text = "Test"
+text = "Mediumis"
 
 [node name="Name2" type="Label" parent="PartyStats/Names"]
 layout_mode = 2
@@ -116,64 +143,4 @@ layout_mode = 2
 theme = ExtResource("2_7k1p8")
 text = "1239"
 
-[node name="ActionMenu" type="NinePatchRect" parent="."]
-visible = false
-self_modulate = Color(1, 1, 1, 0.498039)
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -70.0
-offset_right = 85.0
-offset_bottom = -10.0
-size_flags_horizontal = 3
-theme = ExtResource("2_7k1p8")
-texture = SubResource("10")
-region_rect = Rect2(0, 0, 64, 64)
-patch_margin_left = 5
-patch_margin_top = 5
-patch_margin_right = 5
-patch_margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ActionMenu"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 27.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -20.0
-theme = ExtResource("2_7k1p8")
-
-[node name="Command1" type="Label" parent="ActionMenu/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("2_7k1p8")
-text = "Ability"
-uppercase = true
-
-[node name="Command2" type="Label" parent="ActionMenu/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("2_7k1p8")
-text = "SPELLS"
-uppercase = true
-
-[node name="Command3" type="Label" parent="ActionMenu/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("2_7k1p8")
-text = "ITEM"
-uppercase = true
-
-[node name="Pointer" type="TextureRect" parent="ActionMenu"]
-layout_mode = 0
-offset_left = 6.45819
-offset_top = 8.0
-offset_right = 50.0
-offset_bottom = 48.0
-scale = Vector2(0.5, 0.5)
-theme = ExtResource("2_7k1p8")
-texture = ExtResource("1")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ActionMenu/Pointer"]
-libraries = {
-"": SubResource("AnimationLibrary_jjr54")
-}
+[node name="ActionMenu" parent="." instance=ExtResource("4_8yrg5")]

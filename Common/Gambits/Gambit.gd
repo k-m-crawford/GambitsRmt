@@ -68,21 +68,22 @@ func evaluate_gambit(e) -> BattleEntity:
 	
 	match condition:
 		Condition.MORE_THAN:
-			target_pool = target_pool.filter(func(e): \
+			target_pool = target_pool.filter(func(e): 
 					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) > trigger_val
 			)
 			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 
 		Condition.LESS_THAN:
-			target_pool = target_pool.filter(func(e): \
-					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) < trigger_val
+			_b.debug("target pool before " + str(target_pool), e)
+			target_pool = target_pool.filter(func(e): 
+					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) < trigger_val 
 			)
 			_b.debug("target pool after cond " + str(target_pool), e)
 			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 
 		Condition.EQUAL:
 			#TODO: add status support (status is an array)
-			target_pool = target_pool.filter(func(e): \
+			target_pool = target_pool.filter(func(e): 
 					return trigger_get_func.call(e) == trigger_val
 			)
 			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]

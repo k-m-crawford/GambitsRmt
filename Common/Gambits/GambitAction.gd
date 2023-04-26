@@ -17,19 +17,29 @@ var patrol_dest = Vector2.ZERO
 func enqueue(e:BattleEntity):
 	charge_timer = charge_time
 	e.range_area_shape.shape.radius = execution_range
-	e.action_queue = self
+	e.action_queue = self 
+	
+	if charge_timer > 0:
+		e.anim_container.play_effect("Charging")
+	
+	if e.is_in_group("Allies"):
+		EntityMgr.field_ui.party_stats.set_charge_bar_val(e.stats, charge_time)
+
 
 func _while_queued(e:BattleEntity, delta):
-	if e.stun_tick <= 0:
-		charge_timer -= delta
-		e.anim_container.play_effect("Charging")
+	charge_timer -= delta
+	if charge_timer > 0 and e.is_in_group("Allies"):
+			EntityMgr.field_ui.party_stats.update_charge_bar(e.stats, charge_timer)
+	elif charge_timer <= 0 and e.is_in_group("Allies"):
+			EntityMgr.field_ui.party_stats.update_charge_bar(e.stats, 0)
+		
 	
 	var hits = e.range_area.get_overlapping_areas()
 	
 	if e.target_entity.hurtbox in hits:
 		if charge_timer <= 0:
-			e.anim_container.play_effect("Reset")
-			_execute(e, delta)
+			e.anim_container.stop_charge()
+			execute_wrapper(e, delta)
 		else:
 			e.anim_container.set_anim("BattleIdle")
 	else:
@@ -37,7 +47,12 @@ func _while_queued(e:BattleEntity, delta):
 		e.anim_container.set_anim("BattleMove")
 
 
-func _execute(_e:BattleEntity, _delta):
+func execute_wrapper(e:BattleEntity, delta):
+	EntityMgr.field_ui.party_stats.set_charge_bar_val(e.stats, 1)
+	_execute(e, delta)
+
+
+func _execute(_e, _delta):
 	pass
 
 

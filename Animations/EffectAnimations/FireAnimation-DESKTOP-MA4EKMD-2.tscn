@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6f5qlc304fkp"]
+[gd_scene load_steps=21 format=3 uid="uid://cdx5ndpp7lnno"]
 
 [sub_resource type="Animation" id="Animation_i6kld"]
 resource_name = "1"
@@ -264,7 +264,6 @@ draw_order = 2
 trail_lifetime = 0.4
 
 [node name="Blaze" type="GPUParticles2D" parent="AnimationPlayer"]
-emitting = false
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_rf0c5")
 lifetime = 1.2

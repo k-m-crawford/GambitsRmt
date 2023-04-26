@@ -18,10 +18,9 @@ func physics_update(delta) -> void:
 
 	if entity.stun_tick > 0:
 		entity.stun_tick -= delta
-
 	# if no action queue
 	# do gambit ladder
-	if entity.action_queue:
+	elif entity.action_queue:
 		entity.action_queue._while_queued(entity, delta)
 	
 	else:

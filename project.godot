@@ -18,6 +18,7 @@ config/icon="res://UI/Sprites/icon.png"
 [autoload]
 
 GlobalBucket="*res://Common/Bucket.gd"
+EntityMgr="*res://Entity/EntityManager/EntityManager.gd"
 
 [debug]
 

@@ -24,8 +24,12 @@ func physics_update(delta):
 		entity._FSM.transition_to(return_state)
 	else:
 		entity.velocity = entity.velocity.move_toward(
-			knockback_vec * 250,
-			1250 * delta
+			knockback_vec * 450,
+			2250 * delta
 		)
 		
 		entity.move_and_slide()
+
+func exit():
+	entity.velocity = Vector2.ZERO
+	entity.move_and_slide()
