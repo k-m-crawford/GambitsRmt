@@ -1,46 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://b13n1ej60ub2w"]
+[gd_scene load_steps=11 format=3 uid="uid://ddtdlbly8u6nq"]
 
-[ext_resource type="PackedScene" uid="uid://fl18upfqm2ey" path="res://Entity/EntityManager/FieldUI.tscn" id="1_81o4k"]
-[ext_resource type="Script" path="res://Common/Gambits/CureGambitAction.gd" id="3_08em4"]
-[ext_resource type="PackedScene" uid="uid://6772grslueoo" path="res://Entity/AllyEntity/AllyEntity.tscn" id="3_s0ypy"]
 [ext_resource type="PackedScene" uid="uid://cmu5sym2nhyev" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
 [ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="4_nfr03"]
-[ext_resource type="Resource" uid="uid://bglkimog4pd10" path="res://Entity/AllyEntity/BrynhildrStats.tres" id="4_o8b63"]
 [ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
 [ext_resource type="Texture2D" uid="uid://d4flatsjwq5vu" path="res://Maps/ForestBase/gentle trees 80x96 v01.png" id="6_654a6"]
-[ext_resource type="Resource" uid="uid://bemehhbs0ddqn" path="res://Entity/AllyEntity/HejraStats.tres" id="6_mee4x"]
-[ext_resource type="Resource" uid="uid://ohr53lmuq451" path="res://Common/Gambits/MeleeAttackGambitAction.tres" id="8_5hhfj"]
 [ext_resource type="Script" path="res://Common/Gambits/MeleeAttackGambitAction.gd" id="9_moe5x"]
+[ext_resource type="PackedScene" uid="uid://b1226uw2hx06m" path="res://UI/FieldUIContainer.tscn" id="11_p2skf"]
+[ext_resource type="Script" path="res://Maps/PartySpawnPoint.gd" id="11_pdktn"]
 
 [sub_resource type="NavigationPolygon" id="1"]
 vertices = PackedVector2Array(742, 398, -208, 407, -485, -393, 748, -444)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(748, -444, -485, -393, -208, 407, 742, 398)])
-
-[sub_resource type="Resource" id="Resource_61f55"]
-script = ExtResource("3_08em4")
-action_name = ""
-execution_range = 50.0
-targeting_range = 250.0
-charge_time = 1.5
-
-[sub_resource type="Resource" id="Resource_vl4uu"]
-script = ExtResource("4_nfr03")
-gambit_name = "Ally: HP < 30%"
-target = 1
-trigger = 0
-trigger_val = 0.7
-condition = 8
-action = SubResource("Resource_61f55")
-
-[sub_resource type="Resource" id="Resource_cwlhw"]
-script = ExtResource("4_nfr03")
-gambit_name = "Foe: Closest"
-target = 0
-trigger = 6
-trigger_val = 0.0
-condition = 6
-action = ExtResource("8_5hhfj")
 
 [sub_resource type="Resource" id="Resource_ncj6s"]
 script = ExtResource("9_moe5x")
@@ -58,10 +29,8 @@ trigger_val = 0.0
 condition = 6
 action = SubResource("Resource_ncj6s")
 
-[node name="Map" type="Node2D"]
-y_sort_enabled = true
-
-[node name="FieldUI" parent="." instance=ExtResource("1_81o4k")]
+[node name="Map" type="CanvasLayer"]
+follow_viewport_enabled = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(172, 251)
@@ -69,34 +38,27 @@ navigation_polygon = SubResource("1")
 
 [node name="FPS" parent="." instance=ExtResource("5")]
 
-[node name="Trees" type="Sprite2D" parent="."]
+[node name="YSort" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Trees" type="Sprite2D" parent="YSort"]
 position = Vector2(336, 37)
 texture = ExtResource("6_654a6")
 
-[node name="Ally" parent="." instance=ExtResource("3_s0ypy")]
-position = Vector2(93, 103)
-manual_control = true
-group_type = "Allies"
-stats = ExtResource("6_mee4x")
-friction = 500
-
-[node name="Ally2" parent="." instance=ExtResource("3_s0ypy")]
-position = Vector2(138, 40)
-gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_vl4uu"), SubResource("Resource_cwlhw")])
-debug = true
-group_type = "Allies"
-stats = ExtResource("4_o8b63")
-friction = 500
-_leader_entity_path = NodePath("../Ally")
-
-[node name="Imp" parent="." instance=ExtResource("4")]
+[node name="Imp" parent="YSort" instance=ExtResource("4")]
 position = Vector2(203, 118)
 gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_2civr")])
 
-[node name="Imp2" parent="." instance=ExtResource("4")]
+[node name="Imp2" parent="YSort" instance=ExtResource("4")]
 position = Vector2(111, 210)
 gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_2civr")])
 
-[node name="Imp3" parent="." instance=ExtResource("4")]
+[node name="Imp3" parent="YSort" instance=ExtResource("4")]
 position = Vector2(-31, 55)
 gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_2civr")])
+
+[node name="PartySpawnPoint" type="Node2D" parent="YSort"]
+position = Vector2(383, 117)
+script = ExtResource("11_pdktn")
+
+[node name="FieldUIContainer" parent="." instance=ExtResource("11_p2skf")]

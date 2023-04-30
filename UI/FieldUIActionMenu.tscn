@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmrt6vle1hfy4"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Theme" uid="uid://7l22upj7t1q7" path="res://UI/DefaultUITheme.tres" id="1_o06e5"]
 [ext_resource type="Texture2D" uid="uid://b1qlx277g7jwu" path="res://UI/Sprites/gui_gradient.png" id="2_f81k8"]
 [ext_resource type="Texture2D" uid="uid://cslxfhh3r5hq7" path="res://UI/Sprites/Cursor.png" id="3_7b62e"]
-[ext_resource type="Script" path="res://UI/FieldUIActionMenu.gd" id="3_m434y"]
+[ext_resource type="Script" path="res://UI/FieldMenuUIGeneric.gd" id="3_m434y"]
 
 [sub_resource type="AtlasTexture" id="10"]
 atlas = ExtResource("2_f81k8")

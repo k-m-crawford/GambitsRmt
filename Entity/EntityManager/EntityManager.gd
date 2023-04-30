@@ -7,6 +7,9 @@
 class_name EntityManager
 extends Node
 
+signal update_field_stats_ui(who, what, aux)
+signal spawn_damage_label(label)
+
 var ally_entities = []
 var active_idx:int = 0
 
@@ -16,19 +19,11 @@ var field_menu = false
 @onready var target_curve = preload("res://UI/TargetIndicators/TargetIndicatorCurve.tscn")
 @onready var target_circle = preload("res://UI/TargetIndicators/TargetIndicatorCircle.tscn")
 
-var field_ui:FieldUI
+#var field_ui:FieldUI
 var target_select:TargetIndicatorCircle
 
 func _ready():
-	
-	for e in get_tree().get_nodes_in_group("Allies"):
-		ally_entities.append(e)
-		e.set_leader_entity(ally_entities[0])
-	
 	set_process(true)
-
-func hook_UI(ui):
-	field_ui = ui
 
 
 func _input(event):
@@ -45,7 +40,11 @@ func _input(event):
 			"Friendly"
 		)
 		get_viewport().set_input_as_handled()
-		field_ui.activate()
+#		field_ui.activate()
+
+
+func get_current_leader():
+	return ally_entities[active_idx]
 
 
 func get_next_leader(dir):
@@ -93,7 +92,7 @@ func deal_physical_damage(attacker:BattleEntity, defender:BattleEntity):
 	defender.anim_container.play_effect("HurtFlash")
 	
 	if defender.is_in_group("Allies"):
-		field_ui.party_stats.update_hitpoints(defender.stats)
+		emit_signal("update_field_stats_ui", defender.stats, "HP", null)
 
 	if defender.is_interruptible(): 	
 		defender._FSM.transition_to(
@@ -105,7 +104,7 @@ func deal_physical_damage(attacker:BattleEntity, defender:BattleEntity):
 		)
 
 	var inst = damage_label.instantiate()
-	get_parent().add_child(inst)
+	emit_signal("spawn_damage_label", inst)
 	inst._execute(dmg, defender.get_global_position())
 
 
@@ -117,7 +116,7 @@ func apply_magical_healing(source:BattleEntity, target:BattleEntity):
 	if target.stats.hp > target.stats.max_hp: target.stats.hp = target.stats.max_hp
 	
 	if target.is_in_group("Allies"):
-		field_ui.party_stats.update_hitpoints(target.stats)
+		emit_signal("update_field_stats_ui", target.stats, "HP", null)
 	
 	var inst = damage_label.instantiate()
 	inst.modulate = Color(0, 1, 0, 1)

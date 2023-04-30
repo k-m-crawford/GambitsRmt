@@ -17,22 +17,21 @@ var patrol_dest = Vector2.ZERO
 func enqueue(e:BattleEntity):
 	charge_timer = charge_time
 	e.range_area_shape.shape.radius = execution_range
-	e.action_queue = self 
+	e.action_queue.append(self)
 	
 	if charge_timer > 0:
 		e.anim_container.play_effect("Charging")
 	
 	if e.is_in_group("Allies"):
-		EntityMgr.field_ui.party_stats.set_charge_bar_val(e.stats, charge_time)
+		EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBarSet", charge_time)
 
 
 func _while_queued(e:BattleEntity, delta):
 	charge_timer -= delta
 	if charge_timer > 0 and e.is_in_group("Allies"):
-			EntityMgr.field_ui.party_stats.update_charge_bar(e.stats, charge_timer)
+			EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBarUpdate", charge_timer)
 	elif charge_timer <= 0 and e.is_in_group("Allies"):
-			EntityMgr.field_ui.party_stats.update_charge_bar(e.stats, 0)
-		
+			EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBarUpdate", 0)
 	
 	var hits = e.range_area.get_overlapping_areas()
 	
@@ -40,15 +39,15 @@ func _while_queued(e:BattleEntity, delta):
 		if charge_timer <= 0:
 			e.anim_container.stop_charge()
 			execute_wrapper(e, delta)
-		else:
+		elif not e.manual_control: #behavior when enemy within range but not charged
 			e.anim_container.set_anim("BattleIdle")
-	else:
+	elif not e.manual_control: #behavior when out of range
 		e.move_nav_agent(e.target_entity.global_position, delta)
 		e.anim_container.set_anim("BattleMove")
 
 
 func execute_wrapper(e:BattleEntity, delta):
-	EntityMgr.field_ui.party_stats.set_charge_bar_val(e.stats, 1)
+	EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBarSet", 1)
 	_execute(e, delta)
 
 

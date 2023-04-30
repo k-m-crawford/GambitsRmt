@@ -148,7 +148,7 @@ static func do_gambit_ladder(e):
 		gambit_action.enqueue(e)
 	else:
 		_b.debug("no targ", e)
-		e.action_queue = null
+		e.action_queue = []
 		e.target_entity = null
 		e.target_entities = null
 	
@@ -160,8 +160,9 @@ static func get_next_target(e:BattleEntity, group:String, dir=0):
 	
 	# TODO: add default "weapon" ranges
 	var target_pool = e.range_area.get_overlapping_bodies()
+	print(target_pool)
 	target_pool = target_pool.filter(func(e): return e.is_in_group(group))
-	
+
 	target_pool.sort_custom(func(a, b): return \
 			a.global_position.distance_to(e.global_position) < \
 			b.global_position.distance_to(e.global_position)
@@ -171,9 +172,12 @@ static func get_next_target(e:BattleEntity, group:String, dir=0):
 	
 	var i = 0
 	if e.target_entity != null:
+		print(target_pool.find(e.target_entity), "+", dir)
 		i = target_pool.find(e.target_entity) + dir
+		print(i)
 		
 		if i < 0: i = target_pool.size() - 1
 		if i >= target_pool.size(): i = 0
 	
+	print(e.target_entity, target_pool[i])
 	return target_pool[i]

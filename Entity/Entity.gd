@@ -40,6 +40,7 @@ var _FSM:FSM
 var leader_entity:Entity
 var behaviors = {}
 var direction:Vector2 = Vector2.ZERO
+var is_running = false
 
 
 func _ready():
@@ -72,8 +73,13 @@ func move_nav_agent(location, delta):
 	direction = global_position.direction_to(nav_agent.get_next_path_position())
 	direction = direction.normalized()
 	
-	velocity = velocity.move_toward(direction * stats.max_walk_speed,  
-									stats.acceleration * delta)
+	if leader_entity and leader_entity.is_running:
+		velocity = velocity.move_toward(direction * stats.max_run_speed,  
+										stats.acceleration * delta)
+	else:
+		velocity = velocity.move_toward(direction * stats.max_walk_speed,  
+								stats.acceleration * delta)
+
 	nav_agent.set_velocity(velocity)
 	move_and_slide()
 	

@@ -8,5 +8,5 @@ func _execute(e:BattleEntity, _delta):
 	e.target_entity.add_child(cure_anim)
 	cure_anim.play_anim("1", e)
 	e.target_entity.anim_container.play_effect("CureFlash")
-	e.pop_action_queue()
+	e.action_queue.pop_front()
 	e.stun_tick = randf_range(2, 2.2)

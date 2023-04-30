@@ -34,7 +34,8 @@ var target_idx = 0
 var stun_tick = 0
 var interruptible = true
 
-var action_queue = null
+var action_queue = []
+
 
 func _ready():
 	super._ready()
@@ -110,9 +111,6 @@ func switch_leader_state():
 func set_target_entity(s_target_entity:BattleEntity):
 	prev_target = target_entity
 	target_entity = s_target_entity
+	print(prev_target, target_entity)
 #	print("TARGET", target_entity)
 	emit_signal("to_Manager_set_target_entity", self)
-
-
-func pop_action_queue():
-	action_queue = null

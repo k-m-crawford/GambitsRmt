@@ -9,14 +9,6 @@ func exit() -> void:
 	entity.destroy_target_lines()
 
 
-func initialize(_msg := {}) -> void:
-	pass
-	# warning-ignore:return_value_discarded
-#	entity.chase_area.connect("area_exited",Callable(Targeting,"on_enemy_leave_chase_area").bind(entity))
-	# warning-ignore:return_value_discarded
-#	entity.chase_area.connect("area_entered",Callable(Targeting,"on_enemy_enter_chase_area").bind(entity))
-
-
 func enter(_msg := {}) -> void:
 	signal_lock = false
 	entity.anim_container.set_textures("BattleEngagedMove")
@@ -28,18 +20,20 @@ func enter(_msg := {}) -> void:
 	)
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept") and entity.stun_tick <= 0:
+	
+	if event.is_action_pressed("ui_accept") and entity.stun_tick <= 0 and \
+			entity.action_queue.size() < 1:
 		entity._FSM.transition_to("ATTACK")
 
 	elif event.is_action_pressed("ui_cancel"):
 		entity.emit_signal("battle_engagement")
 
-	elif event.is_action_pressed("ui_focus_next"):
+	elif event.is_action_pressed("ui_focus_next"): 
 		entity.set_target_entity(
 			Gambit.get_next_target(entity, "Enemies", 1)
 		)
 
-	elif event.is_action_pressed("ui_focus_prev"):
+	elif event.is_action_pressed("ui_focus_prev"): 
 		entity.set_target_entity(
 			Gambit.get_next_target(entity, "Enemies", -1)
 		)
@@ -49,6 +43,8 @@ func physics_update(delta) -> void:
 	
 	if entity.stun_tick > 0:
 		entity.stun_tick -= delta
+	elif entity.action_queue.size() > 0:
+		entity.action_queue[0]._while_queued()
 	
 	var direction_override = null
 	

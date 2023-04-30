@@ -1,9 +1,10 @@
+class_name FieldStatsUI
 extends HBoxContainer
 
 
-@onready var names = get_node("Names").get_children()
-@onready var hps = get_node("HP").get_children()
-@onready var _charge_bars = get_node("ChargeBars").get_children()
+@onready var names = $Names.get_children()
+@onready var hps = $HP.get_children()
+@onready var _charge_bars = $ChargeBars.get_children()
 
 var charge_bars = [null, null, null]
 var charge_bar_ticks = [null, null, null]
@@ -12,9 +13,9 @@ func _ready():
 	
 	var i = 2
 	
-	for ally in get_tree().get_nodes_in_group("Allies"):
-		names[i].text = ally.stats.name
-		hps[i].text = str(ally.stats.hp)
+	for ally in _b.Party:
+		names[i].text = ally.name
+		hps[i].text = str(ally.hp)
 		names[i].visible = true
 		hps[i].visible = true
 		charge_bars[i] = _charge_bars[i].get_node("Bar")
