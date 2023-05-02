@@ -4,16 +4,15 @@ extends NinePatchRect
 signal closed_menu
 
 @export var has_focus = true
+@export var static_menu = true
 
-@export var headers = []
+@export var headers:PackedStringArray
 
-@export var commands = [
-	"Dummy"
-]# (Array, String)
-@export var footnotes = []
-
+@export var commands:PackedStringArray
+@export var footnotes:PackedStringArray
 
 @onready var pointer = $Pointer
+
 @onready var command_label = [
 	$VBoxContainer/Command0/Name,
 	$VBoxContainer/Command1/Name,
@@ -21,6 +20,9 @@ signal closed_menu
 	$VBoxContainer/Command3/Name,
 	$VBoxContainer/Command4/Name,
 	$VBoxContainer/Command5/Name,
+]
+@onready var active_map = [
+	1, 1, 1, 1, 1, 1
 ]
 @onready var footnote_label = [
 	$VBoxContainer/Command0/Val,
@@ -38,6 +40,7 @@ signal closed_menu
 	$VBoxContainer/Command4,
 	$VBoxContainer/Command5,
 ]
+
 @onready var left_page_pointer = $LeftPagePointer
 @onready var right_page_pointer = $RightPagePointer
 @onready var menu_title = $Header0
@@ -51,9 +54,22 @@ var pointer_default_pos
 var pointer_tween
 var left_page_tween
 var right_page_tween
+var parent_menu
+var ui_handle
+var depth = 0
+
+
+func set_menu_entries(entries, s_headers):
+	for entry in entries:
+		commands.append(entry.action_name)
+		footnotes.append(str(entry.mp_cost))
+	headers = s_headers
 
 
 func _initialize_menu():
+	
+	position = Vector2(25*(depth+1), 220-(depth*10))
+	
 	if headers.size() > 0:
 		menu_title.text = headers[0]
 		menu_title.visible = true
@@ -65,7 +81,7 @@ func _initialize_menu():
 	pointer_default_pos = pointer.position
 	
 	if max_page < 2:
-		position.y = position.y + 20 * commands.size()
+		position.y = position.y + 20 * (6 - commands.size())
 	
 	update_page()
 	
@@ -124,10 +140,12 @@ func _initialize_menu():
 
 
 func _ready():
-	_initialize_menu()
+	if static_menu: _initialize_menu()
 
 
 func _input(event):
+	if not has_focus: return
+	
 	if event.is_action_pressed("ui_down"):
 		selected += 1
 		if selected > page_size - 1:
@@ -152,15 +170,11 @@ func _input(event):
 	elif event.is_action_pressed("ui_accept"):
 		_accept_handler()
 	
-	elif event.is_action_pressed("ui_fieldmenu") or \
-		event.is_action_pressed("ui_cancel"):
-		has_focus = false 
-		emit_signal("closed_menu")
-		get_viewport().set_input_as_handled()	
-		queue_free()
+	elif event.is_action_pressed("ui_cancel"):
+		_release_focus()
 
 	pointer.position = Vector2(pointer_default_pos.x, pointer_default_pos.y + selected * 19)
-
+	pointer.visible = true
 
 func update_page():
 	size.y = 0
@@ -168,8 +182,9 @@ func update_page():
 	for i in range(page*6, page*6+6):
 		if i < commands.size():
 			command_label[i - page*6].text = commands[i]
-			if i < footnotes.size():
+			if i < footnotes.size() and headers.size() > 1:
 				footnote_label[i - page*6].text = footnotes[i]
+				footnote_label[i - page*6].visible = true
 			command_container[i - page*6].visible = true
 			size.y += 20
 			page_size += 1
@@ -178,8 +193,8 @@ func update_page():
 	
 	if headers.size() < 2:
 		size.x = 100
-		for i in range(0, 6):
-			footnote_label[i].visible = false
+	else:
+		size.x = 198
 	
 	size.y += 7
 	
@@ -190,5 +205,45 @@ func update_page():
 	pointer.position = pointer_default_pos
 
 
+func _spawn_new_menu(tscn):
+	has_focus = false
+	var child_menu = tscn.instantiate()
+	child_menu.parent_menu = self
+	child_menu.depth = depth + 1
+	ui_handle.hook_menu(child_menu)
+	if ui_handle:
+		ui_handle.add_child(child_menu)
+	modulate = Color(1,1,1,0.2)
+	return child_menu
+
+
 func _accept_handler():
 	pass
+
+
+func _deactivate_entry(idx):
+	if idx < commands.size():
+		active_map[idx] = 0
+		command_container[idx].modulate = Color(0.4, 0.4, 0.4, 1)
+
+
+func _retake_focus():
+	has_focus = true
+	modulate = Color(1, 1, 1, 1)
+	pointer.visible = true
+
+
+func _release_focus():
+	has_focus = false 
+	pointer.visible = false
+	get_viewport().set_input_as_handled()
+	parent_menu._retake_focus()
+	queue_free()
+
+
+func _exit_field_menu():
+	if depth == 0:
+		_release_focus()
+	else:
+		parent_menu._exit_field_menu()
+		_release_focus()

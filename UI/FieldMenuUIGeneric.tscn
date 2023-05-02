@@ -81,6 +81,7 @@ text = "Fire"
 uppercase = true
 
 [node name="Val" type="Label" parent="VBoxContainer/Command0"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_8heup")
@@ -100,6 +101,7 @@ text = "Cure"
 uppercase = true
 
 [node name="Val" type="Label" parent="VBoxContainer/Command1"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_8heup")
@@ -119,6 +121,7 @@ text = "Fira"
 uppercase = true
 
 [node name="Val" type="Label" parent="VBoxContainer/Command2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_8heup")
@@ -138,6 +141,7 @@ text = "Raise"
 uppercase = true
 
 [node name="Val" type="Label" parent="VBoxContainer/Command3"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_8heup")
@@ -157,6 +161,7 @@ text = "demi"
 uppercase = true
 
 [node name="Val" type="Label" parent="VBoxContainer/Command4"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_8heup")
@@ -176,6 +181,7 @@ text = "demi"
 uppercase = true
 
 [node name="Val" type="Label" parent="VBoxContainer/Command5"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_8heup")

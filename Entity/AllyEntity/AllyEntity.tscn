@@ -10,9 +10,11 @@
 [sub_resource type="Resource" id="Resource_28nvb"]
 script = ExtResource("2_slcla")
 action_name = ""
+target_group = null
+mp_cost = 0.0
+charge_time = 4.0
 execution_range = 150.0
 targeting_range = 150.0
-charge_time = 4.0
 
 [sub_resource type="Resource" id="Resource_02vpy"]
 script = ExtResource("3_s70uj")

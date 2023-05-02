@@ -1,8 +1,15 @@
 class_name FieldMenuMainMenuUI
 extends FieldMenuUI
 
+
+@onready var magic_submenu = preload("res://UI/FieldMenuUIMagicCategory.tscn")
+
+var leader
+
+
 func _initialize_menu():
-	headers[0] = EntityMgr.get_current_leader().stats.name
+	leader = EntityMgr.get_current_leader().stats
+	headers.append(leader.name)
 	super._initialize_menu()
 
 func _accept_handler():
@@ -13,7 +20,8 @@ func _accept_handler():
 			pass
 	
 		1:
-			pass
+			var menu = _spawn_new_menu(magic_submenu)
+			menu._initialize_menu()
 		
 		2:
 			pass

@@ -16,9 +16,11 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(748, -444, -485, -393, 
 [sub_resource type="Resource" id="Resource_ncj6s"]
 script = ExtResource("9_moe5x")
 action_name = "Attack"
+target_group = null
+mp_cost = 0.0
+charge_time = 0.0
 execution_range = 150.0
 targeting_range = 150.0
-charge_time = 0.0
 
 [sub_resource type="Resource" id="Resource_2civr"]
 script = ExtResource("4_nfr03")

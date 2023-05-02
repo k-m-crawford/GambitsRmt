@@ -21,10 +21,11 @@ extends EntityStats
 @export var eva:float = 0.0
 
 @export_group("Ability and Spells")
-@export var spell_book:Dictionary = {
+@export var spellbook:Dictionary = {
 	"Abilities": [],
 	"BlackMagic": [],
 	"WhiteMagic": [],
+	"GreenMagic": []
 }
 
 @export_group("Engine Reference")

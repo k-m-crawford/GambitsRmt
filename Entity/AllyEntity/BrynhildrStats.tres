@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="BattleStats" load_steps=2 format=3 uid="uid://bglkimog4pd10"]
+[gd_resource type="Resource" script_class="BattleStats" load_steps=3 format=3 uid="uid://bglkimog4pd10"]
 
 [ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1"]
+[ext_resource type="Resource" uid="uid://nys5yv7dvp56" path="res://Common/Gambits/CureGambitAction.tres" id="2_it8tm"]
 
 [resource]
 script = ExtResource("1")
@@ -16,7 +17,12 @@ mag = 28
 spr = 27
 acc = 1.0
 eva = 0.0
-spell_book = []
+spellbook = {
+"Abilities": [],
+"BlackMagic": [],
+"GreenMagic": [],
+"WhiteMagic": [ExtResource("2_it8tm")]
+}
 tscn_path = "res://Entity/AllyEntity/AllyEntity.tscn"
 max_walk_speed = 80
 max_run_speed = 130

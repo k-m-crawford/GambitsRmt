@@ -44,7 +44,7 @@ func physics_update(delta) -> void:
 	if entity.stun_tick > 0:
 		entity.stun_tick -= delta
 	elif entity.action_queue.size() > 0:
-		entity.action_queue[0]._while_queued()
+		entity.action_queue[0]._while_queued(entity, delta)
 	
 	var direction_override = null
 	

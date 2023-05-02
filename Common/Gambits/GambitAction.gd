@@ -2,14 +2,17 @@ class_name GambitAction
 extends Resource
 
 @export var action_name = ""
+@export var default_target_group = ""
+@export var mp_cost:float = 0
+@export var charge_time:float = 0.0
 # how far the action can be:
 # a) executed
 # b) used to target an entity for this action
 @export var execution_range:float = 0.0
 @export var targeting_range:float = 0.0
-@export var charge_time:float = 0.0
 
 var charge_timer = 0
+
 var patrol = false
 var patrol_dest = Vector2.ZERO
 

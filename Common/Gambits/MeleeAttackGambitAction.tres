@@ -6,6 +6,8 @@
 resource_local_to_scene = true
 script = ExtResource("1_58sg0")
 action_name = "Attack"
+target_group = ""
+mp_cost = 0.0
+charge_time = null
 execution_range = 150
 targeting_range = 150
-charge_time = null

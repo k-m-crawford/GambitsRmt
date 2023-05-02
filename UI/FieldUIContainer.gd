@@ -17,16 +17,16 @@ func _input(event):
 	if event.is_action_pressed("ui_fieldmenu"):
 		get_tree().paused = true
 		var field_menu_main = _field_menu_main.instantiate()
-		field_menu_main.closed_menu.connect(_on_field_menu_closed)
+		hook_menu(field_menu_main)
+		field_menu_main.parent_menu = self
 		add_child(field_menu_main)
 		field_menu_main.visible = true
 		field_menu_main.has_focus = true
 		has_focus = false
 
 
-func _on_field_menu_closed():
-	get_tree().paused = false
-	has_focus = true
+func hook_menu(menu):
+	menu.ui_handle = self
 
 
 func _on_update_field_stats_ui(who, what, aux):
@@ -37,4 +37,9 @@ func _on_update_field_stats_ui(who, what, aux):
 			field_stats_ui.set_charge_bar_val(who, aux)
 		"ChargeBarUpdate":
 			field_stats_ui.update_charge_bar(who, aux)
+
+
+func _retake_focus():
+	has_focus = true
+	get_tree().paused = false
 
