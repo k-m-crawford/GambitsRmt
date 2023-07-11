@@ -44,7 +44,10 @@ func _input(event):
 					target_idx = 0
 				target_circle.move(target_pool[target_idx].global_position)
 		elif event.is_action_pressed("ui_accept"):
-			leader.action_queue.append(action)
+			leader.prev_target = leader.target_entity
+			leader.target_entity = target_pool[target_idx]
+			action.enqueue(leader)
+			leader.emit_signal("to_Manager_set_target_entity", leader)
 			_exit_target_select()
 			_exit_field_menu()
 	else:

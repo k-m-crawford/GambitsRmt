@@ -33,6 +33,7 @@ var target_entities = []
 var target_idx = 0
 var stun_tick = 0
 var interruptible = true
+var cur_gambit = 0
 
 var action_queue = []
 
@@ -111,3 +112,13 @@ func set_target_entity(s_target_entity:BattleEntity):
 	prev_target = target_entity
 	target_entity = s_target_entity
 	emit_signal("to_Manager_set_target_entity", self)
+
+
+func increment_gambit_ladder():
+	cur_gambit += 1
+	if(cur_gambit > gambits.size() - 1):
+		cur_gambit = 0
+
+
+func reset_gambit_ladder():
+	cur_gambit = 0

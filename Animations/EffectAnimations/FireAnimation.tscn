@@ -1,4 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6f5qlc304fkp"]
+[gd_scene load_steps=22 format=3 uid="uid://c6f5qlc304fkp"]
+
+[ext_resource type="Texture2D" uid="uid://2lgfm1l8u7a1" path="res://Sprites/green_imp.png" id="1_l8lla"]
 
 [sub_resource type="Animation" id="Animation_i6kld"]
 resource_name = "1"
@@ -213,16 +215,23 @@ turbulence_enabled = true
 
 [node name="Animation" type="Node2D"]
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_l8lla")
+hframes = 3
+vframes = 8
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6h22x")
 }
 
 [node name="Explosion1" type="GPUParticles2D" parent="AnimationPlayer"]
-position = Vector2(-1, 2)
+position = Vector2(-6, -4)
 emitting = false
-amount = 24
+amount = 56
 process_material = SubResource("ParticleProcessMaterial_wexlq")
+lifetime = 2.0
 one_shot = true
 speed_scale = 2.0
 explosiveness = 0.3
@@ -230,23 +239,25 @@ randomness = 0.5
 fixed_fps = 60
 
 [node name="Explosion2" type="GPUParticles2D" parent="AnimationPlayer"]
-position = Vector2(-1, -1)
+position = Vector2(4, -6)
 emitting = false
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_wexlq")
+lifetime = 1.2
 one_shot = true
-speed_scale = 2.0
+speed_scale = 2.5
 explosiveness = 0.3
 randomness = 0.5
 fixed_fps = 60
 
 [node name="Explosion3" type="GPUParticles2D" parent="AnimationPlayer"]
-position = Vector2(1, 1)
+position = Vector2(-1, -12)
 emitting = false
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_wexlq")
+lifetime = 2.0
 one_shot = true
-speed_scale = 2.0
+speed_scale = 2.5
 explosiveness = 0.3
 randomness = 0.5
 fixed_fps = 60

@@ -556,7 +556,6 @@ _data = {
 }
 
 [node name="AnimationContainer" type="Node2D"]
-modulate = Color(0.0117647, 0.0117647, 0.0117647, 1)
 script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -575,10 +574,11 @@ libraries = {
 
 [node name="ParticleEmitter" type="GPUParticles2D" parent="."]
 z_index = 1
-amount = 20
+amount = 5
 process_material = ExtResource("2_wryfk")
 speed_scale = 2.0
 randomness = 0.05
+fixed_fps = 60
 visibility_rect = Rect2(0, 0, 0, 0)
 local_coords = true
 trail_enabled = true

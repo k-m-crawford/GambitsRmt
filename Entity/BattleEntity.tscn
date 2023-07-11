@@ -19,7 +19,7 @@ action = ExtResource("3_t111i")
 radius = 150.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yobbg"]
-radius = 100.0
+radius = 250.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rf4c0"]
 radius = 45.0

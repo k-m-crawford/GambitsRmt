@@ -33,9 +33,7 @@ func _on_update_field_stats_ui(who, what, aux):
 	match what:
 		"HP":
 			field_stats_ui.update_hitpoints(who)
-		"ChargeBarSet":
-			field_stats_ui.set_charge_bar_val(who, aux)
-		"ChargeBarUpdate":
+		"ChargeBar":
 			field_stats_ui.update_charge_bar(who, aux)
 
 

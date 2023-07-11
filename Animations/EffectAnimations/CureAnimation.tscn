@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://brhvsqeumqmn"]
+[gd_scene load_steps=9 format=3 uid="uid://brhvsqeumqmn"]
 
-[ext_resource type="Script" path="res://Animations/EffectAnimations/EffectAnimation.gd" id="1_odgt6"]
 [ext_resource type="Texture2D" uid="uid://cndljioyfunj8" path="res://Sprites/SparkleParticle.png" id="3_o43oj"]
 
 [sub_resource type="Animation" id="Animation_lov3e"]
 resource_name = "1"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -55,7 +55,6 @@ scale_curve = SubResource("CurveTexture_r3maw")
 color_ramp = SubResource("GradientTexture1D_7ht4w")
 
 [node name="Animation" type="Node2D"]
-script = ExtResource("1_odgt6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -69,7 +68,7 @@ process_material = SubResource("ParticleProcessMaterial_ftv7r")
 texture = ExtResource("3_o43oj")
 lifetime = 3.0
 one_shot = true
-speed_scale = 9.0
+speed_scale = 3.0
 fixed_fps = 60
 visibility_rect = Rect2(-47.291, -52.493, 101.22, 93.4147)
 trail_sections = 12

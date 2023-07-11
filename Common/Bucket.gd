@@ -3,9 +3,7 @@ extends Node
 
 
 var Party = [
-	preload("res://Entity/AllyEntity/BrynhildrStats.tres"),
-	preload("res://Entity/AllyEntity/FreijaStats.tres"),
-	preload("res://Entity/AllyEntity/SigrunStats.tres")
+	preload("res://Entity/AllyEntity/BrynhildrStats.tres")
 ]
 
 var Inventory = {

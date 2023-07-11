@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfqeounlnfhjq"]
+
+[ext_resource type="Script" path="res://Projectile.gd" id="1_q8cqe"]
+[ext_resource type="Texture2D" uid="uid://obju1fyl56lb" path="res://Sprites/Free_OreSheet_VerySmallSquares.png" id="1_tv50k"]
+[ext_resource type="Texture2D" uid="uid://bxfoppm5gcf04" path="res://Sprites/shadow.png" id="3_g6ini"]
+
+[sub_resource type="Curve2D" id="Curve2D_suon2"]
+resource_local_to_scene = true
+
+[sub_resource type="Animation" id="Animation_mstgg"]
+resource_name = "Spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D/Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gsm6j"]
+_data = {
+"Spin": SubResource("Animation_mstgg")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_4lhfw"]
+
+[node name="Path" type="Path2D"]
+curve = SubResource("Curve2D_suon2")
+script = ExtResource("1_q8cqe")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotates = false
+loop = false
+
+[node name="Sprite" type="Sprite2D" parent="PathFollow2D"]
+texture = ExtResource("1_tv50k")
+hframes = 18
+vframes = 6
+frame = 91
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Spin"
+libraries = {
+"": SubResource("AnimationLibrary_gsm6j")
+}
+
+[node name="ShadowPath" type="Path2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+curve = SubResource("Curve2D_4lhfw")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="ShadowPath"]
+rotates = false
+loop = false
+
+[node name="Shadow" type="Sprite2D" parent="ShadowPath/PathFollow2D"]
+position = Vector2(0, 11)
+texture = ExtResource("3_g6ini")

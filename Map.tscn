@@ -1,10 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddtdlbly8u6nq"]
+[gd_scene load_steps=7 format=3 uid="uid://ddtdlbly8u6nq"]
 
 [ext_resource type="PackedScene" uid="uid://cmu5sym2nhyev" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
-[ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="4_nfr03"]
 [ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
 [ext_resource type="Texture2D" uid="uid://d4flatsjwq5vu" path="res://Maps/ForestBase/gentle trees 80x96 v01.png" id="6_654a6"]
-[ext_resource type="Script" path="res://Common/Gambits/MeleeAttackGambitAction.gd" id="9_moe5x"]
 [ext_resource type="PackedScene" uid="uid://b1226uw2hx06m" path="res://UI/FieldUIContainer.tscn" id="11_p2skf"]
 [ext_resource type="Script" path="res://Maps/PartySpawnPoint.gd" id="11_pdktn"]
 
@@ -12,24 +10,6 @@
 vertices = PackedVector2Array(742, 398, -208, 407, -485, -393, 748, -444)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(748, -444, -485, -393, -208, 407, 742, 398)])
-
-[sub_resource type="Resource" id="Resource_ncj6s"]
-script = ExtResource("9_moe5x")
-action_name = "Attack"
-target_group = null
-mp_cost = 0.0
-charge_time = 0.0
-execution_range = 150.0
-targeting_range = 150.0
-
-[sub_resource type="Resource" id="Resource_2civr"]
-script = ExtResource("4_nfr03")
-gambit_name = ""
-target = 1
-trigger = 6
-trigger_val = 0.0
-condition = 6
-action = SubResource("Resource_ncj6s")
 
 [node name="Map" type="CanvasLayer"]
 follow_viewport_enabled = true
@@ -49,15 +29,13 @@ texture = ExtResource("6_654a6")
 
 [node name="Imp" parent="YSort" instance=ExtResource("4")]
 position = Vector2(203, 118)
-gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_2civr")])
+debug = true
 
 [node name="Imp2" parent="YSort" instance=ExtResource("4")]
 position = Vector2(111, 210)
-gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_2civr")])
 
 [node name="Imp3" parent="YSort" instance=ExtResource("4")]
 position = Vector2(-31, 55)
-gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_2civr")])
 
 [node name="PartySpawnPoint" type="Node2D" parent="YSort"]
 position = Vector2(383, 117)

@@ -40,7 +40,8 @@ enum Trigger {
 
 func evaluate_gambit(e) -> BattleEntity:
 	_b.debug("evaluating gambit " + gambit_name, e)
-	e.range_area_shape.shape.radius = action.targeting_range
+	e.range_area_shape.shape.set_radius(action.targeting_range)
+	_b.debug(e.range_area_shape.shape.radius, e)
 	var target_pool = e.range_area.get_overlapping_bodies()
 	
 	match target:
@@ -50,7 +51,7 @@ func evaluate_gambit(e) -> BattleEntity:
 			target_pool = target_pool.filter(func(en): return en.is_in_group("Enemies"))
 		Target.SELF:
 			target_pool = [e]
-			
+	_b.debug(target_pool, e)
 	if target_pool.size() < 1: return null
 	
 	var trigger_get_func:Callable
@@ -130,27 +131,25 @@ func evaluate_gambit(e) -> BattleEntity:
 
 # evaluate this entity's gambit ladder
 static func do_gambit_ladder(e):
-	
 	var gambit_target = null
 	var gambit_action = null
-	var g = -1
 	
-	while not gambit_target and g < e.gambits.size() - 1:
-		g += 1
-		
-		gambit_target = e.gambits[g].evaluate_gambit(e)
-		gambit_action = e.gambits[g].action
+#	while not gambit_target and g < e.gambits.size() - 1:
+	gambit_target = e.gambits[e.cur_gambit].evaluate_gambit(e)
+	gambit_action = e.gambits[e.cur_gambit].action
 
 	if gambit_target != null:
 		_b.debug("gambit target " + str(gambit_target), e)
 		e.prev_target = e.target_entity
 		e.target_entity = gambit_target
 		gambit_action.enqueue(e)
+		e.reset_gambit_ladder()
 	else:
 		_b.debug("no targ", e)
 		e.action_queue = []
 		e.target_entity = null
 		e.target_entities = null
+		e.increment_gambit_ladder()
 	
 	e.emit_signal("to_Manager_set_target_entity", e)
 
