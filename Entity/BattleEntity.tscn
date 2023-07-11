@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxl2spnhga0xg"]
+[gd_scene load_steps=12 format=3 uid="uid://bxl2spnhga0xg"]
 
 [ext_resource type="PackedScene" uid="uid://dm8s56tq2k0sp" path="res://Entity/Entity.tscn" id="1_vr656"]
 [ext_resource type="Script" path="res://Entity/BattleEntity.gd" id="2_ooku8"]
@@ -15,20 +15,13 @@ trigger_val = 0.0
 condition = 6
 action = ExtResource("3_t111i")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_oxs64"]
-radius = 150.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_yobbg"]
 radius = 250.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_rf4c0"]
-radius = 45.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5odg"]
 radius = 25.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dyofn"]
-resource_local_to_scene = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_5lq3r"]
 radius = 150.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2nclw"]
@@ -51,30 +44,14 @@ friction = 500
 
 [node name="RangeAreas" type="Node2D" parent="." index="2"]
 
-[node name="ChaseArea" type="Area2D" parent="RangeAreas" index="0"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
-modulate = Color(0.968627, 1, 0, 0.960784)
-show_behind_parent = true
-shape = SubResource("CircleShape2D_oxs64")
-
-[node name="EngagementArea" type="Area2D" parent="RangeAreas" index="1"]
+[node name="EngagementArea" type="Area2D" parent="RangeAreas" index="0"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
 modulate = Color(1, 0.211765, 0, 0.960784)
 show_behind_parent = true
 shape = SubResource("CircleShape2D_yobbg")
 
-[node name="LeaderRunStray" type="Area2D" parent="RangeAreas" index="2"]
-collision_layer = 0
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RangeAreas/LeaderRunStray" index="0"]
-modulate = Color(0, 1, 0.0862745, 0.960784)
-show_behind_parent = true
-shape = SubResource("CircleShape2D_rf4c0")
-
-[node name="LeaderStray" type="Area2D" parent="RangeAreas" index="3"]
+[node name="LeaderStray" type="Area2D" parent="RangeAreas" index="1"]
 collision_layer = 0
 collision_mask = 256
 
@@ -82,13 +59,11 @@ collision_mask = 256
 self_modulate = Color(0.0784314, 1, 0, 1)
 shape = SubResource("CircleShape2D_v5odg")
 
-[node name="RangeArea" type="Area2D" parent="RangeAreas" index="4"]
-collision_layer = 0
+[node name="RangeArea" type="ShapeCast2D" parent="RangeAreas" index="2"]
+enabled = false
+shape = SubResource("CircleShape2D_5lq3r")
+target_position = Vector2(0, 0)
 collision_mask = 768
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
-shape = SubResource("CircleShape2D_dyofn")
-debug_color = Color(0.247059, 0, 0.14902, 0.419608)
 
 [node name="AttackPivot" type="Marker2D" parent="." index="3"]
 

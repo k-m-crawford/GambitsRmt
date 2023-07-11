@@ -22,9 +22,9 @@ func _accept_handler():
 	var translated_select = selected * page
 	action = spellbook[translated_select]
 	
-	leader.range_area_shape.shape.radius = action.targeting_range
-	leader.range_area_shape.shape.draw(leader.get_canvas_item(), Color(0.5,0.5,0.5,0.5))
-	_init_target_pool()
+#	leader.range_area_shape.shape.radius = action.targeting_range
+#	leader.range_area_shape.shape.draw(leader.get_canvas_item(), Color(0.5,0.5,0.5,0.5))
+#	_init_target_pool()
 
 func _input(event):
 	if target_select:

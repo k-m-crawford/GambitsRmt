@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://6772grslueoo"]
+[gd_scene load_steps=15 format=3 uid="uid://6772grslueoo"]
 
 [ext_resource type="Script" path="res://Common/Gambits/CureGambitAction.gd" id="2_slcla"]
 [ext_resource type="PackedScene" uid="uid://bjrbvej5ix2qx" path="res://Common/FSM/AllyFSM.tscn" id="2_xv2ah"]
@@ -10,11 +10,12 @@
 [sub_resource type="Resource" id="Resource_28nvb"]
 script = ExtResource("2_slcla")
 action_name = ""
-target_group = null
+default_target_group = ""
 mp_cost = 0.0
 charge_time = 4.0
 execution_range = 150.0
 targeting_range = 150.0
+stationary_charging = false
 
 [sub_resource type="Resource" id="Resource_02vpy"]
 script = ExtResource("3_s70uj")
@@ -38,21 +39,11 @@ action = ExtResource("4_0od1t")
 radius = 6.0
 height = 16.0
 
-[sub_resource type="CircleShape2D" id="5"]
-radius = 150.0
-
 [sub_resource type="CircleShape2D" id="6"]
 radius = 100.0
 
-[sub_resource type="CircleShape2D" id="3"]
-radius = 45.0
-
 [sub_resource type="CircleShape2D" id="2"]
 radius = 25.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_atobf"]
-resource_local_to_scene = true
-radius = 150.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a8ysq"]
 resource_local_to_scene = true
@@ -78,38 +69,19 @@ shape = SubResource("CapsuleShape2D_sfp32")
 
 [node name="AnimationContainer" parent="." index="2" instance=ExtResource("10")]
 
-[node name="ChaseArea" parent="RangeAreas" index="0"]
-visible = false
-collision_layer = 0
-collision_mask = 512
-
-[node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
-visible = false
-shape = SubResource("5")
-
-[node name="EngagementArea" parent="RangeAreas" index="1"]
+[node name="EngagementArea" parent="RangeAreas" index="0"]
 visible = false
 
 [node name="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
 visible = false
 shape = SubResource("6")
 
-[node name="LeaderRunStray" parent="RangeAreas" index="2"]
-visible = false
-
-[node name="CollisionShape2D" parent="RangeAreas/LeaderRunStray" index="0"]
-visible = false
-shape = SubResource("3")
-
-[node name="LeaderStray" parent="RangeAreas" index="3"]
+[node name="LeaderStray" parent="RangeAreas" index="1"]
 visible = false
 
 [node name="CollisionShape2D" parent="RangeAreas/LeaderStray" index="0"]
 visible = false
 shape = SubResource("2")
-
-[node name="CollisionShape2D" parent="RangeAreas/RangeArea" index="0"]
-shape = SubResource("CircleShape2D_atobf")
 
 [node name="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
 shape = SubResource("CapsuleShape2D_a8ysq")

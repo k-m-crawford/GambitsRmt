@@ -38,11 +38,13 @@ enum Trigger {
 @export var action:GambitAction
 
 
-func evaluate_gambit(e) -> BattleEntity:
-	_b.debug("evaluating gambit " + gambit_name, e)
-	e.range_area_shape.shape.set_radius(action.targeting_range)
-	_b.debug(e.range_area_shape.shape.radius, e)
-	var target_pool = e.range_area.get_overlapping_bodies()
+func evaluate_gambit(e:BattleEntity) -> BattleEntity:
+	
+	e.range_area.shape.radius = action.targeting_range
+	e.range_area.force_shapecast_update()
+	
+	var target_pool = e.query_targets_in_range()
+	
 	
 	match target:
 		Target.ALLY:
@@ -158,8 +160,8 @@ static func do_gambit_ladder(e):
 static func get_next_target(e:BattleEntity, group:String, dir=0):
 	
 	# TODO: add default "weapon" ranges
-	var target_pool = e.range_area.get_overlapping_bodies()
-	print(target_pool)
+	var target_pool = e.query_targets_in_range()
+	
 	target_pool = target_pool.filter(func(e): return e.is_in_group(group))
 
 	target_pool.sort_custom(func(a, b): return \

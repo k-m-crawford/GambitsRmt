@@ -9,7 +9,6 @@ func _init(_entity=null):
 # (entity deals w callback, so if non battle entity, do nothing
 # w return value in FSM state)
 func move(delta) -> bool:
-
 	if not entity.leader_entity:
 		return false
 

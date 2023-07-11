@@ -16,11 +16,8 @@ signal request_leader_change(dir)
 @export var manual_control = false
 
 @onready var leader_stray:Area2D = get_node_or_null("RangeAreas/LeaderStray")
-@onready var leader_run_stray:Area2D = get_node_or_null("RangeAreas/LeaderRunStray")
 @onready var engagement_area:Area2D = get_node_or_null("RangeAreas/EngagementArea")
-@onready var chase_area:Area2D = get_node_or_null("RangeAreas/ChaseArea")
-@onready var range_area:Area2D = get_node_or_null("RangeAreas/RangeArea")
-@onready var range_area_shape:CollisionShape2D = get_node_or_null("RangeAreas/RangeArea/CollisionShape2D")
+@onready var range_area:ShapeCast2D = get_node_or_null("RangeAreas/RangeArea")
 
 @onready var attack_pivot:Marker2D = get_node_or_null("AttackPivot")
 @onready var hurtbox:Area2D = get_node_or_null("Hurtbox")
@@ -122,3 +119,10 @@ func increment_gambit_ladder():
 
 func reset_gambit_ladder():
 	cur_gambit = 0
+
+
+func query_targets_in_range() -> Array:
+	return range_area.collision_result.map(
+		func(e):
+			return e["collider"]
+	)

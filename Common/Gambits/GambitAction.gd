@@ -23,7 +23,7 @@ var aux:Dictionary
 
 func enqueue(e:BattleEntity):
 	charge_timer = 0
-	e.range_area_shape.shape.radius = execution_range
+	e.range_area.shape.radius = execution_range
 	e.action_queue.append(self)
 	
 	if charge_time > 0:
@@ -41,7 +41,7 @@ func _while_queued(e:BattleEntity, delta):
 	if charge_timer > 0 and e.is_in_group("Allies"):
 			EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBar", charge_timer / charge_time)
 	
-	var hits = e.range_area.get_overlapping_areas()
+	var hits = e.query_targets_in_range()
 	
 	# stationary charging means the entity will not move while charging,
 	# and also that the attack will be executed regardless if the target
