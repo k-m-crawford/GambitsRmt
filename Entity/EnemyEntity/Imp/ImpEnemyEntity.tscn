@@ -3,20 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://grf4i4csusit" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1_8gv7b"]
 [ext_resource type="PackedScene" uid="uid://cwyphjtupjj1h" path="res://Entity/EnemyEntity/Imp/ImpAnimationContainer.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://l321vbov02ph" path="res://Common/FSM/EnemyFSM.tscn" id="2_65ao6"]
-[ext_resource type="Resource" uid="uid://ohr53lmuq451" path="res://Common/Gambits/MeleeAttackGambitAction.tres" id="2_aw4vx"]
 [ext_resource type="Resource" uid="uid://whdq2dum165a" path="res://Entity/EnemyEntity/ImpStats.tres" id="3_ji4fb"]
 [ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="3_mwj0p"]
-[ext_resource type="Resource" uid="uid://nys5yv7dvp56" path="res://Common/Gambits/CureGambitAction.tres" id="4_4ytj8"]
-
-[sub_resource type="Resource" id="Resource_o51d8"]
-resource_local_to_scene = true
-script = ExtResource("3_mwj0p")
-gambit_name = "Foe: Closest"
-target = 1
-trigger = 6
-trigger_val = 0.0
-condition = 6
-action = ExtResource("2_aw4vx")
+[ext_resource type="Resource" uid="uid://c5trkrw1o7pfo" path="res://Common/Gambits/RockThrowGambitAction.tres" id="4_lkrrc"]
 
 [sub_resource type="Resource" id="Resource_xrdxs"]
 resource_local_to_scene = true
@@ -26,11 +15,19 @@ target = 1
 trigger = 6
 trigger_val = 0.0
 condition = 7
-action = ExtResource("4_4ytj8")
+action = ExtResource("4_lkrrc")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g5m4x"]
 radius = 6.0
 height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x8t86"]
+resource_local_to_scene = true
+radius = 450.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pyvfj"]
+resource_local_to_scene = true
+radius = 150.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yobbg"]
 radius = 250.0
@@ -45,8 +42,11 @@ resource_local_to_scene = true
 height = 25.0
 
 [node name="Imp" instance=ExtResource("1_8gv7b")]
+process_mode = 1
 modulate = Color(1, 1, 1, 1)
-gambits = Array[ExtResource("3_mwj0p")]([SubResource("Resource_o51d8"), SubResource("Resource_xrdxs")])
+motion_mode = 1
+platform_floor_layers = 4294966527
+gambits = Array[ExtResource("3_mwj0p")]([SubResource("Resource_xrdxs")])
 __FSM = ExtResource("2_65ao6")
 group_type = "Enemies"
 stats = ExtResource("3_ji4fb")
@@ -54,24 +54,41 @@ friction = 500
 
 [node name="AnimationContainer" parent="." index="0" instance=ExtResource("2")]
 
-[node name="MovementCollider" parent="." index="2"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="1"]
+max_speed = 80.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="2"]
+max_speed = 80.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="3"]
+max_speed = 80.0
+
+[node name="MovementCollider" parent="." index="4"]
 position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_g5m4x")
 
-[node name="EngagementArea" parent="RangeAreas" index="0"]
+[node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
+shape = SubResource("CircleShape2D_x8t86")
+
+[node name="RangeArea" parent="RangeAreas" index="1"]
+visible = false
+shape = SubResource("CircleShape2D_pyvfj")
+
+[node name="EngagementArea" parent="RangeAreas" index="2"]
 collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
+visible = false
 shape = SubResource("CircleShape2D_yobbg")
 
-[node name="LeaderStray" parent="RangeAreas" index="1"]
+[node name="LeaderStray" parent="RangeAreas" index="3"]
 collision_mask = 512
 
 [node name="CollisionShape2D" parent="RangeAreas/LeaderStray" index="0"]
 visible = false
 
-[node name="AttackPivot" parent="." index="4"]
+[node name="AttackPivot" parent="." index="6"]
 position = Vector2(1, -8)
 rotation = -6.28319
 

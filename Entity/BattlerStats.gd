@@ -17,8 +17,14 @@ extends EntityStats
 @export var spr:int = 10
 
 @export_group("Agility Stats")
+@export var spd:float = 1.0
 @export var acc:float = 1.0
 @export var eva:float = 0.0
+
+@export_group("Equipment Stats")
+@export var atk:float = 10
+@export var def:float = 10
+@export var mdef:float = 10
 
 @export_group("Ability and Spells")
 @export var spellbook:Dictionary = {

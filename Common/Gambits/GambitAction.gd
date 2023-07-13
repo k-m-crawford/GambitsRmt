@@ -13,6 +13,7 @@ extends Resource
 @export var stationary_charging = false
 
 var charge_timer:float = 0
+var first_pass = true
 
 var patrol = false
 var patrol_dest = Vector2.ZERO
@@ -42,11 +43,11 @@ func _while_queued(e:BattleEntity, delta):
 			EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBar", charge_timer / charge_time)
 	
 	var hits = e.query_targets_in_range()
-	
+
 	# stationary charging means the entity will not move while charging,
 	# and also that the attack will be executed regardless if the target
 	# has left range.
-	if stationary_charging or e.target_entity and e.target_entity.hurtbox in hits:
+	if stationary_charging or (e.target_entity and e.target_entity in hits):
 		if charge_timer >= charge_time:
 			e.anim_container.stop_charge()
 			execute_wrapper(e, delta)

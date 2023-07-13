@@ -15,9 +15,16 @@ func physics_update(delta) -> void:
 	if not entity._FSM.check_flag("BATTLE_ENGAGED"):
 		entity._FSM.transition_to("BATTLE_ENGAGE")
 		return
-
+	
+	if entity.is_in_group("Enemies") and not entity.target_entity:
+		var hits = entity.chase_area.get_overlapping_bodies()
+		if hits.size() > 0:
+			entity.target_entity = hits[0]
+	
 	if entity.stun_tick > 0:
 		entity.stun_tick -= delta
+		entity.move_nav_agent(entity.target_entity.global_position, delta)
+		entity.anim_container.set_anim("Move")
 	# if no action queue
 	# do gambit ladder
 	elif entity.action_queue.size() > 0:

@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_mnsxp")
 action_name = "Rock Throw"
-default_target_group = ""
-mp_cost = 0.0
-charge_time = 1.0
+default_target_group = null
+mp_cost = null
+charge_time = 3.0
 execution_range = 300.0
 targeting_range = 300.0
 stationary_charging = true

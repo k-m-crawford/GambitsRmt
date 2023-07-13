@@ -21,6 +21,7 @@ var field_menu = false
 
 #var field_ui:FieldUI
 var target_select:TargetIndicatorCircle
+var default_physical_damage:Callable = Callable(self, "physical_damage_calc")
 
 func _ready():
 	set_process(true)
@@ -82,30 +83,23 @@ func _on_FieldUI_field_menu_closed():
 	field_menu = false
 
 
-func deal_physical_damage(attacker:BattleEntity, defender:BattleEntity):
-	var dmg:int = (attacker.stats.stn * randf_range(1, 1.125) - defender.stats.vit) * \
-			attacker.stats.stn * (attacker.stats.lvl+attacker.stats.stn)/256
-
+func apply_damage(attacker:BattleEntity, defender:BattleEntity, dmg:int,
+					_knockback_dict = {}):
 	defender.stats.hp -= dmg
-#	defender.anim_container.set_textures("DrawWeapon")
-#	defender.anim_container.set_anim("Hit")
+	
 	defender.anim_container.play_effect("HurtFlash")
 	
 	if defender.is_in_group("Allies"):
 		emit_signal("update_field_stats_ui", defender.stats, "HP", null)
 
-	if defender.is_interruptible(): 	
-		defender._FSM.transition_to(
-			"KNOCKBACK",
-			{
-				"knockback_vec": -defender.global_position.direction_to(attacker.global_position),
-				"return_state": defender._FSM.state.name
-			}
-		)
-
 	var inst = damage_label.instantiate()
 	emit_signal("spawn_damage_label", inst)
 	inst._execute(dmg, defender.get_global_position())
+
+
+func physical_damage_calc(attacker:BattleStats, defender:BattleStats):
+	return (attacker.stn * randf_range(1, 1.125) - defender.vit) * \
+			attacker.stn * (attacker.lvl+attacker.stn)/256
 
 
 func apply_magical_healing(source:BattleEntity, target:BattleEntity):

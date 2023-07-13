@@ -15,6 +15,7 @@ signal request_leader_change(dir)
 @export var gambits: Array[Gambit] = []
 @export var manual_control = false
 
+@onready var chase_area:Area2D = get_node_or_null("RangeAreas/ChaseArea")
 @onready var leader_stray:Area2D = get_node_or_null("RangeAreas/LeaderStray")
 @onready var engagement_area:Area2D = get_node_or_null("RangeAreas/EngagementArea")
 @onready var range_area:ShapeCast2D = get_node_or_null("RangeAreas/RangeArea")
@@ -41,7 +42,7 @@ func _ready():
 	# warning-ignore:return_value_discarded
 	to_Manager_set_target_entity.connect(EntityMgr.set_target_entity)
 	# warning-ignore:return_value_discarded
-	deal_physical_damage.connect(EntityMgr.deal_physical_damage)
+#	deal_physical_damage.connect(EntityMgr.deal_damage)
 	# warning-ignore:return_value_discarded
 	apply_magical_healing.connect(EntityMgr.apply_magical_healing)
 	battle_engagement.connect(EntityMgr.on_battle_engagement)
@@ -98,7 +99,15 @@ func manual_movement(max_speed, delta, direction_override=null):
 	return direction
 
 
-func is_interruptible(): return interruptible
+func apply_knockback(attacker):
+	if interruptible:
+		_FSM.transition_to(
+			"KNOCKBACK",
+			{
+				"knockback_vec": -global_position.direction_to(attacker.global_position),
+				"return_state": _FSM.state.name
+			}
+		)
 
 
 func switch_leader_state():

@@ -12,3 +12,4 @@ func _while_queued(e:BattleEntity, delta):
 	else:
 		e.move_nav_agent(e.target_entity.global_position, delta)
 		e.anim_container.set_anim("BattleMove")
+		

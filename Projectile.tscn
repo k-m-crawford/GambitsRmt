@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfqeounlnfhjq"]
+[gd_scene load_steps=9 format=3 uid="uid://dfqeounlnfhjq"]
 
 [ext_resource type="Script" path="res://Projectile.gd" id="1_q8cqe"]
 [ext_resource type="Texture2D" uid="uid://obju1fyl56lb" path="res://Sprites/Free_OreSheet_VerySmallSquares.png" id="1_tv50k"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_suon2"]
 resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_farno"]
+radius = 7.0
 
 [sub_resource type="Animation" id="Animation_mstgg"]
 resource_name = "Spin"
@@ -29,6 +32,7 @@ _data = {
 }
 
 [sub_resource type="Curve2D" id="Curve2D_4lhfw"]
+resource_local_to_scene = true
 
 [node name="Path" type="Path2D"]
 curve = SubResource("Curve2D_suon2")
@@ -43,6 +47,13 @@ texture = ExtResource("1_tv50k")
 hframes = 18
 vframes = 6
 frame = 91
+
+[node name="Hitbox" type="Area2D" parent="PathFollow2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Hitbox"]
+shape = SubResource("CircleShape2D_farno")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Spin"
@@ -61,3 +72,5 @@ loop = false
 [node name="Shadow" type="Sprite2D" parent="ShadowPath/PathFollow2D"]
 position = Vector2(0, 11)
 texture = ExtResource("3_g6ini")
+
+[connection signal="body_entered" from="PathFollow2D/Hitbox" to="." method="_on_hitbox_body_entered"]

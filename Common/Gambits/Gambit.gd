@@ -45,7 +45,6 @@ func evaluate_gambit(e:BattleEntity) -> BattleEntity:
 	
 	var target_pool = e.query_targets_in_range()
 	
-	
 	match target:
 		Target.ALLY:
 			target_pool = target_pool.filter(func(en): return en.is_in_group("Allies"))
@@ -141,13 +140,11 @@ static func do_gambit_ladder(e):
 	gambit_action = e.gambits[e.cur_gambit].action
 
 	if gambit_target != null:
-		_b.debug("gambit target " + str(gambit_target), e)
 		e.prev_target = e.target_entity
 		e.target_entity = gambit_target
 		gambit_action.enqueue(e)
 		e.reset_gambit_ladder()
 	else:
-		_b.debug("no targ", e)
 		e.action_queue = []
 		e.target_entity = null
 		e.target_entities = null
