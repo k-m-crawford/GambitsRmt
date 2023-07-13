@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b61wiwqm5v4va"]
+
+[ext_resource type="PackedScene" uid="uid://c6tf1hkpbqeo5" path="res://UI/FieldMenuUIGeneric.tscn" id="1_taxhv"]
+[ext_resource type="Script" path="res://UI/FieldMenuUIActionMenu.gd" id="2_clwv6"]
+
+[node name="FieldMenu" instance=ExtResource("1_taxhv")]
+script = ExtResource("2_clwv6")

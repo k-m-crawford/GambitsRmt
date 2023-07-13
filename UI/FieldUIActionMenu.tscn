@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Theme" uid="uid://7l22upj7t1q7" path="res://UI/DefaultUITheme.tres" id="1_o06e5"]
+[ext_resource type="Texture2D" uid="uid://b1qlx277g7jwu" path="res://UI/Sprites/gui_gradient.png" id="2_f81k8"]
+[ext_resource type="Texture2D" uid="uid://cslxfhh3r5hq7" path="res://UI/Sprites/Cursor.png" id="3_7b62e"]
+[ext_resource type="Script" path="res://UI/FieldMenuUIGeneric.gd" id="3_m434y"]
+
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("2_f81k8")
+region = Rect2(160, 224, 64, 64)
+
+[node name="ActionMenu" type="NinePatchRect"]
+self_modulate = Color(1, 1, 1, 0.498039)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -70.0
+offset_right = 85.0
+offset_bottom = -6.0
+size_flags_horizontal = 3
+theme = ExtResource("1_o06e5")
+texture = SubResource("10")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+script = ExtResource("3_m434y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -20.0
+theme = ExtResource("1_o06e5")
+
+[node name="Command1" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_o06e5")
+text = "Ability"
+uppercase = true
+
+[node name="Command2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_o06e5")
+text = "SPELLS"
+uppercase = true
+
+[node name="Command3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_o06e5")
+text = "ITEM"
+uppercase = true
+
+[node name="Pointer" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 37.0
+offset_bottom = 48.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("1_o06e5")
+texture = ExtResource("3_7b62e")

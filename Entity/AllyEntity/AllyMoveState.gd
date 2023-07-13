@@ -24,6 +24,4 @@ func physics_update(delta):
 			if entity.behaviors["FollowLeader"].move(delta): 
 				if entity._FSM.check_flag("BATTLE_ENGAGED"):
 					entity._FSM.transition_to("BATTLE_ENGAGE")
-				
-		
-					
+

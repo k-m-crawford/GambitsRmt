@@ -7,40 +7,26 @@
 class_name EntityManager
 extends Node
 
+signal update_field_stats_ui(who, what, aux)
+signal spawn_damage_label(label)
+
 var ally_entities = []
 var active_idx:int = 0
 
 var field_menu = false
 
-@onready var field_ui = $FieldUI
-@onready var camera = $Camera
-
 @onready var damage_label = preload("res://UI/DamageLabel.tscn")
 @onready var target_curve = preload("res://UI/TargetIndicators/TargetIndicatorCurve.tscn")
 @onready var target_circle = preload("res://UI/TargetIndicators/TargetIndicatorCircle.tscn")
 
+#var field_ui:FieldUI
 var target_select:TargetIndicatorCircle
+var default_physical_damage:Callable = Callable(self, "physical_damage_calc")
 
 func _ready():
-	
-	for e in get_children():
-		#TODO: decouple UI from Entity Manager so dont have to do this
-		if e.get_class() == "CharacterBody2D": 
-			e.hook(self)
-		if e  in get_tree().get_nodes_in_group("Allies"):
-			ally_entities.append(e)
-			e.request_leader_change.connect(get_next_leader)
-			e.battle_engagement.connect(on_battle_engagement)
-			e.set_leader_entity(ally_entities[0])
-	
-	if ally_entities.size() > 0:
-		ally_entities[0].switch_leader_state()
-		camera.follow_entities([ally_entities[0]])
-		
-#	camera.follow_entities([$Imp])
-	
 	set_process(true)
-	
+
+
 func _input(event):
 	
 	if field_menu: return
@@ -54,8 +40,12 @@ func _input(event):
 			Vector2(1, 1),
 			"Friendly"
 		)
-		
-		field_ui.activate()
+		get_viewport().set_input_as_handled()
+#		field_ui.activate()
+
+
+func get_current_leader():
+	return ally_entities[active_idx]
 
 
 func get_next_leader(dir):
@@ -78,7 +68,6 @@ func get_next_leader(dir):
 	
 	# set new active idx
 	active_idx = next_idx
-	
 	target_select.move(ally_entities[active_idx].global_position)
 
 
@@ -94,30 +83,23 @@ func _on_FieldUI_field_menu_closed():
 	field_menu = false
 
 
-func deal_physical_damage(attacker:BattleEntity, defender:BattleEntity):
-	var dmg:int = (attacker.stats.stn * randf_range(1, 1.125) - defender.stats.vit) * \
-			attacker.stats.stn * (attacker.stats.lvl+attacker.stats.stn)/256
-
+func apply_damage(attacker:BattleEntity, defender:BattleEntity, dmg:int,
+					_knockback_dict = {}):
 	defender.stats.hp -= dmg
-#	defender.anim_container.set_textures("DrawWeapon")
-#	defender.anim_container.set_anim("Hit")
+	
 	defender.anim_container.play_effect("HurtFlash")
 	
 	if defender.is_in_group("Allies"):
-		field_ui.party_stats.update_hitpoints(defender.stats)
-
-	if defender.is_interruptible(): 	
-		defender._FSM.transition_to(
-			"KNOCKBACK",
-			{
-				"knockback_vec": -defender.global_position.direction_to(attacker.global_position),
-				"return_state": defender._FSM.state.name
-			}
-		)
+		emit_signal("update_field_stats_ui", defender.stats, "HP", null)
 
 	var inst = damage_label.instantiate()
-	get_parent().add_child(inst)
+	emit_signal("spawn_damage_label", inst)
 	inst._execute(dmg, defender.get_global_position())
+
+
+func physical_damage_calc(attacker:BattleStats, defender:BattleStats):
+	return (attacker.stn * randf_range(1, 1.125) - defender.vit) * \
+			attacker.stn * (attacker.lvl+attacker.stn)/256
 
 
 func apply_magical_healing(source:BattleEntity, target:BattleEntity):
@@ -128,12 +110,13 @@ func apply_magical_healing(source:BattleEntity, target:BattleEntity):
 	if target.stats.hp > target.stats.max_hp: target.stats.hp = target.stats.max_hp
 	
 	if target.is_in_group("Allies"):
-		field_ui.party_stats.update_hitpoints(target.stats)
+		emit_signal("update_field_stats_ui", target.stats, "HP", null)
 	
 	var inst = damage_label.instantiate()
 	inst.modulate = Color(0, 1, 0, 1)
 	get_parent().add_child(inst)
 	inst._execute(dmg, target.get_global_position())
+
 
 # TODO: add AOE targeting
 func set_target_entity(source, _AOE=false):

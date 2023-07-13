@@ -14,6 +14,7 @@ extends Node2D
 @onready var emitter = $ParticleEmitter
 @onready var direction = "Down"
 @onready var effects_player:AnimationPlayer = get_node_or_null("EffectsPlayer")
+@onready var charge_particles = get_node_or_null("ParticleEmitter")
 
 signal animation_finished(anim)
 
@@ -61,3 +62,8 @@ func move_layer(node_path:String, layer:int):
 
 func play_effect(effect:String):
 	effects_player.play(effect)
+
+
+func stop_charge():
+	charge_particles.emitting = false
+

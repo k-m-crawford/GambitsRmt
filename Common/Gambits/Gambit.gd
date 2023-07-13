@@ -38,10 +38,12 @@ enum Trigger {
 @export var action:GambitAction
 
 
-func evaluate_gambit(e) -> BattleEntity:
-	_b.debug("evaluating gambit " + gambit_name, e)
-	e.range_area_shape.shape.radius = action.targeting_range
-	var target_pool = e.range_area.get_overlapping_bodies()
+func evaluate_gambit(e:BattleEntity) -> BattleEntity:
+	
+	e.range_area.shape.radius = action.targeting_range
+	e.range_area.force_shapecast_update()
+	
+	var target_pool = e.query_targets_in_range()
 	
 	match target:
 		Target.ALLY:
@@ -50,7 +52,7 @@ func evaluate_gambit(e) -> BattleEntity:
 			target_pool = target_pool.filter(func(en): return en.is_in_group("Enemies"))
 		Target.SELF:
 			target_pool = [e]
-			
+	_b.debug(target_pool, e)
 	if target_pool.size() < 1: return null
 	
 	var trigger_get_func:Callable
@@ -68,21 +70,22 @@ func evaluate_gambit(e) -> BattleEntity:
 	
 	match condition:
 		Condition.MORE_THAN:
-			target_pool = target_pool.filter(func(e): \
+			target_pool = target_pool.filter(func(e): 
 					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) > trigger_val
 			)
 			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 
 		Condition.LESS_THAN:
-			target_pool = target_pool.filter(func(e): \
-					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) < trigger_val
+			_b.debug("target pool before " + str(target_pool), e)
+			target_pool = target_pool.filter(func(e): 
+					return trigger_get_func.call(e) / trigger_cap_get_func.call(e) < trigger_val 
 			)
 			_b.debug("target pool after cond " + str(target_pool), e)
 			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
 
 		Condition.EQUAL:
 			#TODO: add status support (status is an array)
-			target_pool = target_pool.filter(func(e): \
+			target_pool = target_pool.filter(func(e): 
 					return trigger_get_func.call(e) == trigger_val
 			)
 			if target_pool.size() > 0: target_pool = [target_pool.pick_random()]
@@ -129,27 +132,23 @@ func evaluate_gambit(e) -> BattleEntity:
 
 # evaluate this entity's gambit ladder
 static func do_gambit_ladder(e):
-	
 	var gambit_target = null
 	var gambit_action = null
-	var g = -1
 	
-	while not gambit_target and g < e.gambits.size() - 1:
-		g += 1
-		
-		gambit_target = e.gambits[g].evaluate_gambit(e)
-		gambit_action = e.gambits[g].action
+#	while not gambit_target and g < e.gambits.size() - 1:
+	gambit_target = e.gambits[e.cur_gambit].evaluate_gambit(e)
+	gambit_action = e.gambits[e.cur_gambit].action
 
 	if gambit_target != null:
-		_b.debug("gambit target " + str(gambit_target), e)
 		e.prev_target = e.target_entity
 		e.target_entity = gambit_target
 		gambit_action.enqueue(e)
+		e.reset_gambit_ladder()
 	else:
-		_b.debug("no targ", e)
-		e.action_queue = null
+		e.action_queue = []
 		e.target_entity = null
 		e.target_entities = null
+		e.increment_gambit_ladder()
 	
 	e.emit_signal("to_Manager_set_target_entity", e)
 
@@ -158,9 +157,10 @@ static func do_gambit_ladder(e):
 static func get_next_target(e:BattleEntity, group:String, dir=0):
 	
 	# TODO: add default "weapon" ranges
-	var target_pool = e.range_area.get_overlapping_bodies()
-	target_pool = target_pool.filter(func(e): return e.is_in_group(group))
+	var target_pool = e.query_targets_in_range()
 	
+	target_pool = target_pool.filter(func(e): return e.is_in_group(group))
+
 	target_pool.sort_custom(func(a, b): return \
 			a.global_position.distance_to(e.global_position) < \
 			b.global_position.distance_to(e.global_position)
@@ -170,9 +170,12 @@ static func get_next_target(e:BattleEntity, group:String, dir=0):
 	
 	var i = 0
 	if e.target_entity != null:
+		print(target_pool.find(e.target_entity), "+", dir)
 		i = target_pool.find(e.target_entity) + dir
+		print(i)
 		
 		if i < 0: i = target_pool.size() - 1
 		if i >= target_pool.size(): i = 0
 	
+	print(e.target_entity, target_pool[i])
 	return target_pool[i]

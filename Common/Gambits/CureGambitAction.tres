@@ -5,6 +5,9 @@
 [resource]
 script = ExtResource("1_5toog")
 action_name = "Cure"
+default_target_group = ""
+mp_cost = 5.0
+charge_time = 1.0
 execution_range = 150.0
 targeting_range = 150.0
-charge_time = 5.0
+stationary_charging = false

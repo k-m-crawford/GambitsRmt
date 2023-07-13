@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dljlsiy1voy80"]
+
+[ext_resource type="PackedScene" uid="uid://c6tf1hkpbqeo5" path="res://UI/FieldMenuUIGeneric.tscn" id="1_5ctj4"]
+[ext_resource type="Script" path="res://UI/FieldMenuUIMain.gd" id="2_ii7pk"]
+
+[node name="FieldMenu" instance=ExtResource("1_5ctj4")]
+script = ExtResource("2_ii7pk")
+commands = PackedStringArray("Ability", "Magic", "Items")

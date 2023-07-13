@@ -1,11 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6f5qlc304fkp"]
+[gd_scene load_steps=22 format=3 uid="uid://c6f5qlc304fkp"]
+
+[ext_resource type="Texture2D" uid="uid://2lgfm1l8u7a1" path="res://Sprites/green_imp.png" id="1_l8lla"]
 
 [sub_resource type="Animation" id="Animation_i6kld"]
-resource_name = "Default"
+resource_name = "1"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationPlayer/GPUParticles2D:emitting")
+tracks/0/path = NodePath("AnimationPlayer/Explosion1:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -17,7 +19,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationPlayer/GPUParticles2D2:emitting")
+tracks/1/path = NodePath("AnimationPlayer/Explosion2:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -29,7 +31,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimationPlayer/GPUParticles2D3:emitting")
+tracks/2/path = NodePath("AnimationPlayer/Explosion3:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -39,130 +41,70 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_t6lyq"]
+resource_name = "2"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/RingFire:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/Blaze:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_d2akp"]
+resource_name = "3"
+length = 1.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/RingFire:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/Blaze:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="Animation" id="Animation_ahvni"]
 length = 0.001
 
-[sub_resource type="Animation" id="Animation_d2akp"]
-resource_name = "Fira"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationPlayer/GPUParticles2D:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1.1, 1.9, 2.5, 2.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, true, true, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationPlayer/GPUParticles2D2:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1.6, 2.3, 2.9),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, true, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimationPlayer/GPUParticles2D3:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(2.1, 2.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimationPlayer/GPUParticles2D4:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_t6lyq"]
-resource_name = "Firaga"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationPlayer/GPUParticles2D:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationPlayer/GPUParticles2D2:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimationPlayer/GPUParticles2D3:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimationPlayer/GPUParticles2D4:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AnimationPlayer/GPUParticles2D5:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6h22x"]
 _data = {
-"Default": SubResource("Animation_i6kld"),
-"Fira": SubResource("Animation_d2akp"),
-"Firaga": SubResource("Animation_t6lyq"),
+"1": SubResource("Animation_i6kld"),
+"2": SubResource("Animation_t6lyq"),
+"3": SubResource("Animation_d2akp"),
 "RESET": SubResource("Animation_ahvni")
 }
 
@@ -271,44 +213,56 @@ scale_curve = SubResource("CurveTexture_vwegg")
 color_ramp = SubResource("GradientTexture1D_45he6")
 turbulence_enabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer"]
+[node name="Animation" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_l8lla")
+hframes = 3
+vframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6h22x")
 }
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Explosion1" type="GPUParticles2D" parent="AnimationPlayer"]
+position = Vector2(-6, -4)
 emitting = false
-amount = 24
+amount = 56
 process_material = SubResource("ParticleProcessMaterial_wexlq")
+lifetime = 2.0
 one_shot = true
 speed_scale = 2.0
 explosiveness = 0.3
 randomness = 0.5
 fixed_fps = 60
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
-position = Vector2(-2, -2)
+[node name="Explosion2" type="GPUParticles2D" parent="AnimationPlayer"]
+position = Vector2(4, -6)
 emitting = false
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_wexlq")
+lifetime = 1.2
 one_shot = true
-speed_scale = 2.0
+speed_scale = 2.5
 explosiveness = 0.3
 randomness = 0.5
 fixed_fps = 60
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
-position = Vector2(2, -1)
+[node name="Explosion3" type="GPUParticles2D" parent="AnimationPlayer"]
+position = Vector2(-1, -12)
 emitting = false
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_wexlq")
+lifetime = 2.0
 one_shot = true
-speed_scale = 2.0
+speed_scale = 2.5
 explosiveness = 0.3
 randomness = 0.5
 fixed_fps = 60
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="."]
+[node name="RingFire" type="GPUParticles2D" parent="AnimationPlayer"]
 modulate = Color(1, 1, 1, 0.764706)
 emitting = false
 amount = 100
@@ -320,7 +274,7 @@ fixed_fps = 60
 draw_order = 2
 trail_lifetime = 0.4
 
-[node name="GPUParticles2D5" type="GPUParticles2D" parent="."]
+[node name="Blaze" type="GPUParticles2D" parent="AnimationPlayer"]
 emitting = false
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_rf0c5")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://cwyphjtupjj1h"]
+[gd_scene load_steps=74 format=3 uid="uid://cwyphjtupjj1h"]
 
 [ext_resource type="PackedScene" uid="uid://cmfuf36x0h50l" path="res://Entity/AnimationContainers/AnimationContainer.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://2lgfm1l8u7a1" path="res://Sprites/green_imp.png" id="2"]
@@ -282,6 +282,22 @@ tracks/0/keys = {
 "values": [6]
 }
 
+[sub_resource type="Animation" id="Animation_qgn2s"]
+resource_name = "PerformThrow"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+
 [sub_resource type="Animation" id="2"]
 length = 0.001
 tracks/0/type = "value"
@@ -295,6 +311,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_kfuve"]
+resource_name = "ReadyThrow"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 11, 1, 11]
 }
 
 [sub_resource type="Animation" id="44"]
@@ -442,7 +475,9 @@ _data = {
 "IdleLeft": SubResource("29"),
 "IdleRight": SubResource("30"),
 "IdleUp": SubResource("31"),
+"PerformThrow": SubResource("Animation_qgn2s"),
 "RESET": SubResource("2"),
+"ReadyThrow": SubResource("Animation_kfuve"),
 "RunDown": SubResource("44"),
 "RunLeft": SubResource("45"),
 "RunRight": SubResource("46"),
@@ -1059,3 +1094,4 @@ libraries = {
 
 [node name="ParticleEmitter" parent="." index="2"]
 position = Vector2(0, 1)
+emitting = false

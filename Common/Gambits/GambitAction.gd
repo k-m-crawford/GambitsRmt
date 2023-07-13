@@ -2,43 +2,76 @@ class_name GambitAction
 extends Resource
 
 @export var action_name = ""
+@export var default_target_group = ""
+@export var mp_cost:float = 0
+@export var charge_time:float = 0.0
 # how far the action can be:
 # a) executed
 # b) used to target an entity for this action
 @export var execution_range:float = 0.0
 @export var targeting_range:float = 0.0
-@export var charge_time:float = 0.0
+@export var stationary_charging = false
 
-var charge_timer = 0
+var charge_timer:float = 0
+var first_pass = true
+
 var patrol = false
 var patrol_dest = Vector2.ZERO
 
+# for auxiliary data, i.e., initial target position
+# for charge attacks
+var aux:Dictionary
 
 func enqueue(e:BattleEntity):
-	charge_timer = charge_time
-	e.range_area_shape.shape.radius = execution_range
-	e.action_queue = self
+	charge_timer = 0
+	e.range_area.shape.radius = execution_range
+	e.action_queue.append(self)
+	
+	if charge_time > 0:
+		_charge_func(e)
+	
+	if e.is_in_group("Allies"):
+		EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBar", 0)
+
+	aux["TargetInitialPosition"] = e.target_entity.global_position
+
 
 func _while_queued(e:BattleEntity, delta):
-	if e.stun_tick <= 0:
-		charge_timer -= delta
-		e.anim_container.play_effect("Charging")
+	charge_timer += delta
 	
-	var hits = e.range_area.get_overlapping_areas()
+	if charge_timer > 0 and e.is_in_group("Allies"):
+			EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBar", charge_timer / charge_time)
 	
-	if e.target_entity.hurtbox in hits:
-		if charge_timer <= 0:
-			e.anim_container.play_effect("Reset")
-			_execute(e, delta)
-		else:
+	var hits = e.query_targets_in_range()
+
+	# stationary charging means the entity will not move while charging,
+	# and also that the attack will be executed regardless if the target
+	# has left range.
+	if stationary_charging or (e.target_entity and e.target_entity in hits):
+		if charge_timer >= charge_time:
+			e.anim_container.stop_charge()
+			execute_wrapper(e, delta)
+		elif not e.manual_control and not stationary_charging: #behavior when enemy within range but not charged
 			e.anim_container.set_anim("BattleIdle")
-	else:
+	elif not e.manual_control and not stationary_charging: #behavior when out of range
 		e.move_nav_agent(e.target_entity.global_position, delta)
 		e.anim_container.set_anim("BattleMove")
 
 
-func _execute(_e:BattleEntity, _delta):
+func execute_wrapper(e:BattleEntity, delta):
+	EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBar", 0)
+	_execute(e, delta)
+
+
+func _charge_func(e):
+	e.anim_container.charge_particles.emitting = true
+
+
+func _execute(_e, _delta):
 	pass
+
+
+
 
 
 #			_execute(e)

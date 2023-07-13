@@ -16,6 +16,13 @@ mag = 25
 spr = 26
 acc = 1.0
 eva = 0.0
+spellbook = {
+"Abilities": [],
+"BlackMagic": [],
+"GreenMagic": [],
+"WhiteMagic": []
+}
+tscn_path = "res://Entity/AllyEntity/AllyEntity.tscn"
 max_walk_speed = 80
 max_run_speed = 130
 acceleration = 500

@@ -1,0 +1,78 @@
+[gd_scene load_steps=15 format=3 uid="uid://csv6itvuod2y3"]
+
+[ext_resource type="PackedScene" uid="uid://dr0t27wrw5bn4" path="res://Entity/EntityManager/EntityManager.tscn" id="1"]
+[ext_resource type="Script" path="res://Common/Gambits/CureGambitAction.gd" id="3_08em4"]
+[ext_resource type="PackedScene" uid="uid://6772grslueoo" path="res://Entity/AllyEntity/AllyEntity.tscn" id="3_s0ypy"]
+[ext_resource type="PackedScene" uid="uid://cmu5sym2nhyev" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
+[ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="4_nfr03"]
+[ext_resource type="Resource" uid="uid://bglkimog4pd10" path="res://Entity/AllyEntity/BrynhildrStats.tres" id="4_o8b63"]
+[ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
+[ext_resource type="Texture2D" uid="uid://d4flatsjwq5vu" path="res://Maps/ForestBase/gentle trees 80x96 v01.png" id="6_654a6"]
+[ext_resource type="Resource" uid="uid://bemehhbs0ddqn" path="res://Entity/AllyEntity/HejraStats.tres" id="6_mee4x"]
+[ext_resource type="Resource" uid="uid://ohr53lmuq451" path="res://Common/Gambits/MeleeAttackGambitAction.tres" id="8_5hhfj"]
+
+[sub_resource type="NavigationPolygon" id="1"]
+vertices = PackedVector2Array(742, 398, -208, 407, -485, -393, 748, -444)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(748, -444, -485, -393, -208, 407, 742, 398)])
+
+[sub_resource type="Resource" id="Resource_cwlhw"]
+script = ExtResource("4_nfr03")
+gambit_name = "Foe: Closest"
+target = 0
+trigger = 6
+trigger_val = 0.0
+condition = 6
+action = ExtResource("8_5hhfj")
+
+[sub_resource type="Resource" id="Resource_f5smu"]
+script = ExtResource("3_08em4")
+action_name = "Cure"
+execution_range = 50.0
+targeting_range = 150.0
+charge_time = 0.0
+
+[sub_resource type="Resource" id="Resource_kdva0"]
+script = ExtResource("4_nfr03")
+gambit_name = "Ally: HP < 30%"
+target = 1
+trigger = 0
+trigger_val = 0.3
+condition = 1
+action = SubResource("Resource_f5smu")
+
+[node name="Map" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(172, 251)
+navigation_polygon = SubResource("1")
+
+[node name="EntityManager" parent="." instance=ExtResource("1")]
+position = Vector2(360, 182)
+
+[node name="Ally" parent="EntityManager" instance=ExtResource("3_s0ypy")]
+position = Vector2(-267, -79)
+group_type = "Allies"
+stats = ExtResource("6_mee4x")
+friction = 500
+
+[node name="Ally2" parent="EntityManager" instance=ExtResource("3_s0ypy")]
+position = Vector2(-222, -142)
+gambits = Array[ExtResource("4_nfr03")]([SubResource("Resource_cwlhw"), SubResource("Resource_kdva0")])
+group_type = "Allies"
+stats = ExtResource("4_o8b63")
+friction = 500
+
+[node name="Enemy" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-47, -43)
+debug = true
+
+[node name="Enemy2" parent="EntityManager" instance=ExtResource("4")]
+position = Vector2(-149, -115)
+debug = true
+
+[node name="FPS" parent="." instance=ExtResource("5")]
+
+[node name="Trees" type="Sprite2D" parent="."]
+position = Vector2(336, 37)
+texture = ExtResource("6_654a6")

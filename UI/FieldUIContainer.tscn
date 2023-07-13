@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1226uw2hx06m"]
+
+[ext_resource type="Script" path="res://UI/FieldUIContainer.gd" id="1_v5pnm"]
+[ext_resource type="PackedScene" uid="uid://ryhxucdm1gdq" path="res://UI/FieldStatsUI.tscn" id="2_60qdo"]
+
+[node name="FieldUIContainer" type="Container"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v5pnm")
+
+[node name="FieldStatsUI" parent="." instance=ExtResource("2_60qdo")]
+layout_mode = 2

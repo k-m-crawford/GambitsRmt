@@ -1,0 +1,138 @@
+[gd_scene load_steps=3 format=3 uid="uid://ryhxucdm1gdq"]
+
+[ext_resource type="Theme" uid="uid://7l22upj7t1q7" path="res://UI/DefaultUITheme.tres" id="1_rnrds"]
+[ext_resource type="Script" path="res://UI/FieldStatsUI.gd" id="2_mrehk"]
+
+[node name="FieldStatsUI" type="HBoxContainer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_top = -53.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_rnrds")
+alignment = 2
+script = ExtResource("2_mrehk")
+metadata/_edit_use_anchors_ = true
+
+[node name="ChargeBars" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ChargeBars"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="ChargeBars/MarginContainer"]
+visible = false
+modulate = Color(1, 0.8, 0.2, 1)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="ChargeBars"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="ChargeBars/MarginContainer2"]
+visible = false
+modulate = Color(1, 0.8, 0.2, 1)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="MarginContainer3" type="MarginContainer" parent="ChargeBars"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="ChargeBars/MarginContainer3"]
+visible = false
+modulate = Color(1, 0.8, 0.2, 1)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="Names" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+alignment = 2
+
+[node name="Name3" type="Label" parent="Names"]
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "Mediumis"
+
+[node name="Name2" type="Label" parent="Names"]
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "sasgdsadgsd"
+
+[node name="Name1" type="Label" parent="Names"]
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "Mediumis"
+
+[node name="Spacer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+alignment = 2
+
+[node name="1" type="Label" parent="Spacer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "        "
+
+[node name="2" type="Label" parent="Spacer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "        "
+
+[node name="3" type="Label" parent="Spacer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "        "
+
+[node name="HP" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+alignment = 2
+
+[node name="HP3" type="Label" parent="HP"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "1"
+
+[node name="HP2" type="Label" parent="HP"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "259"
+
+[node name="HP1" type="Label" parent="HP"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_rnrds")
+text = "1239"

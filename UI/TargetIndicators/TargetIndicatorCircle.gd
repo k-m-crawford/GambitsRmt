@@ -21,7 +21,7 @@ func _ready():
 
 func setup(pos, _scale, _color_scheme):
 	self.position = pos
-	self.scale = _scale
+#	self.scale = _scale
 	
 	match color_scheme:
 		"Friendly":

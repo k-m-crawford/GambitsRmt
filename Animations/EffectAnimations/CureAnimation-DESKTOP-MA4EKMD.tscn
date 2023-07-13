@@ -1,0 +1,124 @@
+[gd_scene load_steps=14 format=3 uid="uid://brhvsqeumqmn"]
+
+[ext_resource type="Texture2D" uid="uid://dkbqmmt68e2dd" path="res://Sprites/CrossParticle.png" id="1_46xkl"]
+
+[sub_resource type="Animation" id="Animation_lov3e"]
+resource_name = "1"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Sparkles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/Rays:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4iio"]
+_data = {
+"1": SubResource("Animation_lov3e")
+}
+
+[sub_resource type="Gradient" id="Gradient_03a1x"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dwb64"]
+gradient = SubResource("Gradient_03a1x")
+
+[sub_resource type="Curve" id="Curve_vstxr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vbivk"]
+curve = SubResource("Curve_vstxr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2o7f"]
+emission_shape = 3
+emission_box_extents = Vector3(8, 7, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, -25, 0)
+angular_velocity_min = 360.0
+angular_velocity_max = 360.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_vbivk")
+color_ramp = SubResource("GradientTexture1D_dwb64")
+
+[sub_resource type="Gradient" id="Gradient_g3208"]
+offsets = PackedFloat32Array(0, 0.851852, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.34902, 1, 0.14902, 0.478431, 0, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yrdqt"]
+gradient = SubResource("Gradient_g3208")
+
+[sub_resource type="Curve" id="Curve_vnxmn"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jsoyf"]
+curve = SubResource("Curve_vnxmn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xdmpw"]
+emission_shape = 3
+emission_box_extents = Vector3(8, 0, 0)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, -98, 0)
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+tangential_accel_min = -50.0
+tangential_accel_max = 50.0
+damping_min = 4.21
+damping_max = 4.21
+angle_min = -15.0
+angle_max = 15.0
+scale_curve = SubResource("CurveTexture_jsoyf")
+color_ramp = SubResource("GradientTexture1D_yrdqt")
+
+[node name="Animation" type="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e4iio")
+}
+
+[node name="Sparkles" type="GPUParticles2D" parent="AnimationPlayer"]
+position = Vector2(0, -3)
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_i2o7f")
+texture = ExtResource("1_46xkl")
+fixed_fps = 60
+trail_lifetime = 0.15
+trail_sections = 32
+trail_section_subdivisions = 32
+
+[node name="Rays" type="GPUParticles2D" parent="AnimationPlayer"]
+position = Vector2(0, 2)
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_xdmpw")
+lifetime = 1.5
+speed_scale = 1.45
+explosiveness = 0.5
+fixed_fps = 60
+trail_enabled = true
+trail_lifetime = 0.15
+trail_sections = 32
+trail_section_subdivisions = 32

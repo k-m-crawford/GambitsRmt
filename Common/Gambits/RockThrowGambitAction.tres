@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c5trkrw1o7pfo"]
+
+[ext_resource type="Script" path="res://Common/Gambits/RockThrowGambitAction.gd" id="1_mnsxp"]
+
+[resource]
+script = ExtResource("1_mnsxp")
+action_name = "Rock Throw"
+default_target_group = null
+mp_cost = null
+charge_time = 3.0
+execution_range = 300.0
+targeting_range = 300.0
+stationary_charging = true

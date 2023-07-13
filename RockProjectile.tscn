@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://n4j8esbslfwf"]
+
+[ext_resource type="PackedScene" uid="uid://dfqeounlnfhjq" path="res://Projectile.tscn" id="1_w8l7d"]
+
+[sub_resource type="Curve2D" id="Curve2D_qpcmn"]
+resource_local_to_scene = true
+
+[sub_resource type="Curve2D" id="Curve2D_3tu0i"]
+resource_local_to_scene = true
+
+[node name="Path" instance=ExtResource("1_w8l7d")]
+curve = SubResource("Curve2D_qpcmn")
+_base_damage_stat = "PWR"
+rand_lower_bound = 1.0
+rand_upper_bound = 1.111
+_defense_stat = "DEF"
+mult_base = 1.0
+_mult_stat = "STN"
+_add_mult_stat = "STN"
+
+[node name="ShadowPath" parent="." index="2"]
+curve = SubResource("Curve2D_3tu0i")

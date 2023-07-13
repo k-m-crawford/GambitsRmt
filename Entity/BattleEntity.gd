@@ -13,13 +13,12 @@ signal apply_magical_healing(source, target)
 signal request_leader_change(dir)
 
 @export var gambits: Array[Gambit] = []
+@export var manual_control = false
 
-@onready var leader_stray:Area2D = get_node_or_null("RangeAreas/LeaderStray")
-@onready var leader_run_stray:Area2D = get_node_or_null("RangeAreas/LeaderRunStray")
-@onready var engagement_area:Area2D = get_node_or_null("RangeAreas/EngagementArea")
 @onready var chase_area:Area2D = get_node_or_null("RangeAreas/ChaseArea")
-@onready var range_area:Area2D = get_node_or_null("RangeAreas/RangeArea")
-@onready var range_area_shape:CollisionShape2D = get_node_or_null("RangeAreas/RangeArea/CollisionShape2D")
+@onready var leader_stray:Area2D = get_node_or_null("RangeAreas/LeaderStray")
+@onready var engagement_area:Area2D = get_node_or_null("RangeAreas/EngagementArea")
+@onready var range_area:ShapeCast2D = get_node_or_null("RangeAreas/RangeArea")
 
 @onready var attack_pivot:Marker2D = get_node_or_null("AttackPivot")
 @onready var hurtbox:Area2D = get_node_or_null("Hurtbox")
@@ -32,21 +31,23 @@ var target_entities = []
 var target_idx = 0
 var stun_tick = 0
 var interruptible = true
+var cur_gambit = 0
 
-var action_queue = null
+var action_queue = []
 
 func _ready():
 	super._ready()
-
-
-func hook(manager):
+	if manual_control:
+		switch_leader_state()
 	# warning-ignore:return_value_discarded
-	to_Manager_set_target_entity.connect(manager.set_target_entity)
+	to_Manager_set_target_entity.connect(EntityMgr.set_target_entity)
 	# warning-ignore:return_value_discarded
-	deal_physical_damage.connect(manager.deal_physical_damage)
+#	deal_physical_damage.connect(EntityMgr.deal_damage)
 	# warning-ignore:return_value_discarded
-	apply_magical_healing.connect(manager.apply_magical_healing)
-
+	apply_magical_healing.connect(EntityMgr.apply_magical_healing)
+	battle_engagement.connect(EntityMgr.on_battle_engagement)
+	request_leader_change.connect(EntityMgr.get_next_leader)
+	
 
 func update_blend_positions(_direction):
 	if abs(_direction.x) > abs(_direction.y):
@@ -98,7 +99,15 @@ func manual_movement(max_speed, delta, direction_override=null):
 	return direction
 
 
-func is_interruptible(): return interruptible
+func apply_knockback(attacker):
+	if interruptible:
+		_FSM.transition_to(
+			"KNOCKBACK",
+			{
+				"knockback_vec": -global_position.direction_to(attacker.global_position),
+				"return_state": _FSM.state.name
+			}
+		)
 
 
 func switch_leader_state():
@@ -108,9 +117,21 @@ func switch_leader_state():
 func set_target_entity(s_target_entity:BattleEntity):
 	prev_target = target_entity
 	target_entity = s_target_entity
-#	print("TARGET", target_entity)
 	emit_signal("to_Manager_set_target_entity", self)
 
 
-func pop_action_queue():
-	action_queue = null
+func increment_gambit_ladder():
+	cur_gambit += 1
+	if(cur_gambit > gambits.size() - 1):
+		cur_gambit = 0
+
+
+func reset_gambit_ladder():
+	cur_gambit = 0
+
+
+func query_targets_in_range() -> Array:
+	return range_area.collision_result.map(
+		func(e):
+			return e["collider"]
+	)

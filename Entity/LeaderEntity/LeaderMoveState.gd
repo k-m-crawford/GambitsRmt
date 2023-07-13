@@ -29,8 +29,10 @@ func physics_update(delta):
 	if direction != Vector2.ZERO:
 		if cur_max_speed == entity.stats.max_walk_speed:
 			entity.anim_container.set_anim("Move")
+			entity.is_running = false
 		else:
 			entity.anim_container.set_anim("Run")
+			entity.is_running = true
 	
 	else:
 		entity.velocity = entity.velocity.move_toward(Vector2.ZERO, entity.friction * delta)

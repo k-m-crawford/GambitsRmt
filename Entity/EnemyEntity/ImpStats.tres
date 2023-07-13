@@ -14,8 +14,19 @@ stn = 26
 vit = 17
 mag = 14
 spr = 12
+spd = 1.0
 acc = 1.0
 eva = 0.0
+atk = 10.0
+def = 10.0
+mdef = 10.0
+spellbook = {
+"Abilities": [],
+"BlackMagic": [],
+"GreenMagic": [],
+"WhiteMagic": []
+}
+tscn_path = ""
 max_walk_speed = 80
 max_run_speed = 130
 acceleration = 500
