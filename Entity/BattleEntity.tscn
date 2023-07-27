@@ -39,7 +39,7 @@ resource_local_to_scene = true
 
 [node name="BattleEntity" instance=ExtResource("1_vr656")]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 1
 script = ExtResource("2_ooku8")
 gambits = Array[ExtResource("4_pucpq")]([SubResource("Resource_cwlhw")])
 manual_control = false
@@ -48,6 +48,7 @@ stats = ExtResource("4_rb82t")
 friction = 500
 
 [node name="RangeAreas" type="Node2D" parent="." index="2"]
+visible = false
 
 [node name="ChaseArea" type="Area2D" parent="RangeAreas" index="0"]
 

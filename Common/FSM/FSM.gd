@@ -40,6 +40,13 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# killed is added here to allow "KNOCKBACK" to
+	# still be a state; check GAMBIT LADDER for killed
+	if check_flag("KILLED"):
+		entity.kill_fade -= 0.033
+		entity.kill_shader.set_shader_parameter("Fade", entity.kill_fade)
+		if entity.kill_fade <= 0: entity.queue_free()
+	
 	state.physics_update(delta)
 
 

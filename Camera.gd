@@ -5,6 +5,9 @@ var following = []
 var zoom_tracking = []
 var zoom_margin = 25
 
+func _ready():
+	EntityMgr.hook_camera(self)
+
 func follow_entities(entities):
 #	for e in following:
 #		if e.visibility_node.screen_exited.is_connected(exited_screen):

@@ -25,6 +25,8 @@ signal request_leader_change(dir)
 @onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
 @onready var target_lines:Node2D = get_node_or_null("TargetLines")
 
+var kill_shader:ShaderMaterial
+
 var target_entity:BattleEntity = null
 var prev_target:BattleEntity = null
 var target_entities = []
@@ -32,6 +34,7 @@ var target_idx = 0
 var stun_tick = 0
 var interruptible = true
 var cur_gambit = 0
+var kill_fade = 1
 
 var action_queue = []
 
@@ -48,6 +51,7 @@ func _ready():
 	battle_engagement.connect(EntityMgr.on_battle_engagement)
 	request_leader_change.connect(EntityMgr.get_next_leader)
 	
+	kill_shader = anim_container.get_node_or_null("Sprite2D").material
 
 func update_blend_positions(_direction):
 	if abs(_direction.x) > abs(_direction.y):
@@ -135,3 +139,15 @@ func query_targets_in_range() -> Array:
 		func(e):
 			return e["collider"]
 	)
+
+
+func kill_entity():
+	hurtbox.set_collision_layer_value(9, false)
+	hurtbox.set_collision_layer_value(10, false)
+	destroy_target_lines()
+	anim_container.charge_particles.emitting = false
+	_FSM.set_flag("KILLED")
+
+
+func pop_action_queue(_data):
+	action_queue.pop_front()

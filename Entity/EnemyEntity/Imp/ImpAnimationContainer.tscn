@@ -1,7 +1,115 @@
-[gd_scene load_steps=74 format=3 uid="uid://cwyphjtupjj1h"]
+[gd_scene load_steps=86 format=3 uid="uid://cwyphjtupjj1h"]
 
 [ext_resource type="PackedScene" uid="uid://cmfuf36x0h50l" path="res://Entity/AnimationContainers/AnimationContainer.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://2lgfm1l8u7a1" path="res://Sprites/green_imp.png" id="2"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_hl7ej"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_c2pbv"]
+input_name = "uv"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gto6s"]
+noise_type = 0
+seed = 5
+frequency = 0.03
+fractal_lacunarity = 3.0
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a3okd"]
+noise = SubResource("FastNoiseLite_gto6s")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_qapb5"]
+texture = SubResource("NoiseTexture2D_a3okd")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_krf70"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_mn4gc"]
+expanded_output_ports = [0]
+source = 2
+texture = SubResource("NoiseTexture2D_krf70")
+texture_type = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_c6l1n"]
+default_input_values = [0, 0.0, 1, 0.064]
+operator = 2
+
+[sub_resource type="VisualShaderNodeStep" id="VisualShaderNodeStep_gwye8"]
+default_input_values = [0, 0.0, 1, 0.5]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_qj55x"]
+parameter_name = "Fade"
+hint = 1
+
+[sub_resource type="VisualShader" id="VisualShader_0xd2v"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_4;
+uniform float Fade : hint_range(0, 1);
+
+
+
+void fragment() {
+// Input:2
+	vec2 n_out2p0 = UV;
+
+
+	vec4 n_out5p0;
+// Texture2D:5
+	n_out5p0 = texture(TEXTURE, n_out2p0);
+	float n_out5p4 = n_out5p0.a;
+
+
+// Input:3
+	vec2 n_out3p0 = UV;
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, n_out3p0);
+
+
+// FloatParameter:8
+	float n_out8p0 = Fade;
+
+
+// Step:7
+	float n_out7p0 = step(n_out4p0.x, n_out8p0);
+
+
+// FloatOp:6
+	float n_out6p0 = n_out5p4 * n_out7p0;
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out5p0.xyz);
+	COLOR.a = n_out6p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(520, 20)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_hl7ej")
+nodes/fragment/2/position = Vector2(-560, 40)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_c2pbv")
+nodes/fragment/3/position = Vector2(-540, 240)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_qapb5")
+nodes/fragment/4/position = Vector2(-120, 240)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_mn4gc")
+nodes/fragment/5/position = Vector2(-60, 20)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_c6l1n")
+nodes/fragment/6/position = Vector2(320, 180)
+nodes/fragment/7/node = SubResource("VisualShaderNodeStep_gwye8")
+nodes/fragment/7/position = Vector2(120, 300)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_qj55x")
+nodes/fragment/8/position = Vector2(-260, 520)
+nodes/fragment/connections = PackedInt32Array(2, 0, 5, 0, 3, 0, 4, 0, 5, 4, 6, 0, 4, 0, 7, 0, 7, 0, 6, 1, 6, 0, 0, 1, 5, 0, 0, 0, 8, 0, 7, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t2psl"]
+resource_local_to_scene = true
+shader = SubResource("VisualShader_0xd2v")
+shader_parameter/Fade = 1.0
 
 [sub_resource type="Animation" id="16"]
 resource_name = "AttackDown"
@@ -1075,6 +1183,7 @@ _data = {
 [node name="AnimationContainer" instance=ExtResource("1")]
 
 [node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_t2psl")
 position = Vector2(1, -9)
 texture = ExtResource("2")
 hframes = 3

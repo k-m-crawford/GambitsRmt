@@ -24,6 +24,7 @@ var aux:Dictionary
 
 func enqueue(e:BattleEntity):
 	charge_timer = 0
+	first_pass = true
 	e.range_area.shape.radius = execution_range
 	e.action_queue.append(self)
 	

@@ -7,16 +7,20 @@
 script = ExtResource("1")
 name = "BRYNHILDR"
 lvl = 1
-max_hp = 166
-hp = 166
+max_hp = 39
+hp = 39
 max_mp = 10
 mp = 10
-stn = 26
-vit = 24
-mag = 28
-spr = 27
+stn = 25
+vit = 23
+mag = 18
+spr = 20
+spd = 1.0
 acc = 1.0
 eva = 0.0
+atk = 7.0
+def = 6.0
+mdef = 10.0
 spellbook = {
 "Abilities": [],
 "BlackMagic": [],

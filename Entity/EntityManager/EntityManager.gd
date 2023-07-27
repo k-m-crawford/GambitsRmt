@@ -9,11 +9,13 @@ extends Node
 
 signal update_field_stats_ui(who, what, aux)
 signal spawn_damage_label(label)
+signal spawn_projectile(projectile)
 
 var ally_entities = []
 var active_idx:int = 0
 
 var field_menu = false
+var battle_camera
 
 @onready var damage_label = preload("res://UI/DamageLabel.tscn")
 @onready var target_curve = preload("res://UI/TargetIndicators/TargetIndicatorCurve.tscn")
@@ -25,6 +27,11 @@ var default_physical_damage:Callable = Callable(self, "physical_damage_calc")
 
 func _ready():
 	set_process(true)
+
+
+func hook_camera(camera):
+	battle_camera = camera
+	battle_camera.follow_entities(ally_entities)
 
 
 func _input(event):
@@ -83,8 +90,7 @@ func _on_FieldUI_field_menu_closed():
 	field_menu = false
 
 
-func apply_damage(attacker:BattleEntity, defender:BattleEntity, dmg:int,
-					_knockback_dict = {}):
+func apply_damage(defender:BattleEntity, dmg:int):
 	defender.stats.hp -= dmg
 	
 	defender.anim_container.play_effect("HurtFlash")
@@ -95,6 +101,9 @@ func apply_damage(attacker:BattleEntity, defender:BattleEntity, dmg:int,
 	var inst = damage_label.instantiate()
 	emit_signal("spawn_damage_label", inst)
 	inst._execute(dmg, defender.get_global_position())
+	
+	if defender.stats.hp <= 0: 
+		defender.kill_entity()
 
 
 func physical_damage_calc(attacker:BattleStats, defender:BattleStats):

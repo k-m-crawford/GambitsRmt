@@ -8,7 +8,6 @@ var has_focus = true
 
 func _ready():
 	EntityMgr.update_field_stats_ui.connect(_on_update_field_stats_ui)
-	EntityMgr.spawn_damage_label.connect(add_child)
 
 
 func _input(event):

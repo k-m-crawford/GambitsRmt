@@ -81,8 +81,7 @@ func move_nav_agent(location, delta):
 								stats.acceleration * delta)
 
 	nav_agent.set_velocity(velocity)
-	move_and_slide()
-	
+	move_and_slide() 
 	update_blend_positions(direction)
 
 
