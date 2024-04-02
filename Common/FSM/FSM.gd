@@ -45,7 +45,9 @@ func _physics_process(delta: float) -> void:
 	if check_flag("KILLED"):
 		entity.kill_fade -= 0.033
 		entity.kill_shader.set_shader_parameter("Fade", entity.kill_fade)
-		if entity.kill_fade <= 0: entity.queue_free()
+		if entity.kill_fade <= 0: 
+			entity.destroy_target_lines()
+			entity.queue_free()
 	
 	state.physics_update(delta)
 

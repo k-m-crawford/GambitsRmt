@@ -6,3 +6,4 @@ extends CanvasLayer
 func _ready():
 	EntityMgr.spawn_damage_label.connect(add_child)
 	EntityMgr.spawn_projectile.connect(add_child)
+	EntityMgr.spawn_effect.connect(add_child)

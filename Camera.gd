@@ -1,21 +1,21 @@
 extends Camera2D
 
 var speed = 3
-var following = []
+var following
 var zoom_tracking = []
 var zoom_margin = 25
 
 func _ready():
 	EntityMgr.hook_camera(self)
 
-func follow_entities(entities):
+func follow_entity(entity):
 #	for e in following:
 #		if e.visibility_node.screen_exited.is_connected(exited_screen):
 #			e.visibility_node.screen_exited.disconnect(exited_screen)
 #		if e.visibility_node.screen_entered.is_connected(entered_screen):
 #			e.visibility_node.screen_entered.disconnect(entered_screen)
 #
-	following = entities
+	following = entity
 #
 #	for e in following:
 #		e.visibility_node.screen_exited.connect(exited_screen.bind(e))
@@ -23,16 +23,7 @@ func follow_entities(entities):
 
 
 func _physics_process(delta):
-	if following == []: return
-	
-	var vector = Vector2.ZERO
-	var num = 0
-	
-	for e in following:
-		vector += e.global_position.round()
-		num += 1
-		
-	
+	if !following: return
 #		if e.global_position.x < (global_position.x + zoom_margin) or \
 #					e.global_position.x > (global_position.x + global_transform.x.x) or \
 #					e.global_position.y < (global_position.y + zoom_margin) or \
@@ -41,15 +32,13 @@ func _physics_process(delta):
 #		else:
 #			zoom_tracking.erase(e)
 	
-	vector = vector / num
 	set_global_position(
 		lerp(
 			get_global_position().round(), 
-			vector.round(), 
+			following.get_global_position().round(), 
 			delta*speed
 		)
 	)
-	
 	global_position = global_position.round()
 #
 #	if zoom_tracking:

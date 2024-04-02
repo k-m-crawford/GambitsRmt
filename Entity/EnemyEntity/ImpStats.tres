@@ -3,11 +3,12 @@
 [ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1_meinv"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_meinv")
 name = "Imp"
 lvl = 1
-max_hp = 10
-hp = 10
+max_hp = 32
+hp = 32
 max_mp = 10
 mp = 10
 stn = 8

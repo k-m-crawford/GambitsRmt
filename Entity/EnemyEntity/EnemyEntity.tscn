@@ -42,6 +42,13 @@ shape = SubResource("CircleShape2D_5qflm")
 [node name="RangeArea" parent="RangeAreas" index="1"]
 shape = SubResource("CircleShape2D_0e2bf")
 
+[node name="EngagementArea" parent="RangeAreas" index="2"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="LeaderStray" parent="RangeAreas" index="3"]
+collision_mask = 512
+
 [node name="CollisionShape2D" parent="RangeAreas/LeaderStray" index="0"]
 shape = SubResource("2")
 

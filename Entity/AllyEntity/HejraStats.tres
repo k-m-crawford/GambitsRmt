@@ -6,17 +6,26 @@
 script = ExtResource("1_lvahx")
 name = "HEJRA"
 lvl = 1
-max_hp = 220
+max_hp = 122
 hp = 220
 max_mp = 10
 mp = 10
-stn = 27
-vit = 24
-mag = 26
-spr = 28
+stn = 26
+vit = 22
+mag = 23
+spr = 23
+spd = 1.0
 acc = 1.0
 eva = 0.0
-spell_book = []
+atk = 10.0
+def = 10.0
+mdef = 10.0
+spellbook = {
+"Abilities": [],
+"BlackMagic": [],
+"GreenMagic": [],
+"WhiteMagic": []
+}
 tscn_path = "res://Entity/AllyEntity/AllyEntity.tscn"
 max_walk_speed = 80
 max_run_speed = 130

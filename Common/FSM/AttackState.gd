@@ -17,4 +17,4 @@ func enter(_msg := {}) -> void:
 		var dmg = _b.dmg_calc(entity.stats.atk, randf_range(1, 1.125), hit.stats.def,
 								1, entity.stats.stn, entity.stats.lvl, entity.stats.stn)
 		EntityMgr.apply_damage(hit, dmg)
-		hit.apply_knockback(entity)
+		hit.apply_knockback(entity.global_position)

@@ -9,4 +9,6 @@ func enter(_msg := {}) -> void:
 		entity.anim_container.set_anim("EnterBattleEngagement", true)
 	else:
 		entity.destroy_target_lines()
+		entity.action_queue = []
+		entity.target_entity = null
 		entity.anim_container.set_anim("ExitBattleEngagement", true)

@@ -41,8 +41,6 @@ enum Trigger {
 func evaluate_gambit(e:BattleEntity) -> BattleEntity:
 	
 	e.range_area.shape.radius = action.targeting_range
-	e.range_area.force_shapecast_update()
-	
 	var target_pool = e.query_targets_in_range()
 	
 	match target:

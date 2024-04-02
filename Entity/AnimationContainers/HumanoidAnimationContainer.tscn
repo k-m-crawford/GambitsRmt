@@ -3249,7 +3249,6 @@ _data = {
 }
 
 [node name="AnimationContainer" instance=ExtResource("1")]
-modulate = Color(1, 1, 1, 1)
 script = ExtResource("3")
 battle_textures = {
 "body_p1": ExtResource("5"),
@@ -3278,16 +3277,19 @@ flip_h = true
 texture = ExtResource("2")
 hframes = 8
 vframes = 8
+frame = 62
 
 [node name="Outfit" type="Sprite2D" parent="." index="2"]
 texture = ExtResource("8")
 hframes = 8
 vframes = 8
+frame = 62
 
 [node name="Hair" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("11")
 hframes = 8
 vframes = 8
+frame = 62
 
 [node name="Weapon" type="Sprite2D" parent="." index="4"]
 z_index = -1
@@ -3307,6 +3309,5 @@ libraries = {
 "Run": SubResource("AnimationLibrary_e53d3")
 }
 
-[node name="ParticleEmitter" parent="." index="6"]
-position = Vector2(0, 11)
-emitting = false
+[node name="EffectsPlayer" parent="." index="7"]
+callback_mode_method = 1

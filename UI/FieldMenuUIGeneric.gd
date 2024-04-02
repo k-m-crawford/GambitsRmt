@@ -68,7 +68,7 @@ func set_menu_entries(entries, s_headers):
 
 func _initialize_menu():
 	
-	position = Vector2(25*(depth+1), 220-(depth*10))
+	global_position = Vector2(25*(depth+1), 220-(depth*10))
 	
 	if headers.size() > 0:
 		menu_title.text = headers[0]

@@ -10,6 +10,7 @@ extends Node
 signal update_field_stats_ui(who, what, aux)
 signal spawn_damage_label(label)
 signal spawn_projectile(projectile)
+signal spawn_effect(effect)
 
 var ally_entities = []
 var active_idx:int = 0
@@ -31,7 +32,7 @@ func _ready():
 
 func hook_camera(camera):
 	battle_camera = camera
-	battle_camera.follow_entities(ally_entities)
+	battle_camera.follow_entity(ally_entities[0])
 
 
 func _input(event):

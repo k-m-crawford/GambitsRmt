@@ -1,13 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpai8quo527od"]
+[gd_scene load_steps=22 format=3 uid="uid://bpai8quo527od"]
 
 [ext_resource type="Texture2D" uid="uid://cxmngj4vp3xgq" path="res://Maps/ForestBase/tileset_ForestBase.png" id="1_7u26g"]
-[ext_resource type="PackedScene" uid="uid://cmu5sym2nhyev" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://b3cy0cva4tlvd" path="res://FPS.tscn" id="5"]
+[ext_resource type="Script" path="res://Common/Gambits/MeleeAttackGambitAction.gd" id="5_hvw8p"]
 [ext_resource type="Texture2D" uid="uid://d4flatsjwq5vu" path="res://Maps/ForestBase/gentle trees 80x96 v01.png" id="6_654a6"]
+[ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="6_s571g"]
+[ext_resource type="Script" path="res://Common/Gambits/SnakeBiteGambitAction.gd" id="7_ffpy3"]
 [ext_resource type="Script" path="res://Camera.gd" id="8_26k3r"]
 [ext_resource type="Script" path="res://UI/UI.gd" id="8_oua07"]
+[ext_resource type="PackedScene" uid="uid://bjcgv3u07s4gu" path="res://Entity/EnemyEntity/Snake/SnakeEnemyEntity.tscn" id="8_uqu22"]
+[ext_resource type="PackedScene" uid="uid://cmu5sym2nhyev" path="res://Entity/EnemyEntity/Imp/ImpEnemyEntity.tscn" id="10_d0fql"]
 [ext_resource type="PackedScene" uid="uid://b1226uw2hx06m" path="res://UI/FieldUIContainer.tscn" id="11_p2skf"]
 [ext_resource type="Script" path="res://Maps/PartySpawnPoint.gd" id="11_pdktn"]
+[ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="11_ro6mo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dx8b4"]
 texture = ExtResource("1_7u26g")
@@ -575,6 +580,75 @@ sources/1 = SubResource("TileSetAtlasSource_dx8b4")
 vertices = PackedVector2Array(742, 398, -208, 407, -485, -393, 748, -444)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(748, -444, -485, -393, -208, 407, 742, 398)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="Resource" id="Resource_hsi7m"]
+script = ExtResource("7_ffpy3")
+action_name = "Snake Bite"
+default_target_group = ""
+mp_cost = 0.0
+charge_time = 0.5
+execution_range = 100.0
+targeting_range = 100.0
+stationary_charging = true
+
+[sub_resource type="Resource" id="Resource_eyqvr"]
+script = ExtResource("6_s571g")
+gambit_name = ""
+target = 1
+trigger = 0
+trigger_val = 0.0
+condition = 6
+action = SubResource("Resource_hsi7m")
+
+[sub_resource type="Resource" id="Resource_nhkay"]
+script = ExtResource("5_hvw8p")
+action_name = ""
+default_target_group = ""
+mp_cost = 0.0
+charge_time = 0.0
+execution_range = 100.0
+targeting_range = 100.0
+stationary_charging = false
+
+[sub_resource type="Resource" id="Resource_7ax0q"]
+script = ExtResource("6_s571g")
+gambit_name = ""
+target = 1
+trigger = 6
+trigger_val = 0.0
+condition = 6
+action = SubResource("Resource_nhkay")
+
+[sub_resource type="Resource" id="Resource_02m3j"]
+resource_local_to_scene = true
+script = ExtResource("11_ro6mo")
+name = "Imp"
+lvl = 1
+max_hp = 32
+hp = 32
+max_mp = 10
+mp = 10
+stn = 8
+vit = 12
+mag = 2
+spr = 7
+spd = 1.0
+acc = 1.0
+eva = 0.0
+atk = 8.0
+def = 4.0
+mdef = 7.0
+spellbook = {
+"Abilities": [],
+"BlackMagic": [],
+"GreenMagic": [],
+"WhiteMagic": []
+}
+tscn_path = ""
+max_walk_speed = 80
+max_run_speed = 130
+acceleration = 500
 
 [node name="Map" type="CanvasLayer"]
 follow_viewport_enabled = true
@@ -596,19 +670,31 @@ navigation_polygon = SubResource("1")
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="Enemy" parent="YSort" instance=ExtResource("8_uqu22")]
+position = Vector2(31, 96)
+gambits = Array[ExtResource("6_s571g")]([SubResource("Resource_eyqvr"), SubResource("Resource_7ax0q")])
+debug = true
+
 [node name="Trees" type="Sprite2D" parent="YSort"]
 position = Vector2(336, 37)
 texture = ExtResource("6_654a6")
-
-[node name="Imp" parent="YSort" instance=ExtResource("4")]
-position = Vector2(203, 118)
-debug = true
 
 [node name="PartySpawnPoint" type="Node2D" parent="YSort"]
 position = Vector2(383, 117)
 script = ExtResource("11_pdktn")
 
-[node name="FieldUIContainer" parent="." instance=ExtResource("11_p2skf")]
+[node name="Imp" parent="YSort" instance=ExtResource("10_d0fql")]
+stats = SubResource("Resource_02m3j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(241, 69)
 script = ExtResource("8_26k3r")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FieldUIContainer" parent="CanvasLayer" instance=ExtResource("11_p2skf")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+grow_horizontal = 0
+grow_vertical = 0
