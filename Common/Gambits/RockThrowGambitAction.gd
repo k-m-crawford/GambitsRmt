@@ -12,7 +12,7 @@ func _execute(e:BattleEntity, _delta):
 		e.anim_container.set_anim("PerformThrow", true)
 		var rock = i_rock.instantiate()
 		rock.spawn(e, aux["TargetInitialPosition"], Callable(self, "dmg_func"))
-		e.add_child(rock)
+		EntityMgr.emit_signal("spawn_projectile", rock)
 		first_pass = false
 	
 	await e.anim_container.anim.animation_finished

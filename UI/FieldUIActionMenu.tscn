@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://1kk3stwhxtig"]
 
 [ext_resource type="Theme" uid="uid://7l22upj7t1q7" path="res://UI/DefaultUITheme.tres" id="1_o06e5"]
 [ext_resource type="Texture2D" uid="uid://b1qlx277g7jwu" path="res://UI/Sprites/gui_gradient.png" id="2_f81k8"]

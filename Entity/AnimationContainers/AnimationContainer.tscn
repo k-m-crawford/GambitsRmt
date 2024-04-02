@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://cmfuf36x0h50l"]
+[gd_scene load_steps=75 format=3 uid="uid://cmfuf36x0h50l"]
 
 [ext_resource type="Script" path="res://Entity/AnimationContainers/AnimationContainer.gd" id="1"]
 [ext_resource type="Material" uid="uid://qxqaqtn0mv1b" path="res://Animations/EffectAnimations/ChargeParticles.tres" id="2_wryfk"]
@@ -499,13 +499,28 @@ _data = {
 "Up": SubResource("Animation_ph1mj")
 }
 
+[sub_resource type="Animation" id="Animation_y7cdf"]
+resource_name = "ChargePulse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.176471, 0.509804, 1, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_nyal2"]
 resource_name = "Charging"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ParticleEmitter:emitting")
+tracks/0/path = NodePath("ChargeParticles:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -548,11 +563,16 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_65ohk"]
+resource_name = "RESET"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4i7m0"]
 _data = {
+"ChargePulse": SubResource("Animation_y7cdf"),
 "Charging": SubResource("Animation_nyal2"),
 "CureFlash": SubResource("Animation_dxj1t"),
-"HurtFlash": SubResource("Animation_qqrsi")
+"HurtFlash": SubResource("Animation_qqrsi"),
+"RESET": SubResource("Animation_65ohk")
 }
 
 [node name="AnimationContainer" type="Node2D"]
@@ -572,8 +592,9 @@ libraries = {
 "Run": SubResource("AnimationLibrary_5xlxj")
 }
 
-[node name="ParticleEmitter" type="GPUParticles2D" parent="."]
+[node name="ChargeParticles" type="GPUParticles2D" parent="."]
 z_index = 1
+emitting = false
 amount = 5
 process_material = ExtResource("2_wryfk")
 speed_scale = 2.0

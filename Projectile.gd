@@ -25,7 +25,6 @@ var mult_stat
 var add_mult_stat
 
 func _ready():
-	position = Vector2(0,0)
 	
 	for pt in pts:
 		curve.add_point(pt)
@@ -41,6 +40,7 @@ func _ready():
 
 func spawn(src, dest, _dmg_calc):
 	src_entity = src
+	global_position = src.global_position
 	
 	var tween_func
 	if src.global_position.y < dest.y:
@@ -100,6 +100,6 @@ func _on_hitbox_body_entered(body):
 	
 	var dmg = _b.dmg_calc(base_damage_stat, randf_range(rand_lower_bound, rand_upper_bound),
 							defense_stat, mult_base, mult_stat, src_entity.stats.lvl, add_mult_stat)
-	EntityMgr.apply_damage(src_entity, body, dmg)
-	body.apply_knockback(hitbox)
+	EntityMgr.apply_damage(body, dmg)
+	body.apply_knockback(hitbox.global_position)
 	queue_free()

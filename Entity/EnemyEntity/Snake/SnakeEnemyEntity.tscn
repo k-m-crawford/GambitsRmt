@@ -1,0 +1,75 @@
+[gd_scene load_steps=14 format=3 uid="uid://bjcgv3u07s4gu"]
+
+[ext_resource type="PackedScene" uid="uid://grf4i4csusit" path="res://Entity/EnemyEntity/EnemyEntity.tscn" id="1_rn6jl"]
+[ext_resource type="Script" path="res://Common/Gambits/MeleeAttackGambitAction.gd" id="2_4snuw"]
+[ext_resource type="PackedScene" uid="uid://l321vbov02ph" path="res://Common/FSM/EnemyFSM.tscn" id="2_hsoeo"]
+[ext_resource type="PackedScene" uid="uid://d0rfhod1p63mr" path="res://Entity/EnemyEntity/Snake/SnakeAnimationContainer.tscn" id="2_so02g"]
+[ext_resource type="Script" path="res://Common/Gambits/Gambit.gd" id="3_7fiko"]
+[ext_resource type="Resource" uid="uid://c0ugjuaiyhg68" path="res://Entity/EnemyEntity/SnakeStats.tres" id="3_kb56r"]
+
+[sub_resource type="Resource" id="Resource_nhkay"]
+script = ExtResource("2_4snuw")
+action_name = ""
+default_target_group = ""
+mp_cost = 0.0
+charge_time = 0.0
+execution_range = 100.0
+targeting_range = 100.0
+stationary_charging = false
+
+[sub_resource type="Resource" id="Resource_7ax0q"]
+script = ExtResource("3_7fiko")
+gambit_name = ""
+target = 1
+trigger = 6
+trigger_val = 0.0
+condition = 6
+action = SubResource("Resource_nhkay")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eeuo6"]
+resource_local_to_scene = true
+radius = 450.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yothy"]
+resource_local_to_scene = true
+radius = 150.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mnkdi"]
+radius = 150.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40ots"]
+resource_local_to_scene = true
+height = 28.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxi50"]
+resource_local_to_scene = true
+
+[node name="Snake" instance=ExtResource("1_rn6jl")]
+modulate = Color(1, 1, 1, 1)
+gambits = Array[ExtResource("3_7fiko")]([SubResource("Resource_7ax0q")])
+__FSM = ExtResource("2_hsoeo")
+group_type = "Enemies"
+stats = ExtResource("3_kb56r")
+friction = 600
+_behaviors = {
+"FollowLeader": false,
+"Wander": true
+}
+
+[node name="AnimationContainer" parent="." index="0" instance=ExtResource("2_so02g")]
+
+[node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
+shape = SubResource("CircleShape2D_eeuo6")
+
+[node name="RangeArea" parent="RangeAreas" index="1"]
+shape = SubResource("CircleShape2D_yothy")
+
+[node name="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
+shape = SubResource("CircleShape2D_mnkdi")
+
+[node name="CollisionShape2D" parent="AttackPivot/Hitbox" index="0"]
+position = Vector2(0, 11)
+shape = SubResource("CapsuleShape2D_40ots")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CapsuleShape2D_nxi50")

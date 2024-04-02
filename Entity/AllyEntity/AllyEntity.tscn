@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://6772grslueoo"]
+[gd_scene load_steps=17 format=3 uid="uid://6772grslueoo"]
 
 [ext_resource type="Script" path="res://Common/Gambits/CureGambitAction.gd" id="2_slcla"]
 [ext_resource type="PackedScene" uid="uid://bjrbvej5ix2qx" path="res://Common/FSM/AllyFSM.tscn" id="2_xv2ah"]
@@ -39,6 +39,14 @@ action = ExtResource("4_0od1t")
 radius = 6.0
 height = 16.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_m5ude"]
+resource_local_to_scene = true
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cw7r4"]
+resource_local_to_scene = true
+radius = 150.0
+
 [sub_resource type="CircleShape2D" id="6"]
 radius = 100.0
 
@@ -69,14 +77,24 @@ shape = SubResource("CapsuleShape2D_sfp32")
 
 [node name="AnimationContainer" parent="." index="2" instance=ExtResource("10")]
 
-[node name="EngagementArea" parent="RangeAreas" index="0"]
+[node name="ChaseArea" parent="RangeAreas" index="0"]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
+shape = SubResource("CircleShape2D_m5ude")
+
+[node name="RangeArea" parent="RangeAreas" index="1"]
+shape = SubResource("CircleShape2D_cw7r4")
+
+[node name="EngagementArea" parent="RangeAreas" index="2"]
 visible = false
 
 [node name="CollisionShape2D" parent="RangeAreas/EngagementArea" index="0"]
 visible = false
 shape = SubResource("6")
 
-[node name="LeaderStray" parent="RangeAreas" index="1"]
+[node name="LeaderStray" parent="RangeAreas" index="3"]
 visible = false
 
 [node name="CollisionShape2D" parent="RangeAreas/LeaderStray" index="0"]

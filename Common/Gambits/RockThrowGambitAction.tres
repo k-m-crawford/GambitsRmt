@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Common/Gambits/RockThrowGambitAction.gd" id="1_mnsxp"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_mnsxp")
 action_name = "Rock Throw"
 default_target_group = null

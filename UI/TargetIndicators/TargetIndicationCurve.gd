@@ -37,6 +37,10 @@ func setup(_source, _target, _clr, _persist):
 
 func calculate():
 	
+	if !target: 
+		queue_free()
+		return
+	
 	var tween_func
 	
 	if source.global_position.y < target.global_position.y:
@@ -72,6 +76,11 @@ func ease_in_cubic(number: float) -> float:
 
 func _process(delta):
 	# recalculate based on start/end at this frame
+	
+	if !target: 
+		queue_free()
+		return
+
 	var _points = calculate()
 	
 	if recede_point > cur_point:

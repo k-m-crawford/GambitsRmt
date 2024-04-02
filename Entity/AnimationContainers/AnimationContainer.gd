@@ -11,10 +11,9 @@ extends Node2D
 
 @onready var texture = $Sprite2D
 @onready var anim = $AnimationPlayer
-@onready var emitter = $ParticleEmitter
 @onready var direction = "Down"
 @onready var effects_player:AnimationPlayer = get_node_or_null("EffectsPlayer")
-@onready var charge_particles = get_node_or_null("ParticleEmitter")
+@onready var charge_particles = get_node_or_null("ChargeParticles")
 
 signal animation_finished(anim)
 
@@ -65,5 +64,5 @@ func play_effect(effect:String):
 
 
 func stop_charge():
-	charge_particles.emitting = false
+	effects_player.play("RESET")
 

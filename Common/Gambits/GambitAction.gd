@@ -24,6 +24,7 @@ var aux:Dictionary
 
 func enqueue(e:BattleEntity):
 	charge_timer = 0
+	first_pass = true
 	e.range_area.shape.radius = execution_range
 	e.action_queue.append(self)
 	
@@ -35,27 +36,38 @@ func enqueue(e:BattleEntity):
 
 	aux["TargetInitialPosition"] = e.target_entity.global_position
 
+# when should they exit a gambit action?
+# IF: target outside: chase range
+# but NOT IF enemy within TARGETING RANGE
+# CHASE is how far they will go to chase if outside target range
 
 func _while_queued(e:BattleEntity, delta):
-	charge_timer += delta
-	
-	if charge_timer > 0 and e.is_in_group("Allies"):
-			EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBar", charge_timer / charge_time)
-	
-	var hits = e.query_targets_in_range()
+	if charge_time: charge_timer += delta
 
 	# stationary charging means the entity will not move while charging,
 	# and also that the attack will be executed regardless if the target
 	# has left range.
-	if stationary_charging or (e.target_entity and e.target_entity in hits):
+	if stationary_charging or \
+		e.get_global_position().distance_to(e.target_entity.get_global_position()) < e.range_area.shape.radius:
 		if charge_timer >= charge_time:
 			e.anim_container.stop_charge()
 			execute_wrapper(e, delta)
 		elif not e.manual_control and not stationary_charging: #behavior when enemy within range but not charged
 			e.anim_container.set_anim("BattleIdle")
 	elif not e.manual_control and not stationary_charging: #behavior when out of range
+	
+		var hits = e.chase_area.get_overlapping_areas()
+		
+		if e.is_in_group("Enemies") and \
+			e.target_entity not in hits.map(func(hit): return hit.get_parent()):
+				e._FSM.set_flag("BATTLE_ENGAGED")
+				return
+				
 		e.move_nav_agent(e.target_entity.global_position, delta)
 		e.anim_container.set_anim("BattleMove")
+	
+	if charge_timer > 0 and e.is_in_group("Allies"):
+			EntityMgr.emit_signal("update_field_stats_ui", e.stats, "ChargeBar", charge_timer / charge_time)
 
 
 func execute_wrapper(e:BattleEntity, delta):
@@ -64,7 +76,7 @@ func execute_wrapper(e:BattleEntity, delta):
 
 
 func _charge_func(e):
-	e.anim_container.charge_particles.emitting = true
+	e.anim_container.play_effect("ChargePulse")
 
 
 func _execute(_e, _delta):

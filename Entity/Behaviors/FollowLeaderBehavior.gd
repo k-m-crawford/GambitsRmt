@@ -21,7 +21,8 @@ func move(delta) -> bool:
 			return false
 		else:
 			entity.move_nav_agent(entity.leader_entity.global_position, delta)
-			entity.anim_container.set_anim("Move")
+			if entity._FSM.check_flag("BATTLE_ENGAGED"): entity.anim_container.set_anim("BattleMove")
+			else: entity.anim_container.set_anim("Move")
 			return false
 
 	# close to leader, stop walking

@@ -22,9 +22,9 @@ func _accept_handler():
 	var translated_select = selected * page
 	action = spellbook[translated_select]
 	
-#	leader.range_area_shape.shape.radius = action.targeting_range
-#	leader.range_area_shape.shape.draw(leader.get_canvas_item(), Color(0.5,0.5,0.5,0.5))
-#	_init_target_pool()
+	leader.range_area.shape.radius = action.targeting_range
+	leader.range_area.shape.draw(leader.get_canvas_item(), Color(0.5,0.5,0.5,0.5))
+	_init_target_pool()
 
 func _input(event):
 	if target_select:
@@ -44,6 +44,7 @@ func _input(event):
 					target_idx = 0
 				target_circle.move(target_pool[target_idx].global_position)
 		elif event.is_action_pressed("ui_accept"):
+			print("BOO")
 			leader.prev_target = leader.target_entity
 			leader.target_entity = target_pool[target_idx]
 			action.enqueue(leader)
@@ -61,8 +62,8 @@ func _exit_target_select():
 
 
 func _init_target_pool():
-	target_pool = leader.range_area.get_overlapping_bodies()
-	
+	target_pool = leader.query_targets_in_range()
+	print(target_pool, "hEYA")
 	if target_pool.size() > 0:
 		target_circle = _target_circle.instantiate()
 		ui_handle.add_child(target_circle)

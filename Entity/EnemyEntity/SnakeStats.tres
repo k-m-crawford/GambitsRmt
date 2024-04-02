@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="BattleStats" load_steps=2 format=3 uid="uid://c0ugjuaiyhg68"]
+
+[ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1_f7q3v"]
+
+[resource]
+script = ExtResource("1_f7q3v")
+name = "Snake"
+lvl = 1
+max_hp = 46
+hp = 46
+max_mp = 10
+mp = 10
+stn = 12
+vit = 6
+mag = 4
+spr = 4
+spd = 1.0
+acc = 1.0
+eva = 0.0
+atk = 9.0
+def = 4.0
+mdef = 4.0
+spellbook = {
+"Abilities": [],
+"BlackMagic": [],
+"GreenMagic": [],
+"WhiteMagic": []
+}
+tscn_path = ""
+max_walk_speed = 50
+max_run_speed = 80
+acceleration = 500

@@ -3,23 +3,24 @@
 [ext_resource type="Script" path="res://Entity/BattlerStats.gd" id="1_meinv"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_meinv")
 name = "Imp"
 lvl = 1
-max_hp = 126
-hp = 126
+max_hp = 32
+hp = 32
 max_mp = 10
 mp = 10
-stn = 26
-vit = 17
-mag = 14
-spr = 12
+stn = 8
+vit = 12
+mag = 2
+spr = 7
 spd = 1.0
 acc = 1.0
 eva = 0.0
-atk = 10.0
-def = 10.0
-mdef = 10.0
+atk = 8.0
+def = 4.0
+mdef = 7.0
 spellbook = {
 "Abilities": [],
 "BlackMagic": [],

@@ -16,6 +16,7 @@ signal request_leader_change(dir)
 @export var manual_control = false
 
 @onready var chase_area:Area2D = get_node_or_null("RangeAreas/ChaseArea")
+@onready var chase_area_shape:CollisionShape2D = get_node_or_null("RangeAreas/ChaseArea/CollisionShape2D")
 @onready var leader_stray:Area2D = get_node_or_null("RangeAreas/LeaderStray")
 @onready var engagement_area:Area2D = get_node_or_null("RangeAreas/EngagementArea")
 @onready var range_area:ShapeCast2D = get_node_or_null("RangeAreas/RangeArea")
@@ -25,6 +26,8 @@ signal request_leader_change(dir)
 @onready var hitbox:Area2D = get_node_or_null("AttackPivot/Hitbox")
 @onready var target_lines:Node2D = get_node_or_null("TargetLines")
 
+var kill_shader:ShaderMaterial
+
 var target_entity:BattleEntity = null
 var prev_target:BattleEntity = null
 var target_entities = []
@@ -32,6 +35,7 @@ var target_idx = 0
 var stun_tick = 0
 var interruptible = true
 var cur_gambit = 0
+var kill_fade = 1
 
 var action_queue = []
 
@@ -48,6 +52,7 @@ func _ready():
 	battle_engagement.connect(EntityMgr.on_battle_engagement)
 	request_leader_change.connect(EntityMgr.get_next_leader)
 	
+	kill_shader = anim_container.get_node_or_null("Sprite2D").material
 
 func update_blend_positions(_direction):
 	if abs(_direction.x) > abs(_direction.y):
@@ -99,12 +104,14 @@ func manual_movement(max_speed, delta, direction_override=null):
 	return direction
 
 
-func apply_knockback(attacker):
+func apply_knockback(from_position):
+	if from_position == null:
+		from_position = global_position
 	if interruptible:
 		_FSM.transition_to(
 			"KNOCKBACK",
 			{
-				"knockback_vec": -global_position.direction_to(attacker.global_position),
+				"knockback_vec": -global_position.direction_to(from_position),
 				"return_state": _FSM.state.name
 			}
 		)
@@ -131,7 +138,21 @@ func reset_gambit_ladder():
 
 
 func query_targets_in_range() -> Array:
+	range_area.force_shapecast_update()
 	return range_area.collision_result.map(
 		func(e):
 			return e["collider"]
 	)
+
+
+func kill_entity():
+	if _FSM.check_flag("KILLED"): return
+	hurtbox.set_collision_layer_value(9, false)
+	hurtbox.set_collision_layer_value(10, false)
+	destroy_target_lines()
+	anim_container.charge_particles.emitting = false
+	_FSM.set_flag("KILLED")
+
+
+func pop_action_queue(_data):
+	action_queue.pop_front()

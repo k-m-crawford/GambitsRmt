@@ -41,8 +41,6 @@ enum Trigger {
 func evaluate_gambit(e:BattleEntity) -> BattleEntity:
 	
 	e.range_area.shape.radius = action.targeting_range
-	e.range_area.force_shapecast_update()
-	
 	var target_pool = e.query_targets_in_range()
 	
 	match target:
@@ -131,7 +129,7 @@ func evaluate_gambit(e:BattleEntity) -> BattleEntity:
 
 
 # evaluate this entity's gambit ladder
-static func do_gambit_ladder(e):
+static func do_gambit_ladder(e) -> bool:
 	var gambit_target = null
 	var gambit_action = null
 	
@@ -144,13 +142,15 @@ static func do_gambit_ladder(e):
 		e.target_entity = gambit_target
 		gambit_action.enqueue(e)
 		e.reset_gambit_ladder()
+		e.emit_signal("to_Manager_set_target_entity", e)
+		return true
 	else:
 		e.action_queue = []
 		e.target_entity = null
 		e.target_entities = null
 		e.increment_gambit_ladder()
-	
-	e.emit_signal("to_Manager_set_target_entity", e)
+		return false
+
 
 
 # get next manual target within range of e given entity

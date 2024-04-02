@@ -10,6 +10,7 @@ func _execute(e:BattleEntity, _delta):
 	anim_player.animation_finished.connect(destroy.bind(e, cure_anim))
 	anim_player.play("1")
 	e.target_entity.anim_container.play_effect("CureFlash")
+	e.stun_tick = randf_range(0.6, 1.0)
 	e.action_queue.pop_front()
 
 

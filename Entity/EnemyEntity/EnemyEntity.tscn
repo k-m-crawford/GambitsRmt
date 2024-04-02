@@ -1,6 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://grf4i4csusit"]
+[gd_scene load_steps=7 format=3 uid="uid://grf4i4csusit"]
 
 [ext_resource type="PackedScene" uid="uid://bxl2spnhga0xg" path="res://Entity/BattleEntity.tscn" id="5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5qflm"]
+resource_local_to_scene = true
+radius = 450.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0e2bf"]
+resource_local_to_scene = true
+radius = 150.0
 
 [sub_resource type="CircleShape2D" id="2"]
 radius = 25.0
@@ -15,7 +23,7 @@ resource_local_to_scene = true
 
 [node name="Enemy" groups=["Enemies"] instance=ExtResource("5")]
 modulate = Color(0, 0, 0, 1)
-collision_layer = 512
+collision_layer = 513
 collision_mask = 768
 debug = false
 stats = null
@@ -23,6 +31,23 @@ friction = 0
 
 [node name="MovementCollider" parent="." index="1"]
 visible = true
+
+[node name="ChaseArea" parent="RangeAreas" index="0"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" parent="RangeAreas/ChaseArea" index="0"]
+shape = SubResource("CircleShape2D_5qflm")
+
+[node name="RangeArea" parent="RangeAreas" index="1"]
+shape = SubResource("CircleShape2D_0e2bf")
+
+[node name="EngagementArea" parent="RangeAreas" index="2"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="LeaderStray" parent="RangeAreas" index="3"]
+collision_mask = 512
 
 [node name="CollisionShape2D" parent="RangeAreas/LeaderStray" index="0"]
 shape = SubResource("2")
